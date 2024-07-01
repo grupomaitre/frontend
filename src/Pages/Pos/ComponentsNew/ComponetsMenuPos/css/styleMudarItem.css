@@ -1,0 +1,21 @@
+.inputMudar {
+    border: none !important;
+    outline: none !important;
+    background: none !important;
+    font-size: 18px !important;
+    text-align: center !important;
+    color: #555 !important;
+    padding: 15px 5px 10px 0px !important;
+    box-shadow: inset 2px 2px 2px #cbced1,
+        inset -2px -2px 2px #e0dddd !important;
+    border-radius: 5px !important;
+}
+
+.inputMudar::placeholder {
+    color: #555 !important;
+    transition: all 0.3s ease !important;
+}
+
+.inputMudar:focus::placeholder {
+    color: #999 !important;
+}

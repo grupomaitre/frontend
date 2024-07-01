@@ -1,0 +1,7 @@
+.item-border {
+    width: 131px !important;
+    border-radius: 5px !important;
+    background: #0d6eaf !important;
+    box-shadow: inset -7px -7px 9px #1f1fad,
+        inset 7px 7px 9px #fd0202 !important;
+}

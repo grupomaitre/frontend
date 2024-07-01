@@ -1,0 +1,239 @@
+/* * {
+    font-family: 'RobotRegular' !important;
+}
+ */
+@font-face {
+    font-family: 'RobotRegular' !important;
+    src: url('./assets/fonts/Montserrat-Regular.ttf') format('truetype');
+    /* Puedes agregar más formatos de fuentes si es necesario */
+}
+
+.text-fs-11 {
+    font-size: 20px;
+}
+
+.page-bg {
+    background: #023047 !important;
+}
+
+.text-blue {
+    color: #022741 !important;
+}
+
+.border-blue {
+    border: 1px solid rgb(2, 48, 71, 0.4) !important;
+}
+
+.bg-orange {
+    background: #fb8500 !important;
+}
+
+.neo-card {
+    border: 0.01rem solid rgba(0, 0, 0, 0.1);
+    border-radius: 60px;
+    background: #efefef;
+    box-shadow: 20px 20px 60px #bebebe,
+        -20px -20px 60px #ffffff;
+}
+
+/* ::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00aaff !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fd0b0b !important;
+}
+ */
+.custom-input {
+    height: 22px !important;
+}
+
+.text-orange {
+    color: #da4800 !important;
+}
+
+.selectedRow {
+    color: #33ff57 !important;
+    background: #000 !important;
+}
+
+.bg-table {
+    background: #f0f4f8 !important;
+}
+
+.bg-table-td {
+    background: #fbfcfe !important;
+}
+
+.bg-app {
+    background: #3a5d7b !important;
+}
+
+@keyframes slideAndBounce {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    25% {
+        transform: translateY(-30px);
+    }
+
+    50% {
+        transform: translateY(0);
+    }
+
+    75% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+}
+
+.styleRotate {
+    animation: slideAndBounce 3s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+
+.gradiente-sistema {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgb(54, 123, 180) 0%, rgb(50, 98, 140) 35%, rgb(105, 155, 205) 100%);
+}
+
+.fw-medium {
+    font-weight: 500 !important;
+}
+
+input:focus {
+    border-bottom: 5px solid #0033ff9b !important;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+        border-color: #ff5733;
+        /* Color 1 (borde) */
+    }
+
+    25% {
+        transform: rotate(90deg);
+        border-color: #33ff57;
+        /* Color 2 (borde) */
+    }
+
+    50% {
+        transform: rotate(180deg);
+        border-color: #5733ff;
+        /* Color 3 (borde) */
+    }
+
+    75% {
+        transform: rotate(270deg);
+        border-color: #ff5733;
+        /* Color 4 (borde) */
+    }
+
+    100% {
+        transform: rotate(360deg);
+        border-color: #ff5733;
+        /* Color 1 (vuelve al primer color) */
+    }
+}
+
+.text-rotate {
+    display: inline-block;
+    width: 50px;
+    /* Ajusta el tamaño según tus necesidades */
+    height: 50px;
+    /* Ajusta el tamaño según tus necesidades */
+    border: 10px solid transparent;
+    /* Define el ancho del borde y oculta el fondo */
+    border-radius: 50%;
+    /* Crea un círculo */
+    animation: rotate 4s linear infinite;
+    /* 'rotate' es el nombre de la animación */
+}
+
+.bg-sistema {
+    background: rgba(255, 149, 0, 0.5)
+}
+
+.bg-app {
+    background: #395c78;
+}
+
+/* .css-b62m3t-container {
+    .css-13cymwt-control {
+        background-color: white;
+        border-color: navy;
+
+        &:hover {
+            border-color: navy;
+        }
+    }
+
+    .css-t3ipsp-control {
+        background-color: rgb(239, 239, 244);
+        border-color: navy;
+        box-shadow: none;
+
+        &:hover {
+            border-color: blue !important;
+        }
+    }
+
+    .css-1nmdiq5-menu {
+        background-color: rgb(255, 255, 255);
+
+        .css-10wo9uf-option {
+            cursor: pointer;
+            background-color: white;
+
+            &:active {
+                background-color: rgb(16, 198, 253);
+            }
+        }
+
+        .css-d7l1ni-option {
+            cursor: pointer;
+            background-color: #39698a;
+        }
+    }
+
+    .css-1p3m7a8-multiValue {
+        background-color: rgb(106, 6, 255);
+    }
+
+    .css-wsp0cs-MultiValueGeneric {
+        color: #ffff;
+    }
+
+    .css-12jo7m5 {
+        color: #ffff;
+    }
+
+    .css-6j8wv5-Input,
+    .css-qc6sy-singleValue {
+        color: #ffff;
+    }
+
+    .css-1dimb5e-singleValue {
+        color: rgb(255, 127, 1);
+    }
+}
+ */
+@media screen and (max-width:1024px) {
+    .text-fs-11 {
+        font-size: 12px;
+    }
+}

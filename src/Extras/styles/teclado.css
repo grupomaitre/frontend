@@ -1,0 +1,36 @@
+/* .hg-standardBtn {
+    width: 100px !important;
+    height: 100px !important;
+    font-size: 30px;
+}
+ */
+.keyboard {
+    /*     width: 100px !important;
+ */
+    /*  height: 90px !important; */
+    height: 80px !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.enter-pos {
+    height: auto !important;
+    position: relative;
+}
+
+.btn-billing {
+    height: auto !important;
+    font-size: 30px;
+}
+
+.final-teclado {
+    width: 73% !important;
+    height: 55% !important;
+}
+
+.btn-billing-group {
+    width: 26% !important;
+    height: 40% !important;
+}

@@ -1,0 +1,9 @@
+.see-keyboard {
+    display: none;
+}
+@media screen and (max-width:778px) {
+
+    .see-keyboard {
+        display: block;
+    }
+}

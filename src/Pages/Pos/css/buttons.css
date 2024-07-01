@@ -1,0 +1,76 @@
+.btn-custom {
+
+
+  box-shadow: 5px 5px 6px -1px rgba(183, 65, 65, 0.2),
+    -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+    -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+    0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
+    0px 12px 10px -10px rgba(0, 0, 0, 0.05) !important;
+  border: outset 1px rgba(57, 149, 219);
+  border-radius: 3px !important;
+  background: rgba(255, 255, 255, .9) !important;
+  border: 1px solid #00000033 !important;
+}
+
+.btn-custom:hover {
+  box-shadow: 1px 1px 6px -1px rgba(0, 0, 0, 0.2),
+    -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+    -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+    0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
+    0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgb(141, 163, 183, 0.5);
+  border-radius: 2px !important;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+
+
+}
+
+.btn-x-custom:hover {
+  transform: scale(1.4);
+  border: 1px solid rgba(255, 0, 0, 0.1);
+}
+
+/* inputs border */
+.input-border {
+  border: 1px solid rgba(24, 82, 191, 0.3) !important;
+  border-radius: 7px !important;
+  box-shadow: inset 1px 1px 6px -1px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+    inset -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+    inset 0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
+    inset 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+}
+
+.coolinput {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  position: static;
+  max-width: 240px;
+}
+
+.coolinput label.text {
+  color: #000000;
+  font-weight: 700;
+  position: relative;
+  top: 0.5rem;
+  margin: 0 0 0 7px;
+  padding: 0 3px;
+  background: #ffffff;
+  border-radius: 4px;
+  width: fit-content;
+  z-index: 1;
+}
+
+.coolinput input[type=text].input {
+  padding: 11px 10px;
+  font-size: 0.75rem;
+  border: 2px #818CF8 solid;
+  border-radius: 5px;
+  background: #e8e8e8;
+}
+
+.coolinput input[type=text].input:focus {
+  outline: none;
+}

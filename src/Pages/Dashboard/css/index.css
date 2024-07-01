@@ -1,0 +1,11 @@
+.gradient-dash {
+    background: linear-gradient(to right, #0d8ec5, #edf0f1);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    /*  background: linear-gradient(to right, rgba(237, 118, 0, 0.5), rgba(233, 225, 7, 0.5)); */
+}
+
+.item-border {
+    border: 3px ridge #fcc230;
+
+}

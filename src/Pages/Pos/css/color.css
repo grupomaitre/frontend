@@ -1,0 +1,32 @@
+.color-td-table {
+    color: #33ff00 !important;
+}
+
+.color-td-table-old {
+    color: #d5f5f4 !important;
+
+}
+
+.bg-table-light {
+    background-color: #d6d9df !important;
+}
+
+.inputs_cobrar:focus {
+    border-bottom: 3px solid red !important;
+    /* pulse  */
+    animation: pulse 10s infinite;
+
+}
+
+input::selection {
+    background: #010101 !important;
+    color: #ffd900;
+    /* Cambia el color del borde al enfoque */
+    /* Otros estilos opcionales, como cambiar el color del texto o el fondo */
+}
+
+/* button:focus {
+    border-bottom: 4px solid red !important;
+
+}
+ */

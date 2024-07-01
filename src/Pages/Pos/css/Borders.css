@@ -1,0 +1,34 @@
+.categories-border {
+    border: 2px outset #ffffffba;
+}
+
+.categories-border:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+    background: #ffffff !important;
+    font-size: 25px;
+}
+
+.subcategories-border {
+    border: 2px inset rgba(0, 0, 0, 0.456);
+
+}
+
+.border-white-c {
+    border: 0.00rem outset #ffffffac;
+
+}
+
+.shadow-icon {
+    border-radius: 41px !important;
+    background: #d6d9df !important;
+    box-shadow: 7px 7px 14px #a9abb0,
+        -7px -7px 14px #ffffff98 !important;
+}
+
+.shadow-modal {
+
+    box-shadow: -9px 11px 35px 7px rgba(0, 0, 0, 0.492);
+    -webkit-box-shadow: -9px 11px 35px 7px rgba(0, 0, 0, 0.608);
+    -moz-box-shadow: -9px 11px 35px 7px rgba(0, 0, 0, 0.656);
+}
