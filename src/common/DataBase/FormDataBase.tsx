@@ -1,15 +1,13 @@
 import axios from "axios"
 import { FC, useState } from "react"
-import { Eye } from "react-feather"
 import { useNavigate } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import { Button, Card, CardBody, CardFooter, CardHeader, Col, Input, Label, Row } from "reactstrap"
-import { saveConfigTerminal } from "../../Api/Config/Terminales/ApiTerminales"
 interface IProps {
     setConexion?: any
 }
 
-const FormDataBase: FC<IProps> = ({ setConexion }) => {
+const FormDataBase: FC<IProps> = () => {
     const [maquina, setMaquina] = useState('')
     const [hostname, setHostName] = useState('')
     const [port, setPort,] = useState('')
@@ -17,23 +15,20 @@ const FormDataBase: FC<IProps> = ({ setConexion }) => {
     const navigate = useNavigate()
 
     const handleTestApi = async () => {
-        //  const terminal = (localStorage.getItem('terminal') || '')
         const api_url = `${hostname}:${port}`
-        localStorage.setItem('api_url', api_url)
-        localStorage.setItem('terminal', maquina)
+
         try {
             const res: any = await axios.get(`http://${api_url}/api/v1/configuracion/test`)
-            console.log(res)
             if (res.status === 'success') {
                 setText(res.status)
                 localStorage.setItem('api_fixed', JSON.stringify(true))
+                localStorage.setItem('api_url', api_url)
+                localStorage.setItem('terminal', maquina)
                 navigate('/login')
-                /*   const data = {
-                      api_url,
-                      maquina: terminal,
-                  }
-                  const save = await saveConfigTerminal(data)
-                  console.log(save) */
+                setTimeout(() => {
+                    location.reload();
+
+                }, 300);
             }
         } catch (e: any) {
             navigate('/configuracion')

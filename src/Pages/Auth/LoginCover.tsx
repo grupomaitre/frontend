@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'reactstrap'
 import NumericKeyboard from '../Pos/common/NumericKeyboardProps'
 import FormLogin from './Components/FormLogin'
 import BtnLogin from './Components/BtnLogin'
-import { getInfoTerminal, loginAuth } from './Api/ApiLogin'
+import { loginAuth } from './Api/ApiLogin'
 import { useNavigate } from 'react-router-dom'
 import { getListPrinters, savePrinters } from './Api/ApiPrinters'
 import { keyBoards } from '../Pos/common/Keys'
@@ -18,10 +18,7 @@ interface IrefInput {
 const LoginCover = () => {
 
     const navigate = useNavigate()
-    const [dataSystem, setDataSystem] = useState<any>({
-        hostname: '',
-        address: ''
-    })
+
     //showKeyBoard
     const [showKeyBoard, setShowKeyBoard] = useState(false)
     // const [impresora, setImpresora] = useState<any>([])
@@ -78,12 +75,13 @@ const LoginCover = () => {
     const [loading, setLoading] = useState(false);
 
     const login = async () => {
+        const terminal = (localStorage.getItem('terminal') || '')
         try {
             setLoading(true)
             const resLogin: any = await mutation.mutateAsync({
                 user: inputValues[0],
                 password: inputValues[1],
-                maquina: dataSystem.hostname,
+                maquina: terminal || null,
             });
 
             if (resLogin.status) {
@@ -119,44 +117,13 @@ const LoginCover = () => {
         }
     }, [inputValues, setbtnDisabled])
 
-    /*   const testApi = async () => {
-          const url = JSON.parse(localStorage.getItem('api_url') || '')
-          try {
-              const res: any = await axios.get(`http://${url}/api/v1/configuracion/test`)
-              if (res.status === 'success') {
-                  localStorage.setItem('api_fixed', JSON.stringify(true))
-  
-              }
-          } catch (error) {
-              console.log(error)
-              localStorage.setItem('api_fixed', JSON.stringify(false))
-  
-          }
-      } */
-
-
-    const configTerminal = async () => {
-        const info = await getInfoTerminal()
-        if (info) {
-            setDataSystem({
-                hostname: info.hostname,
-                address: ''
-            })
-            localStorage.setItem('terminal', info.hostname || '')
-            //   saveTerminal(info)
-        }
-    }
-
-    useEffect(() => {
-        configTerminal()
-    }, [])
-
 
     useEffect(() => {
         inputRefs.current[0].current?.focus()
     }, [showKeyBoard])
     const [verificar, setVerificar] = useState(false)
     const handleVerficar = async () => {
+
         const api_url = (localStorage.getItem('api_url') || '')
         try {
             const res: any = await axios.get(`http://${api_url}/api/v1/configuracion/test`)
@@ -164,6 +131,7 @@ const LoginCover = () => {
                 localStorage.setItem('api_fixed', JSON.stringify(true))
                 setVerificar(true)
                 navigate('/login')
+
             }
         } catch (e: any) {
             navigate('/configuracion')
@@ -264,8 +232,7 @@ const LoginCover = () => {
 
                 </Row>}
 
-            </div>
-                : <SpinnerLoad />}
+            </div> : <SpinnerLoad />}
         </>
 
 

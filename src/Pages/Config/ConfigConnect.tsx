@@ -1,4 +1,3 @@
-import React from 'react'
 import FormDataBase from '../../common/DataBase/FormDataBase'
 
 const ConfigConnect = () => {

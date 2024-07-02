@@ -10,6 +10,7 @@ const BtnLogin: FC<IProps> = ({ btnDisabled, login
 }) => {
 
     const handleClick = () => {
+
         login()
     }
 
