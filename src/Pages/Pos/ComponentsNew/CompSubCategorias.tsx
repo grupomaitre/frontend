@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
 interface IItem {
     id_sub_rubro: number;
@@ -13,13 +14,16 @@ interface IProps {
 
 const CompSubCategorias: React.FC<IProps> = ({ item, setDataProducts }) => {
     return (
-        <div
-            onClick={() => setDataProducts(item)}
-            className=' rounded-none d-flex justify-content-center align-items-center shadow-sm text-uppercase py-3 subcategories-border mx-1 text-center border-icons'
-            style={{ background: '#fff', height: '50px', cursor: 'pointer', borderRadius: '4px' }}
-        >
-            <span className='fs-10'>{item.name_sub_rubro}</span>
-        </div>
+        <Button
+
+            outline
+            color='warning'
+            className='text-black'
+            style={{ height: '50px' }}
+            block
+            onClick={() => setDataProducts(item)}        >
+            <span className='fs-12'>{item.name_sub_rubro}</span>
+        </Button>
     );
 };
 

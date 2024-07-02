@@ -188,8 +188,8 @@ const BuscadorProductos: FC<IProps> = memo(({
                         onChange={(event) => onChangeProp(event, 2)}
                         handleInputClick={() => handleInputClick(2)}
                         handleKeydown={handleKeydown}
-                        classInput='text-center  rounded-0 fs-15'
-                        styleInput={{ fontSize: '1.7rem' }}
+                        classInput='text-center  fs-15'
+                        styleInput={{ fontSize: '1.7rem', height: '35px', border: '1px solid rgb(0,0,0,0.4)' }}
                         type='number'
                         handleInputFocus={() => handleInputFocus(2)}
                         bsSize='sm'
@@ -208,16 +208,16 @@ const BuscadorProductos: FC<IProps> = memo(({
                         formatOptionLabel={formatOptionLabel}
                         options={selectOp}
                         isDisabled={id_user === 0 ? true : false}
-                        className=' '
+                        className='rounded'
                         styles={
                             {
                                 control: (base: any) => ({
                                     ...base,
-                                    height: '30px',
-                                    minHeight: '33px',
+                                    height: '34px',
+                                    minHeight: '34px',
                                     fontSize: '11px',
-                                    borderRadius: '0px',
                                     boxShadow: 'none',
+                                    border: '1px solid rgb(0,0,0,0.4)',
                                     backgroundColor: '#fff'
 
                                 })

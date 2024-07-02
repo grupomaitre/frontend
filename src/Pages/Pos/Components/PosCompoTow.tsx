@@ -30,11 +30,11 @@ const PosCompoTow: FC<IProps> = ({
     products
 }) => {
     return (
-        <Row className='my-1 m-0 mx-1 '>
+        <Row className='my-2 mx-1 '>
 
-            <Col lg='5' className='p-0 m-0'>
+            <Col lg='5' className='p-0 m-0 ' style={{ background: 'rgb(234, 234, 234)' }}>
                 {dataSubRubros && dataSubRubros.length > 0 ?
-                    <section className='d-flex  py-1   shadow-lg my-1 rounded-none' style={{ background: 'rgb(38, 203, 237,0.2)', borderRadius: '2px' }} >
+                    <section className='d-flex  py-1   shadow-lg my-1 border rounded py-2 px-1 bg-white'>
                         <SwiperSubCategorias dataSubRubros={dataSubRubros} setDataProducts={setDataProducts} />
                     </section>
 
