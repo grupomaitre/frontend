@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import InputKeyBoard from '../../Pos/ComponentsNew/Cards/CardOrders/InputKeyBoard'
 import { Label } from 'reactstrap'
-import { Lock, User } from 'react-feather'
 interface IrefInput {
     current: HTMLInputElement | null
 }

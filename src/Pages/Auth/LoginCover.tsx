@@ -3,25 +3,18 @@ import { Row, Col, Button } from 'reactstrap'
 import NumericKeyboard from '../Pos/common/NumericKeyboardProps'
 import FormLogin from './Components/FormLogin'
 import BtnLogin from './Components/BtnLogin'
-import { getInfoTerminal, loginAuth, saveTerminal } from './Api/ApiLogin'
+import { getInfoTerminal, loginAuth } from './Api/ApiLogin'
 import { useNavigate } from 'react-router-dom'
 import { getListPrinters, savePrinters } from './Api/ApiPrinters'
 import { keyBoards } from '../Pos/common/Keys'
-import FormDataBase from '../../common/DataBase/FormDataBase'
 import { useMutation } from 'react-query'
 import LogoApp from '../../common/Img/LogoApp'
 import logoVertical from '../../assets/images/logos/logo-sistema.png'
-import { verifcTerminal } from '../../Api/Config/Terminales/ApiTerminales'
-import axios from 'axios'
-
 interface IrefInput {
     current: HTMLInputElement | null
 }
 const LoginCover = () => {
-    const terminal = (localStorage.getItem('terminal') || '')
 
-    const [conexion, setConexion] = useState<boolean>(true)
-    const [textError, setTextError] = useState('')
     const navigate = useNavigate()
     const [dataSystem, setDataSystem] = useState<any>({
         hostname: '',
@@ -29,7 +22,6 @@ const LoginCover = () => {
     })
     //showKeyBoard
     const [showKeyBoard, setShowKeyBoard] = useState(false)
-    const [showKeyNumeric, setShowKeyNumeric] = useState(false)
     // const [impresora, setImpresora] = useState<any>([])
     const [btnDisabled, setbtnDisabled] = useState(true);
     //start keyboard
@@ -82,8 +74,6 @@ const LoginCover = () => {
 
     const mutation = useMutation(loginAuth);
     const [loading, setLoading] = useState(false);
-    const api_url = (localStorage.getItem('api_fixed' || ''))
-    const testConexion = JSON.parse(api_url || 'false');
 
     const login = async () => {
         try {
@@ -162,23 +152,16 @@ const LoginCover = () => {
 
     useEffect(() => {
         inputRefs.current[0].current?.focus()
-    }, [showKeyNumeric, showKeyBoard])
-
-    useEffect(() => {
-        if (testConexion) {
-            setConexion(false)
-        }
-    }, [testConexion])
+    }, [showKeyBoard])
 
     return (
 
         <>
-            <div className="bg-gray d-flex flex-column justify-content-center  align-items-center " style={{ height: '100vh', width: '100%', background: '' }}>
+            <div className="d-flex flex-column justify-content-center  align-items-center " style={{ height: '100vh', width: '100%', background: '#f2f2f2' }}>
 
-                <Row className='rounded bg-white p-2'>
-                    <Col lg={!showKeyNumeric ? '6' : ''} md='6' className='text-white p-3 shadow   d-flex flex-column  jutify-content-center
-                                align-items-center
-                                ' style={{ background: 'rgb(255, 255, 255,0.75)' }}>
+                <Row className='rounded w-50 p-2'>
+                    <Col lg='5' className='text-white shadow-sm border-1  border rounded  d-flex flex-column  jutify-content-center
+                                align-items-center bg-white'>
                         <LogoApp
                             urlImg={logoVertical}
                             width='200px'
@@ -205,29 +188,32 @@ const LoginCover = () => {
                             />}
                     </Col>
 
-                    <Col md='6' className='' >
-                        {true && <div className='d-flex align-items-start justify-content-center'>
+                    <Col className='d-flex flex-column ' lg='5' >
+                        <div className='d-flex'>
                             <NumericKeyboard
                                 handleDelete={() => handleDelete()}
                                 onKeyPress={(e) => onKeyPress(e)}
+                                widthKey='75px'
                             />
-                            <div className='d-flex flex-column'>
+                            <div>
                                 <Button
-                                    color='light border'
+                                    block
+                                    color='light'
                                     onClick={() => handleEnter()}
-                                    className='mb-1'
+                                    className='border'
                                     style={{ height: '294px', marginTop: '4px' }}>
                                     {'Enter'}
                                 </Button>
 
                             </div>
-                        </div>}
+                        </div>
                         <Button
                             block
-                            color='light border'
+                            color='light'
+                            className='border border-2 shadow-sm'
                             onClick={() => setShowKeyBoard(!showKeyBoard)}
-                            className='mb-1'
-                            style={{ height: '60px', width: '100px', marginTop: '4px' }}>
+
+                            style={{ height: '60px' }}>
                             {'Teclado'}
                         </Button>
                     </Col>
