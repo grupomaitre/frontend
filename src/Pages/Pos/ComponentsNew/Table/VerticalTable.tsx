@@ -79,11 +79,11 @@ const VerticalTable: FC<Props> = ({
         <div className={divClass} style={{ height: styleHeight || '250px', background: '#000', overflowY: 'scroll' }} ref={tableBodyRef} onKeyDown={(e) => console.log(e)}>
 
             <table {...getTableProps()} className={tableClass} style={{ width: '100%' }}>
-                <thead className={theadClass} style={{ boxShadow: ' -8px -12px 10px -9px rgba(0,0,0,0.40) inset' }}>
-                    {headerGroups.map((headerGroup, key) => (
+                <thead className={theadClass} style={{ boxShadow: ' 0px -11px 10px -5px rgba(0,0,0,0.40) inset' }}>
+                    {headerGroups.map((headerGroup: any, key: any) => (
                         <tr {...headerGroup.getHeaderGroupProps()} key={key} className={trClass}>
-                            {headerGroup.headers.map((column, i) => (
-                                < th {...column.getHeaderProps()} className={thClass} key={i} style={{ border: '1px solid #000' }}>
+                            {headerGroup.headers.map((column: any, i: any) => (
+                                < th {...column.getHeaderProps()} className={thClass} key={i} /* style={{ border: '1px solid rgb(30, 65, 97,0.1)' }} */>
                                     {column.render("Header")}
                                 </th>
                             ))}

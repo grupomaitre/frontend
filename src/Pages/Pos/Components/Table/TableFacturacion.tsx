@@ -103,14 +103,14 @@ const TableFacturacion: FC<IProps> = ({ setItemUniCartMenu }) => {
                     item={itemUniCart}
                 />
             }
-            <Col className='p-0 m-0 mx-1'>
+            <Col className='' lg=''>
                 <VerticalTable
                     columns={columns || []}
                     data={cart || []}
-                    divClass="table-responsive bg-black rounded-0"
+                    divClass="table-responsive bg-black"
                     tableClass=" mb-0 table-sm table-borderless table-dark bg-black rounded-0 align-middle  cursor-pointer"
                     theadClass="position-sticky top-0 bg-light text-dark "
-                    thClass="fs-13  fw-lighter"
+                    thClass="fs-13  fw-lighter border border"
                     tdclass="p-0 m-0 text-capitalize fs-12 text-center color-td-table-old "
 
                 />
