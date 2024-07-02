@@ -1,26 +1,46 @@
-import { Col, Label, Row, Table } from 'reactstrap'
+import { Badge, Table } from 'reactstrap'
 import Reloj from '../../../common/Relog'
-
+import moment from 'moment';
 const InfoApp = () => {
     const data = JSON.parse(sessionStorage.getItem('authUser') || '{}')
+    const terminal = (localStorage.getItem('terminal') || '')
+    const api_url = (localStorage.getItem('api_url') || '')
+    const fecha = moment().format('L')
+    moment.locale("es");
+    const fecha_convertida = moment(fecha).format('LL');
+    console.log(fecha_convertida)
     return (
-
         <>
-
-            <Table className='rounded table-dark'   bordered   hover>
+            <Table className='table table-responsive' striped bordered hover dark>
                 <tbody >
                     <tr className=''>
-                        <td>{'Servidor-127.0.0.1'}</td>
+                        <td className='d-flex justify-content-between align-items-center'>
+                            {'Servidor:'}
+                            <Badge color="secondary" className='bg-white text-black text-uppercase'>
+                                {api_url}
+                            </Badge></td>
 
-                        <td className='text-end'>Nombre Usuario: {data?.name_personal}-{data?.user_name}</td>
+                        <td className='text-end'>Nombre Usuario:
+                            <Badge className='bg-white text-black text-uppercase'>{data?.name_personal}-{data?.user_name}</Badge>
+                        </td>
                     </tr>
                     <tr>
-                        <td>{'Maquina-'}</td>
-                        <td className='text-end'>Perfil: {data?.profile || 'Admin'}</td>
+                        <td className='text-capitalize d-flex justify-content-between align-items-center'>{'Maquina :'}
+                            <Badge className='bg-white text-black text-uppercase'> {terminal || ' '}</Badge>
+
+                        </td>
+                        <td className='text-end'>{'Perfil:'}
+                            <Badge className='bg-white text-black text-uppercase'>{data?.profile || 'Admin'}</Badge>
+                        </td>
                     </tr>
                     <tr >
-                        <td>Fecha: 2024-04-17</td>
-                        <td className='text-end'><Reloj /></td>
+                        <td className='d-flex justify-content-between align-items-center'>
+                            <span>Fecha:</span>
+                            <Badge className='bg-white text-black text-uppercase'>{fecha || ''}</Badge>
+                        </td>
+                        <td className='text-end'>
+                            <Badge className='bg-success fs-14'><Reloj /></Badge>
+                        </td>
                     </tr>
                 </tbody>
             </Table>
