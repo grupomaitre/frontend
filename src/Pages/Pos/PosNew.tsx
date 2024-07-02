@@ -287,7 +287,7 @@ const PosNew = () => {
     return (
 
         <>
-            {!isLoading ? <div style={{ background: 'rgb(58, 94, 128)' }} >
+            {!isLoading ? <div  >
                 {/*  <ModalMapMesas
                           items={mesas}
                       /> */}

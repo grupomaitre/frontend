@@ -1,0 +1,28 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    gap: 5px;
+    height: 70px;
+}
+
+.grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.btns-menu {
+    width: 100px !important;
+    height: 56px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+
+@media screen and (max-width:1024px) {
+    .btns-menu {
+        width: 70px !important;
+        height: 46px !important;
+    }
+}

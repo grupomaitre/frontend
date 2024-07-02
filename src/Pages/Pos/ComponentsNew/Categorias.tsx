@@ -1,5 +1,5 @@
 import { FC } from 'react'
-
+import '../css/categorias.css'
 interface ITestSwiper {
     item: any
     HandleSetSubGroup: any
@@ -7,9 +7,9 @@ interface ITestSwiper {
 const Categorias: FC<ITestSwiper> = ({ item, HandleSetSubGroup }) => {
     return (
         <div onClick={() => HandleSetSubGroup(item)}
-            style={{ width: '', height: '75px', fontSize: '0.6rem', cursor: 'pointer', background: '#ffefbc', fontWeight: '200', borderRadius: '3px' }}
-            className=' rounded-none d-flex justify-content-center align-items-center text-center categories-border'>
-            <span className='text-uppercase'>{item.name_rubro}</span>
+            className='mx-1 rounded shadow-lg  d-flex justify-content-center align-items-center text-center items-categorias'
+        >
+            <span className='text-uppercase text-white'>{item.name_rubro}</span>
         </div>
     )
 }

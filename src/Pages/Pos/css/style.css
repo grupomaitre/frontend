@@ -1,6 +1,6 @@
 /* BORDER INSET */
 .border-icons {
-    border: outset 1px rgba(141, 163, 183, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5) !important;
 }
 
 /* hover tralateY  */

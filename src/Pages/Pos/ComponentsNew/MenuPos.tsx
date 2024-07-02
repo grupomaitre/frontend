@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, Suspense } from 'react'
-//import { useNavigate } from "react-router-dom"
+import '../css/menupos.css'
 import { useDispatch, useSelector } from 'react-redux'
 import ModalPersonal from './ComponetsMenuPos/ModalPersonal'
 import ModalMudarCuenta from './ComponetsMenuPos/ModalMudarCuenta'
@@ -244,19 +244,15 @@ const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemU
             {
                 menuPos ? <CargeSpinner /> :
                     <Suspense fallback={<Loader />}>
-                        <div className=' mb-1  d-flex justify-content-between align-items-center p-1 px- text-center ' style={{ background: 'rgb(15, 50, 83)' }}>
+                        <div className=' mb-2  d-flex justify-content-between align-items-center p-1 px- text-center ' style={{ background: '#eaeaea' }}>
                             {
                                 (menu || []).map((item, key) => (
 
                                     <Button key={key}
-
-                                        className='d-flex flex-column justify-content-center align-items-center border-icons'
+                                        
+                                        className='d-flex shadow-sm flex-column justify-content-center align-items-center border-icons btns-menu'
                                         style={{
                                             userSelect: 'none',
-                                            width: '70px',
-                                            height: '46px',
-                                            borderRadius: '2px',
-                                            cursor: 'pointer',
                                             background: item.color ? item.color : '#ffff',
                                             color: item.color ? '#ffff' : '#000'
                                         }}

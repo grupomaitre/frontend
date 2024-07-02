@@ -1,0 +1,16 @@
+.items-categorias {
+    height: 70px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    background: rgb(251, 133, 0);
+    font-weight: 200;
+    border: 1px solid rgb(0, 0, 0, 0.3);
+}
+
+
+@media screen and (max-width:1024px) {
+    .items-categorias {
+        font-size: 0.6rem;
+
+    }
+}
