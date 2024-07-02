@@ -6,7 +6,7 @@ import Productos from '../../assets/images/macsi/PRODUCTOS.png'
 import kardex from '../../assets/images/macsi/KARDEX.png'
 import asistencia from '../../assets/images/macsi/ASISTENCIA.png'
 
-export const itemsMenuDash = [
+const itemsMenuDash = [
     {
         id: 1,
         img: facturacion || '',
@@ -53,3 +53,4 @@ export const itemsMenuDash = [
     },
 
 ];
+export const getItemsMenuDash = () => itemsMenuDash

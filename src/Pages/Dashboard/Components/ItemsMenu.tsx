@@ -1,6 +1,5 @@
-import { FC, useMemo, useState } from 'react'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { itemsMenuDash } from '../ItemsMenu'
 import { useDispatch, useSelector } from 'react-redux'
 import ModalAlert from '../../../common/Generics/Modal/ModalAlert'
 import { setCaja } from '../../../slices/Cart/cajaSlice'
@@ -8,6 +7,8 @@ import '../css/index.css'
 import ModalTipoRubro from '../../Rubros/Components/Modal/ModalTipoRubro'
 import { toastError } from '../../../Components/Common/Swals/SwalsApi'
 import { ToastContainer } from 'react-toastify'
+import { useQuery } from 'react-query'
+import { getItemsMenuDash } from '../ItemsMenu'
 interface IProps {
     refetchCaja: () => void
 }
@@ -15,12 +16,15 @@ interface IProps {
 const ItemsMenu: FC<IProps> = ({ refetchCaja }) => {
     const [showModalAlert, setShowModalAlert] = useState(false)
     const [showModalTipoRubro, setShowModalTipoRubro] = useState(false)
-    const itemsMenu = useMemo(() => itemsMenuDash, [])
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
     const IDtipoRubro = useSelector((state: any) => state.rubrosSlice.IDtipoRubro)
 
+    const { data: itemsMenuDash } = useQuery(['itemsMenuDash'], getItemsMenuDash, {
+        cacheTime: Infinity,
+        staleTime: Infinity,
+    });
     const goToLink = async (item: any) => {
         const res: any = await refetchCaja()
         if (item.link === 'pos') {
@@ -82,7 +86,7 @@ const ItemsMenu: FC<IProps> = ({ refetchCaja }) => {
                     gridTemplateColumns: 'repeat(2, 1fr)'
                 }}
             >
-                {itemsMenu.map((item, key: number) => (
+                {(itemsMenuDash || []).map((item, key: number) => (
                     <div className="
                      d-flex 
                      gap-2
