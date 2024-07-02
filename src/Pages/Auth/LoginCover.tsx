@@ -10,6 +10,8 @@ import { keyBoards } from '../Pos/common/Keys'
 import { useMutation } from 'react-query'
 import LogoApp from '../../common/Img/LogoApp'
 import logoVertical from '../../assets/images/logos/logo-sistema.png'
+import axios from 'axios'
+import SpinnerLoad from '../../Components/Common/Spinner/SpinnerLoad'
 interface IrefInput {
     current: HTMLInputElement | null
 }
@@ -153,11 +155,29 @@ const LoginCover = () => {
     useEffect(() => {
         inputRefs.current[0].current?.focus()
     }, [showKeyBoard])
-
+    const [verificar, setVerificar] = useState(false)
+    const handleVerficar = async () => {
+        const api_url = (localStorage.getItem('api_url') || '')
+        try {
+            const res: any = await axios.get(`http://${api_url}/api/v1/configuracion/test`)
+            if (res.status === 'success') {
+                localStorage.setItem('api_fixed', JSON.stringify(true))
+                setVerificar(true)
+                navigate('/login')
+            }
+        } catch (e: any) {
+            navigate('/configuracion')
+            localStorage.setItem('api_fixed', JSON.stringify(false))
+            setVerificar(false)
+        }
+    }
+    useEffect(() => {
+        handleVerficar()
+    }, [])
     return (
 
         <>
-            <div className="d-flex flex-column justify-content-center  align-items-center " style={{ height: '100vh', width: '100%', background: '#f2f2f2' }}>
+            {verificar ? <div className="d-flex flex-column justify-content-center  align-items-center " style={{ height: '100vh', width: '100%', background: '#f2f2f2' }}>
 
                 <Row className='rounded w-50 p-2'>
                     <Col lg='5' className='text-white shadow-sm border-1  border rounded  d-flex flex-column  jutify-content-center
@@ -245,7 +265,7 @@ const LoginCover = () => {
                 </Row>}
 
             </div>
-
+                : <SpinnerLoad />}
         </>
 
 
