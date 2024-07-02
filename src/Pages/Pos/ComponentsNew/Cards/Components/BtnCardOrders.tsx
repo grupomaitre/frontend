@@ -141,7 +141,7 @@ const BtnCardOrders: FC<IProp> = () => {
                     show={shoModalPax}
                     onCloseClick={() => setShowModalPax(false)}
                 />}
-            <Col lg='6' className='mt-1 '>
+            <Col lg='6' className='bg-white border-start'>
 
                 <div className=' my-1' style={{ borderRadius: '70px' }}>
                     <div className='d-flex mb-1 gap-1 '>

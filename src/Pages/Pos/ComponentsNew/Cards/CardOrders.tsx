@@ -1,5 +1,5 @@
 import { useEffect, useState, FC } from 'react'
-import { Row, Col } from 'reactstrap'
+import { Row, Col, Card, CardBody, CardFooter } from 'reactstrap'
 //toast
 import { ToastContainer } from 'react-toastify'
 //redux
@@ -86,42 +86,42 @@ const CardOrders: FC<IProps> = ({
                     />}
 
             </>
-            <div style={{ background: '#d6d9df' }} className='rounded-0  px-1 mb-2' >
-                <Row className=''>
-                    <Col lg='6' className='bg-light shadow-sm '>
-                        <Row className='ms-1 d-flex align-items-center justify-content-center'>
-                            <InputCuenta
-                                handleInputClick={handleInputClick}
-                                handleInputFocus={handleInputFocus}
-                                handleKeydown={handleKeydown}
-                                inputRef={inputRef}
-                                setInputValues={setInputValues}
-                                inputValues={inputValues}
-                                onChangeProp={onChangeProp}
-                            />
-                            <InputVendedor
-                                handleInputClick={handleInputClick}
-                                handleInputFocus={handleInputFocus}
-                                handleKeydown={handleKeydown}
-                                inputRef={inputRef}
-                                setInputValues={setInputValues}
-                                inputValues={inputValues}
-                                onChangeProp={onChangeProp}
-                                setShowModalPersonal={() => setShowModalPersonal(true)}
-                            />
 
-                        </Row>
-                        <Row className=''>
-                            <Col lg='' className='text-center mt-1 border-top border-secondary'>
-                                <span className='fs-13 text-capitalize '>{vendedor || null}</span>
-                            </Col>
-                        </Row>
-                    </Col>
+            <Row style={{ background: '#fff', border: '1px solid rgb(0,0,0,0.3)', borderRadius: '5px' }} className='mb-2 mx-1' >
+                <Col lg='6' className='shadow-sm'>
+                    <Row className='d-flex align-items-center justify-content-center'>
+                        <InputCuenta
+                            handleInputClick={handleInputClick}
+                            handleInputFocus={handleInputFocus}
+                            handleKeydown={handleKeydown}
+                            inputRef={inputRef}
+                            setInputValues={setInputValues}
+                            inputValues={inputValues}
+                            onChangeProp={onChangeProp}
+                        />
+                        <InputVendedor
+                            handleInputClick={handleInputClick}
+                            handleInputFocus={handleInputFocus}
+                            handleKeydown={handleKeydown}
+                            inputRef={inputRef}
+                            setInputValues={setInputValues}
+                            inputValues={inputValues}
+                            onChangeProp={onChangeProp}
+                            setShowModalPersonal={() => setShowModalPersonal(true)}
+                        />
 
-                    <BtnCardOrders />
+                    </Row>
+                    <Row className=''>
+                        <Col lg='' className='text-center mt-1 border-top border-secondary'>
+                            <span className='fs-13 text-capitalize '>{vendedor || null}</span>
+                        </Col>
+                    </Row>
+                </Col>
 
-                </Row>
-            </div >
+                <BtnCardOrders />
+
+            </Row>
+
             <ToastContainer />
 
         </>

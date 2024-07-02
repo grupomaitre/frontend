@@ -59,7 +59,7 @@ const InputVendedor: FC<IProps> = ({
                         onChange={(event) => onChangeProp(event, 1)}
                         handleInputClick={() => handleInputClick(1)}
                         handleKeydown={handleKeydown}
-                        classInput='text-center input-border rounded-0 input'
+                        classInput='text-center input-border rounded input'
                         styleInput={{ fontSize: '1.7rem' }}
                         type='password'
                         handleInputFocus={() => handleInputFocus(1)}

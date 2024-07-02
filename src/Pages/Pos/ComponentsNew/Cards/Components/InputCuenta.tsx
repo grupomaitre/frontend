@@ -54,7 +54,7 @@ const InputCuenta: FC<IProps> = ({
         <>
             <Col lg='6' className='d-flex justify-content-center align-items-center text-center'>
                 <div className=''>
-                    <Label className='fs-13'>Cuenta</Label>
+                    <Label className='fs-14'>Cuenta</Label>
 
                     <InputKeyBoard
                         inputRef={inputRef.current[0]}
@@ -62,7 +62,7 @@ const InputCuenta: FC<IProps> = ({
                         onChange={(event) => onChangeProp(event, 0)}
                         handleInputClick={() => handleInputClick(0)}
                         handleKeydown={handleKeydown}
-                        classInput='text-center input-border rounded-2'
+                        classInput='text-center input-border rounded-2 shadow'
                         styleInput={{ fontSize: '1.7rem' }}
                         disabled={inputMesa}
                         type='text'
