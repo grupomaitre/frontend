@@ -46,22 +46,21 @@ const NumericKeyboard: FC<NumericKeyboardProps> = ({
     const listNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
     return (
         <>
-            <div className="numeric-keyboard w-100" style={{
+            <div className="numeric-keyboard" style={{
                 display: 'grid',
                 gridTemplateColumns: `repeat(${gridTemplateColumns || 3}, 1fr)`,
                 gridTemplateRows: 'repeat(1,2fr)',
-                margin: '2px',
+                gap: '5px'
             }}>
                 {(keyboards || listNumbers).map((number) => (
                     <Button
                         type='button'
+                        color='light'
                         style={{
-                            width: widthKey || '60px',
+                            width: widthKey,
                             height: heightKey || '71px',
                             border: '1px solid #ccc',
-                            margin: '2px',
                             borderRadius: '1px',
-                            background: fondoKey || '#fff',
                             color: colorKeys || "#000",
                             fontSize: fontSizeKey || '1.5rem',
                         }}
@@ -73,19 +72,22 @@ const NumericKeyboard: FC<NumericKeyboardProps> = ({
                 ))}
 
 
-                {!showDelete && <Button
-                    onClick={() => handleDelete()}
-                    className='shadow rounded fs-6'
-                    style={{
-                        fontSize: sizeBorrar || '10px',
-                        gridColumn: gridColumn || 'span 2',
-                        height: heightBtnDelete || '71px',
-                        margin: '2px', borderRadius: '2px',
-                        background: bgDelete || 'red',
-                        width: widthBorrar || '',
-                        color: colorDelete || '#fff'
-                    }}
-                >Borrar</Button>}
+                {!showDelete &&
+                    <Button
+                        block
+                        color='danger'
+                        onClick={() => handleDelete()}
+                        className='shadow rounded fs-6'
+                        style={{
+                            fontSize: sizeBorrar || '10px',
+                            gridColumn: gridColumn || 'span 2',
+                            height: heightBtnDelete || '71px',
+                            margin: '2px', borderRadius: '2px',
+                            //  background: bgDelete || 'red',
+                            width: widthBorrar || '',
+                            color: colorDelete || '#fff'
+                        }}
+                    >Borrar</Button>}
 
             </div >
         </>

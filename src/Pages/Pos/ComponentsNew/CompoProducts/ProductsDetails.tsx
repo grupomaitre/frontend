@@ -30,7 +30,7 @@ const ProductsDetails: FC<IProductsDetails> = ({ products, activeInputIndex, inp
     }, [productSliceList, products])
     return (
 
-        <SimpleBar autoHide={true} style={{ maxHeight: "300px", height: '310px' }} className="simplebar-track-warning m-0 p-0 d card-neo">
+        <SimpleBar autoHide={true} style={{ maxHeight: "340px", height: '340px', background: 'rgb(3, 68, 96)' }} className="simplebar-track-warning m-0 p-2 rounded shadow" >
 
             {activeInputIndex === 3 && inputValues[3].length > 0 ?
                 <>

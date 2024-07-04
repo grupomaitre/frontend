@@ -128,7 +128,7 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
             <div >
                 <div style={{ background: '#3578a2' }} className='text-end roudned shadow-lg p-1 w-100' >
                     <div className='mt-1'>
-                        <SimpleBar autoHide={false} style={{ maxHeight: "100px" }} className="simplebar-track-danger">
+                        <SimpleBar autoHide={false} style={{ maxHeight: "125px" }} className="simplebar-track-danger">
 
                             <div className='gridContainerMesas ' >
                                 {

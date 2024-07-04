@@ -28,22 +28,24 @@ const BtnBilling: React.FC<IProps> = () => {
     return (
         <>
 
-            {btnIsCartSuccess ?
-                <EditcaFunction
-                    cart={cart}
-                    id_cart={id_cart}
-                /> :
-                <BtnSaveCart
-                    cantidad={cantidad}
-                    cart={cart}
-                    id_caja={id_caja}
-                    id_mesa={id_mesa}
-                    id_user={id_user}
-                    mesacart={mesacart}
-                    orden={orden}
-                    pax={pax}
-                    vendedor={vendedor}
-                />}
+            <div className='my-1'>
+                {btnIsCartSuccess ?
+                    <EditcaFunction
+                        cart={cart}
+                        id_cart={id_cart}
+                    /> :
+                    <BtnSaveCart
+                        cantidad={cantidad}
+                        cart={cart}
+                        id_caja={id_caja}
+                        id_mesa={id_mesa}
+                        id_user={id_user}
+                        mesacart={mesacart}
+                        orden={orden}
+                        pax={pax}
+                        vendedor={vendedor}
+                    />}
+            </div>
 
             <BtnCobrar
                 btnIsCartSuccess={btnIsCartSuccess}

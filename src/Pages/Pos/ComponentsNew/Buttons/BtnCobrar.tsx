@@ -106,11 +106,10 @@ const BtnCobrar: FC<IProps> = ({
                     onCloseClick={() => setModalBilling(false)}
                 />}
             <Button
-                block
                 color='light'
-                style={{ width: '100%', height: '75px', marginTop: '2px', background: '#fff', fontSize: '14px', border: '1px solid rgb(0,0,0,0.3)' }}
+                style={{ height: '75px', marginTop: '2px', background: '#fff', fontSize: '15px' }}
                 disabled={cart.length > 0 ? false : true}
-                className='  rounded   d-flex flex-column justify-content-center align-items-center'
+                className='  rounded   d-flex flex-column justify-content-center align-items-center border-sistema'
                 /*    onClick={() => id_mesa ? handleCobrar() : null} */
                 onClick={() => btnIsCartSuccess ? editComanda() : handleCobrar()}
             >

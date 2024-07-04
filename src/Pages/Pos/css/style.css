@@ -49,8 +49,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .card-neo {
-    border-radius: 8px 8px 8px 8px;
-    border: outset 4px rgb(58, 94, 128, 0.5);
+    border-radius: 5px 5px 5px 5px;
+    border: outset 2px rgb(58, 94, 128, 0.5);
     background: linear-gradient(356deg, rgba(58, 94, 128, 1) 0%, rgba(15, 50, 83, 1) 47%, rgba(28, 96, 159, 1) 100%);
     box-shadow: inset 25px -25px 84px #0c2d46,
         inset -25px 25px 84px #3d627f;
@@ -101,7 +101,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .teclado-row-3 {
-    width: 28% !important;
+    display: contents
 }
 
 .product-details-row-3 {
@@ -120,4 +120,12 @@ input[type="number"]::-webkit-outer-spin-button {
     .product-details-row-3 {
         width: 50% !important;
     }
+}
+
+@media screen and (max-width: 500px) {
+    .teclado-row-3 {
+        display: none;
+    }
+
+
 }
