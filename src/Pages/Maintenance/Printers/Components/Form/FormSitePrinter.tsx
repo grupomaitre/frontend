@@ -29,7 +29,7 @@ const FormSitePrinter: FC<Ipros> = ({ onCloseClick, getDocumentWithSitio }) => {
     }
     const columns = useMemo(() => [
         {
-            Header: 'sitio_impresora',
+            Header: 'Sitio Impresora',
             accessor: 'sitio_impresora'
         },
 
@@ -216,7 +216,7 @@ const FormSitePrinter: FC<Ipros> = ({ onCloseClick, getDocumentWithSitio }) => {
                                 divClass='table-responsive text-black bg-table'
                                 tableClass='cursor-pointer w-100'
                                 theadClass='position-sticky top-0 bg-table '
-                                thClass='fs-11 fw-light border'
+                                thClass='fs-11 fw-bold page-bg text-white p-1 border'
                                 tbodyClass='bg-light'
                                 styleHeight='130px'
                                 overflowY='scroll'

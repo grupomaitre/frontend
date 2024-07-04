@@ -8,17 +8,16 @@ import TableGeneric from "../../../common/Generics/Table/TableGeneric";
 import { addAssignPrinter, editAssignPrinter, getAssignPrinter } from "./Api/ApiAssignPrinter"
 import { deleteDocument } from "./Api/ApiDocumentos";
 import Header from "../../../Layouts/Header";
-import { Button, Card, CardBody, Col, Row } from "reactstrap";
+import { Card, CardBody, Col, Row } from "reactstrap";
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
-import axios from "axios";
 const Printers = () => {
+    const terminal = (localStorage.getItem('terminal') || '')
     const [hostname, setNameHost] = useState('')
     const [data, setData] = useState([])
     const [listAsigPrint, setListAsigPrint] = useState([])
     const [isEditProduct, setIsEditProduct] = useState<any>()
     const [isEdit, setIsEdit] = useState(false)
     const [isDelete, setIsDelete] = useState(false)
-    const [idFormtPrint, setIdFormtPrint] = useState()
     const [formPrinter, setformPrinter] = useState<any>({
         code: 0,
         typePrint: '',
@@ -125,10 +124,11 @@ const Printers = () => {
                     sw_informacion: null,
                     sw_empresa: null,
                     sw_productos: null,
-                    maquina: hostname,
+                    maquina: terminal,
                     id_empresa: null,
                     sw_totales: null,
                 };
+
                 addAssignPrinter(newAsignPrinter).then((data: any) => {
                     if (data.status) {
                         listPrintAsgin()

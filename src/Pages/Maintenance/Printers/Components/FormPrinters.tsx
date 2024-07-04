@@ -43,7 +43,11 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
 
     ], [])
     useEffect(() => {
-        validation.setFieldValue('routerPrint', selectRow?.name || '')
+        if ((selectRow?.PortName || '').slice(0, 3) === "USB") {
+            validation.setFieldValue('routerPrint', selectRow?.name || '')
+        } else {
+            validation.setFieldValue('routerPrint', selectRow?.PortName || '')
+        }
     }, [selectRow])
 
     useEffect(() => {
@@ -100,10 +104,7 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
     const handleDocumentChange = (selectedOption: any) => {
         validation.setFieldValue('documento', selectedOption.target.value);
     };
-    const handleTipoPuertoChange = (selectedOption: any) => {
-        console.log(selectedOption.value)
-        validation.setFieldValue('tipo_puerto', selectedOption.value);
-    };
+
     const handleTypePrintChange = (selectedOption: any) => {
         validation.setFieldValue('typePrint', selectedOption.value);
     };
@@ -124,10 +125,6 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
             ]
         },
     ];
-    const customControlStyles = (base: any) => ({
-        height: 20,
-        minHeight: 20
-    });
     return (
         <>
             {showModalTypePrinter
@@ -322,7 +319,7 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
 
                                             </Col>
                                         </Row>
-                                        <Row>
+                                        <Row className='mb-2'>
 
                                             <Col lg='4'>
                                                 <Label>Documento</Label>
@@ -365,6 +362,12 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
                                                 </div>
                                             </Col>
 
+
+                                        </Row>
+                                        <Row>
+                                            <Col lg='4'>
+                                                <Label>Sitio Impresora</Label>
+                                            </Col>
                                             <Col lg='2'>
                                                 <Button
                                                     color='primary'
@@ -375,42 +378,10 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
                                                         color='#fff'
                                                     />
                                                 </Button>
-                                                <Label>Sitios</Label>
+
 
                                             </Col>
                                         </Row>
-                                        <Row>
-                                            <Col lg='4'>
-                                                <Label>Tipo Puerto</Label>
-                                            </Col>
-                                            <Col>
-                                                <Select
-                                                    className='rounded shadow-sm'
-                                                    placeholder=''
-                                                    onChange={handleTipoPuertoChange}
-                                                    options={[
-                                                        { value: 'ip', label: 'Dirección Ip' },
-                                                        { value: 'usb', label: 'Puerto Usb' },
-                                                        { value: 'txt', label: 'Pantalla.txt' },
-
-                                                    ]}
-                                                    styles={
-                                                        {
-                                                            control: (base: any) => ({
-                                                                ...base,
-                                                                height: '30px',
-                                                                minHeight: '33px',
-                                                                fontSize: '11px',
-                                                                boxShadow: 'none',
-                                                                backgroundColor: '#fff'
-
-                                                            })
-                                                        }
-                                                    }
-                                                />
-                                            </Col>
-                                        </Row>
-
                                     </Col>
 
                                 </Row>

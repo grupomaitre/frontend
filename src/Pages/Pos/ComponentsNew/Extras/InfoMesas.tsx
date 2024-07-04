@@ -9,14 +9,14 @@ export const InfoMesas = () => {
 
     ]
     return (
-        <div className='d-flex flex-row  justify-content-around align-items-center' style={{ background: 'rgb(38, 203, 237,0.5)' }}>
+        <div className='d-flex flex-row  justify-content-around align-items-center rounded-0' style={{ background: '#07709d' }}>
             {
                 items.map((item, key) => (
 
                     <Fragment key={key}>
                         <div className={item.color} style={{ width: '12px', height: '12px', borderRadius: '10px', marginLeft: '1px', background: item.color }}>
                         </div>
-                        <span className='text-white py-1 fs-10' style={{ fontSize: '11px' }}> {item.name}</span>
+                        <span className='text-white py-1 fs-11' style={{ fontSize: '11px' }}> {item.name}</span>
 
                     </Fragment>
                 ))

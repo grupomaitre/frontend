@@ -4,8 +4,8 @@ import axios from "axios"
 
 export const fetchGetPrinter = async () => {
     try {
-        const result = await fetch(`${apiexpress}`)
-
+        const url = `${apiexpress}/api/v1/impresoras/list`
+        const result = await fetch(url.toString())
         const data = await result.json()
         if (result.status) {
             return data

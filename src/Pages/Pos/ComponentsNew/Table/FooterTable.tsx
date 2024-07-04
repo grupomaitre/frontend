@@ -37,8 +37,8 @@ const FooterTable: FC<IProps> = ({ orden }) => {
     }, [mesa])
     return (
 
-        <div className='d-flex border-bottom justify-content-between'>
-            <div style={{ background: '#3578a2' }}>
+        <div className='d-flex  justify-content-between p-1 rounded-top-1'  style={{ background: '#034460' }}>
+            <div style={{ border: '1px solid rgb(251, 180, 0,0.5)' }} className='px-1 py-1'>
                 {
                     itemsTotals.map((item, key) => (
                         <div className='mb-1 d-flex align-items-center justify-content-between' key={key}>
@@ -57,7 +57,7 @@ const FooterTable: FC<IProps> = ({ orden }) => {
                     ))
                 }
             </div>
-            <div className='text-center '>
+            <div className='text-center w-100'>
                 <div className='bg-black px-4' >
                     <span style={{ color: '#33ff00', fontSize: '42px' }} className=''> {totalCart.toFixed(2)}{/*  {(Math.round((totalCart * 100) / 100) || 0.00)} */}</span>
                 </div>

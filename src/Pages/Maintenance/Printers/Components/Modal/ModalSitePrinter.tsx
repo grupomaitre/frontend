@@ -14,7 +14,7 @@ const ModalSitePrinter: FC<Ipros> = ({ show, onCloseClick, getDocumentWithSitio 
     return (
         <Modal isOpen={show} toggle={onCloseClick} size='md'>
             <ModalHeader toggle={onCloseClick} />
-            <ModalBody className='page-bg'>
+            <ModalBody>
                 <Row>
                     <Col>
                         <FormSitePrinter

@@ -94,7 +94,8 @@ const PosNew = () => {
                     editable_precio: item.editable_precio,
                     editable_nombre: item.editable_nombre,
                     preferencias: item?.preferencias_prod,
-                    impresora: item.impresora?.sitios?.asignacion?.direccion_impresora || null
+                    impresora: item.impresora?.sitios?.asignacion?.direccion_impresora || null,
+                    copias: item?.impresora?.sitios?.asignacion?.copias || 1
                 }
             ))
             setDataSubGroup(grupos[0]?.sub_rubros)
