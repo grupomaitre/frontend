@@ -147,7 +147,7 @@ const LoginCover = () => {
         <>
             {verificar ? <div className="d-flex flex-column justify-content-center  align-items-center " style={{ height: '100vh', width: '100%', background: '#f2f2f2' }}>
 
-                <Row className='rounded w-50 p-2'>
+                <Row className='rounded  p-2'>
                     <Col lg='5' className='text-white shadow-sm border-1  border rounded  d-flex flex-column  jutify-content-center
                                 align-items-center bg-white'>
                         <LogoApp
@@ -165,7 +165,7 @@ const LoginCover = () => {
                         />
 
                         {loading ?
-                            <Button disabled block color='primary' size='lg'
+                            <Button disabled block color='primary' size='lg' className='w-75'
                             >
                                 Cargando...
                             </Button> : <BtnLogin
@@ -176,29 +176,32 @@ const LoginCover = () => {
                             />}
                     </Col>
 
-                    <Col className='d-flex flex-column ' lg='5' >
-                        <div className='d-flex'>
-                            <NumericKeyboard
-                                handleDelete={() => handleDelete()}
-                                onKeyPress={(e) => onKeyPress(e)}
-                                widthKey='75px'
-                            />
-                            <div>
+                    <Col className='d-flex flex-column ' lg='' >
+                        <Row className=''>
+                            <Col lg='9' className='m-0 pe-0'>
+                                <NumericKeyboard
+                                    handleDelete={() => handleDelete()}
+                                    onKeyPress={(e) => onKeyPress(e)}
+                                    widthKey='75px'
+                                    btnClass={'rounded shadow-sm'}
+                                />
+                            </Col>
+                            <Col lg='2'>
                                 <Button
-                                    block
+
                                     color='light'
                                     onClick={() => handleEnter()}
-                                    className='border'
-                                    style={{ height: '294px', marginTop: '4px' }}>
+                                    className='border-sistema shadow-sm '
+                                    style={{ height: '294px', marginTop: '4px', width: '' }}>
                                     {'Enter'}
                                 </Button>
 
-                            </div>
-                        </div>
+                            </Col>
+                        </Row>
                         <Button
                             block
                             color='light'
-                            className='border border-2 shadow-sm'
+                            className='shadow-sm border-sistema '
                             onClick={() => setShowKeyBoard(!showKeyBoard)}
 
                             style={{ height: '60px' }}>

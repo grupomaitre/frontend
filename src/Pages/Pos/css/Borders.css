@@ -32,3 +32,7 @@
     -webkit-box-shadow: -9px 11px 35px 7px rgba(0, 0, 0, 0.608);
     -moz-box-shadow: -9px 11px 35px 7px rgba(0, 0, 0, 0.656);
 }
+
+.border-sistema {
+    border: 1px solid rgba(0, 0, 0, 0.3) !important;
+}

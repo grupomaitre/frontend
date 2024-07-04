@@ -58,7 +58,7 @@ const FormLogin: FC<IProps> = ({
                                 onChange={(event) => handleInputChange(event, index)}
                                 handleInputClick={() => handleInputClick(index)}
                                 handleKeydown={handleEnter}
-                                classInput='text-center  fs-6 border-black'
+                                classInput='text-center  fs-6 border-sistema '
                                 //   disabled={inputDisabledcuenta}
                                 type={item.type}
                                 handleInputFocus={() => handleInputFocus(index)}

@@ -15,19 +15,17 @@ const BtnLogin: FC<IProps> = ({ btnDisabled, login
     }
 
     return (
-        <div className="w-75">
-            <Button
-                block
-                onClick={handleClick}
-                disabled={btnDisabled}
-                size='lg'
-                color='primary'
-                className=" shadow-lg w-100 border border-1 border-light"
-                type="submit"
-            >
-                Aceptar
-            </Button>
-        </div>
+        <Button
+            block
+            onClick={handleClick}
+            disabled={btnDisabled}
+            size='lg'
+            color='primary'
+            className=" shadow-lg  border border-1 border-light"
+            type="submit"
+        >
+            Aceptar
+        </Button>
     )
 }
 
