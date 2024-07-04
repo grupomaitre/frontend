@@ -104,7 +104,7 @@ const BtnSaveCart: FC<IProps> = ({ cart, id_mesa, cantidad, orden, pax, id_caja,
             <Button
                 block
                 color='light'
-                style={{ width: '100%', height: '75px', margin: '', background: '#fff', fontSize: '14px' }}
+                style={{ width: '100%', height: '75px', margin: '', background: '#fff', fontSize: '14px', border: '1px solid rgb(0,0,0,0.3)' }}
 
                 onClick={() => handlesaveCart()}
                 className='d-flex flex-column justify-content-center align-items-center'>

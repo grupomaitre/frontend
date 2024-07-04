@@ -108,7 +108,7 @@ const BtnCobrar: FC<IProps> = ({
             <Button
                 block
                 color='light'
-                style={{ width: '100%', height: '75px', marginTop: '2px', background: '#fff', fontSize: '14px' }}
+                style={{ width: '100%', height: '75px', marginTop: '2px', background: '#fff', fontSize: '14px', border: '1px solid rgb(0,0,0,0.3)' }}
                 disabled={cart.length > 0 ? false : true}
                 className='  rounded   d-flex flex-column justify-content-center align-items-center'
                 /*    onClick={() => id_mesa ? handleCobrar() : null} */

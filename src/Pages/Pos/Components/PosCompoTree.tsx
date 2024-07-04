@@ -35,20 +35,23 @@ const PosCompoTree: FC<Props> = ({
         handleEnter()
     }
     return (
-        <div className='pos-row-3'>
-            <div className='teclado-row-3  d-flex rounded' style={{ background: '#ebebeb' }}>
+        <div className='pos-row-3' style={{ background: '#ebebeb' }}>
+            <div className='teclado-row-3  d-flex rounded gap-1' >
 
                 <div className=''>
                     <NumericKeyboard
                         onKeyPress={handleKeyPress}
                         handleDelete={handleDelete}
+                        btnClass={'rounded'}
+                        
                     />
                 </div>
 
                 <div className='btn-billing-group my-1'>
                     <Button
                         color="light"
-                        style={{ width: '100%', height: '143px', marginBottom: '2px', background: '#fff' }}
+                        block
+                        style={{ width: '100%', height: '143px', marginBottom: '2px', border: '1px solid rgb(0,0,0,0.3)' }}
                         className="d-flex flex-column justify-content-center align-items-center"
                         onClick={onEnter}
                     >

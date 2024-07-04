@@ -69,10 +69,10 @@ const editcaFunction: FC<IProps> = ({ id_cart, cart }) => {
         <Button
             block
             color='light'
-            style={{ width: '100%', height: '75px', margin: '', background: '#fff', fontSize: '14px' }}
+            style={{ width: '100%', height: '75px', margin: '', background: '#fff', fontSize: '14px', border: '1px solid rgb(0,0,0,0.3)' }}
 
             onClick={() => editCart()}
-            className=' rounded-0   border d-flex flex-column justify-content-center align-items-center'>
+            className='d-flex flex-column justify-content-center align-items-center'>
             <span >Guardar (+)</span>
 
         </Button>

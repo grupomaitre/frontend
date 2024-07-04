@@ -16,13 +16,11 @@ const CompSubCategorias: React.FC<IProps> = ({ item, setDataProducts }) => {
     return (
         <Button
 
-            outline
-            color='warning'
-            className='text-black'
-            style={{ height: '50px' }}
+            className='text-white border-light'
+            style={{ height: '50px', background: '#ff16e2' }}
             block
             onClick={() => setDataProducts(item)}        >
-            <span className='fs-12'>{item.name_sub_rubro}</span>
+            <span className='fs-14'>{item.name_sub_rubro}</span>
         </Button>
     );
 };
