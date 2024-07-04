@@ -7,8 +7,7 @@ const InfoApp = () => {
     const api_url = (localStorage.getItem('api_url') || '')
     const fecha = moment().format('L')
     moment.locale("es");
-    const fecha_convertida = moment(fecha).format('LL');
-    console.log(fecha_convertida)
+//    const fecha_convertida = moment(fecha).format('LL');
     return (
         <>
             <Table className='table table-responsive' striped bordered hover dark>

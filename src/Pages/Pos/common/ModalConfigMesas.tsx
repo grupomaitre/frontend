@@ -6,7 +6,7 @@ interface IProps {
 import { api } from '../../../config'
 
 import { Button, Card, CardBody, CardFooter, CardHeader, Col, Input, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap'
-import { GetMesasPosition, UpdateMesaPosition, getAllMesas } from '../Helpers/GetMesas'
+import { GetMesasPosition, UpdateMesaPosition } from '../Helpers/GetMesas'
 import Draggable from 'react-draggable'
 import Select from 'react-select'
 import { fetchImagenCuenta, fetchTipoCuenta } from '../Api/TipoCuenta/ApiTipoCuenta'
@@ -91,7 +91,7 @@ const ModalConfigMesas: FC<IProps> = ({
     const url = api.API_URL
 
     const handleDrag = (e: any, data: any, mesa: any) => {
-        console.log(e)
+        console.log(e, data, mesa)
         setPositon({ ...position, x: e.offsetX, y: e.offsetY })
     }
     const handleMesaSet = (mesa: any) => {
@@ -202,7 +202,7 @@ const ModalConfigMesas: FC<IProps> = ({
                                             (mesas || []).map((item: any, key: number) => (
                                                 <Draggable
                                                     // positionOffset={{ x: '-589', y: '424' }}
-                                                    positionOffset={{ x: item.position.x, y: item.position.y }}
+                                                    /*  positionOffset={{ x: item.position.x || '-589', y: item.position.y || '424' }} */
                                                     onDrag={(e: any, data) => handleDrag(e, data, item)}
                                                     key={key}
                                                     //nodeRef={nodeRef}

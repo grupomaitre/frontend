@@ -4,10 +4,12 @@ const apiexpress = api.API_URL_SOCKET
 
 export const getListPrinters = async () => {
     try {
-        const url = `${apiexpress}`
-        const result = await fetch(url)
+        const result = await fetch(apiexpress + '/api/v1/impresoras/list')
         const data = await result.json()
-        return data
+        console.log(data)
+        if (result.status) {
+            return data
+        }
     } catch (e) {
         return e
     }

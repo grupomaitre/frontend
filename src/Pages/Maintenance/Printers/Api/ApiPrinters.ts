@@ -1,12 +1,11 @@
 import { api } from "../../../../config"
 const apiexpress = api.API_URL_SOCKET
 import axios from "axios"
-
 export const fetchGetPrinter = async () => {
     try {
-        const url = `${apiexpress}/api/v1/impresoras/list`
-        const result = await fetch(url.toString())
+        const result = await fetch(apiexpress + '/api/v1/impresoras/list')
         const data = await result.json()
+        console.log(data)
         if (result.status) {
             return data
         }

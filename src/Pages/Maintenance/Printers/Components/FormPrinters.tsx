@@ -1,5 +1,4 @@
 import { FC, useEffect, useMemo, useState } from 'react'
-import Select from 'react-select'
 import { Form, Row, Col, Label, Input, Button, FormFeedback, Card, CardBody, CardHeader } from 'reactstrap'
 import TableGeneric from '../../../../common/Generics/Table/TableGeneric'
 import { fetchGetPrinter, getTypePrinters } from '../Api/ApiPrinters'
@@ -80,6 +79,7 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
 
     const getPrintExt = async () => {
         const data = await fetchGetPrinter()
+        console.log(data)
         setNamesPrinters(data?.data || [])
     }
 
