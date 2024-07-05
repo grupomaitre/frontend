@@ -5,14 +5,14 @@ import ModalMarcar from '../../Modal/ModalMarcar'
 import ModalMedida from '../../Modal/ModalMedida'
 import { getMarcas } from '../../../Api/ApiProducts'
 import { getMedidas } from '../../../Api/ApiMedidas'
-import { getGrupoByTipo } from '../../../Api/ApiGrupos'
+import { useGrupoByTipo } from '../../../Api/ApiGrupos'
 import { InterfacesProduct } from './Interfaces/InterfacesProduct'
 import SelectCommon from '../../../../Pos/common/SelectCommon'
 import { GetCategoriasByid } from '../../../helpers/GetCategoriasByid'
 import { SwalError } from '../../../../../Components/Common/Swals/SwalsApi'
 import InputCommon from '../../../../../common/Inputs/InputCommon'
-import { useQuery } from 'react-query'
 import Spinner from '../../../../../common/Loading/Spinner'
+import { usefetchGroupsMain } from '../../../../Pos/Api/ApiGroups'
 interface Props {
     tabId: string
     opSubCategorias?: any
@@ -24,22 +24,13 @@ interface Props {
     setIsIDRubro: any
     isID: any
     setIsID: any
+    setProducts: any
 }
 
-const DataMain: FC<Props> = ({ tabId, validation }) => {
+const DataMain: FC<Props> = ({ tabId, validation, setProducts }) => {
     const id_tipo_rubro = JSON.parse(localStorage.getItem('IdTipoRubro') || '0')
 
-    //react query
-    const fetchgetRubros = async () => {
-        const resGetRubros = await getGrupoByTipo(id_tipo_rubro)
-        return resGetRubros?.data
-    }
-    const { data: rubros, isLoading } = useQuery(["rubros"], fetchgetRubros, {
-        /*     cacheTime: 6 * 60 * 60 * 1000,
-            staleTime: 6 * 60 * 60 * 1000, */
-
-    })
-
+    const { data: grupos, isLoading } = usefetchGroupsMain(1)
     const [showModalMarca, setShowModalMarca] = useState(false)
     const [showModalMedida, setShowModalMedida] = useState(false)
     //  const [options, setOptions] = useState([] as any)
@@ -68,20 +59,27 @@ const DataMain: FC<Props> = ({ tabId, validation }) => {
         ])
     }, [])
     useEffect(() => {
-        setOpCategorias((rubros || []).map((item: any) => (
-            { value: item.id_rubro, label: item.name_rubro }
-        )))
+        if (grupos) {
+            setOpCategorias((grupos || []).map((item: any) => (
+                {
+                    value: item.id_rubro,
+                    label: item.name_rubro,
+                    sub_rubros: item.sub_rubros || []
+                }
+            )))
 
-    }, [id_tipo_rubro, rubros])
-
-
-
-    //getRubros
+        }
+    }, [grupos])
     useEffect(() => {
-        fetchgetRubros()
+        setOpSetSubGrupo((selectedOpGrupo?.sub_rubros || []).map((items: any) => (
+            { value: items.id_sub_rubro, label: items.name_sub_rubro, productos: items?.products }
+        )))
+    }, [selectedOpGrupo])
 
-    }, [rubros])
-
+    useEffect(() => {
+        if (selectedSubGrupo)
+            setProducts(selectedSubGrupo.productos || [])
+    }, [selectedSubGrupo])
 
     const [optionsMarca, setOptionsMarca] = useState<any>([])
     useEffect(() => {
@@ -147,19 +145,6 @@ const DataMain: FC<Props> = ({ tabId, validation }) => {
             SwalError({ title: error })
         }
     };
-
-    useEffect(() => {
-        if (selectedOpGrupo) {
-            const timer = setTimeout(() => {
-                getSubGrupo();
-            }, 100);
-
-            return () => clearTimeout(timer);
-        }
-    }, [selectedOpGrupo]);
-    //selectedMedidaPre
-
-
     return (
         <>
             {showModalMarca && < ModalMarcar
@@ -173,7 +158,10 @@ const DataMain: FC<Props> = ({ tabId, validation }) => {
                     onClickClose={() => setShowModalMedida(!showModalMedida)}
                 />}
             <TabPane tabId={tabId} id="home" className=' ' style={{ fontSize: '0.7rem' }}>
+                <span className='fs-1 text-danger'>
 
+
+                </span>
                 {isLoading ?
                     <div><Spinner /></div>
                     : <div>

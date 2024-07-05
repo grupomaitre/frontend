@@ -17,7 +17,7 @@ interface IProps {
 const ModalPrices: FC<IProps> = ({ show, onCloseClick, item, validation, setProducts, fetchDataProduct, isEditProduct, handleClear }) => {
     return (
         <Modal isOpen={show} toggle={onCloseClick} backdrop={'static'} style={{ maxWidth: '95%' }}>
-            <ModalHeader toggle={onCloseClick} >{item.nombre || ''}</ModalHeader>
+            <ModalHeader toggle={onCloseClick} >{item.nombre || ''} </ModalHeader>
             <ModalBody className='fondo-sistema'>
                 {item && (<FormPriceModal
                     onCloseClick={onCloseClick}

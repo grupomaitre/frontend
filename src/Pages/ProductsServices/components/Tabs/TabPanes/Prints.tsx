@@ -71,7 +71,7 @@ const Prints: FC<Props> = ({ tabId, dataSend, isEditProduct, fetchDataProduct })
 
 
     return (
-        <TabPane tabId={tabId} id="prints" style={{ fontSize: '10px' }} className=''>
+        <TabPane tabId={tabId} id="prints" style={{ fontSize: '10px' }} className='bg-white p-2'>
             <Row className='mb-2'>
                 <Col lg='3'>
                     <Label className='text-uppercase fs-12'>Sitio de Impresion :{dataSend?.nombre}</Label>
@@ -79,19 +79,19 @@ const Prints: FC<Props> = ({ tabId, dataSend, isEditProduct, fetchDataProduct })
                 <Col lg='2'>
                     <Select
                         options={listPrinters}
-                        className='text-black rounded fs-13'
+                        className='text-black fs-13 border-sistema'
                         onChange={(e) => handleToggleField(e)}
                         placeholder=''
                     />
                 </Col>
                 <Col lg='2'>
-                    <Button size='sm' block color='light'
+                    <Button size='' block color='primary' className='border-sistema'
                         onClick={handleAdd}
                     >Agregar</Button>
                 </Col>
 
                 <Col lg='2'>
-                    <Button size='sm' block color='light'
+                    <Button size='' outline block color='danger' 
                         onClick={handleRemove}
                     >Eliminar</Button>
                 </Col>
@@ -105,7 +105,7 @@ const Prints: FC<Props> = ({ tabId, dataSend, isEditProduct, fetchDataProduct })
                             columns={columns}
                             data={data}
                             selectItemRow={setSelectItemRow}
-                            divClass='table-responsive text-black bg-table '
+                            divClass='table-responsive text-black bg-table border'
                             tableClass='cursor-pointer w-100 '
                             theadClass='position-sticky top-0 bg-table '
                             thClass='fs-13 fw-bolder border'

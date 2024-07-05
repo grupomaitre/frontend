@@ -33,6 +33,14 @@ export const getGrupoByTipo = async (id: number) => {
 
 }
 
+export const useGrupoByTipo = (id: number) => {
+    const query = useQuery(['rubros'], () => getGrupoByTipo(id), {
+        refetchOnWindowFocus: false,
+
+    });
+    return query
+}
+
 
 
 
