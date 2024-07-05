@@ -79,7 +79,6 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
 
     const getPrintExt = async () => {
         const data = await fetchGetPrinter()
-        console.log(data)
         setNamesPrinters(data?.data || [])
     }
 
@@ -93,9 +92,11 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
         getDocumentWithSitio().then((data: any) => {
             const array1 = data.data.documentos
             const array2 = data.data.sitios
+            const array3 = data.data.impresionPos
             const arrayFinal = [
                 ...array1.map((item: any) => ({ value: item.id_documento, label: item.nombre })),
-                ...array2.map((item: any) => ({ value: item.id_sitio_impresora, label: item.sitio_impresora, sitio: true }))
+                ...array2.map((item: any) => ({ value: item.id_sitio_impresora, label: item.sitio_impresora, sitio: true })),
+                ...array3.map((item: any) => ({ value: item.id, label: item.nombre, sitio: true }))
             ];
             setDocumento(arrayFinal)
             return

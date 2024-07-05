@@ -5,17 +5,20 @@ interface iProps {
     options: any
     optionSelect: any
     btnClear: boolean
+    validationValue?: any
 
 }
 
-const SelectGeneric: FC<iProps> = ({ options, optionSelect, btnClear }) => {
+const SelectGeneric: FC<iProps> = ({ options, optionSelect, btnClear, validationValue }) => {
     const [optiones, setOpciones] = useState<null>()
     useEffect(() => { setOpciones(options) },)
     return (
         <div className='d-flex'>
             <select className="w-100 py-1 border rounded-end-0 rounded-start"
-                onChange={(e) => { optionSelect(e.target.value) }} >
-                <option value={options[0]}>{options[0]?.label || ''}</option>
+                onChange={(e) => { optionSelect(e.target.value) }}
+                value={validationValue || options[0]}
+            >
+                {/*      <option value={options[0]}>{options[0]?.label || ''}</option> */}
 
                 {
                     (optiones || []).map((item: any, key: number) => (

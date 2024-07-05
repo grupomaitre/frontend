@@ -53,7 +53,7 @@ const Printers = () => {
         },
         {
             Header: 'Documento',
-            accessor: 'documento.nombre'
+            accessor: 'nombre'
         },
 
     ], [])

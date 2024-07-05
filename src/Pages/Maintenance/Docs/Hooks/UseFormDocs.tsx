@@ -5,8 +5,12 @@ import * as Yup from 'yup'
 import InputCommon from '../../../../common/Inputs/InputCommon'
 import HeaderTools from '../../../../common/Ui/HeaderTools'
 import TableGeneric from '../../../../common/Generics/Table/TableGeneric'
-import { useDocs } from './useDocuments'
+import { createDocumento, updateDocumento, useCreateDoc, useDocs } from './useDocuments'
 import useColumnsDocs from './useColumnsDocs'
+import SelectGeneric from '../../../../common/Select/SelectGeneric'
+import { enlacesOp, typeAmtOP } from '../Helpers/ListDocs'
+import { useTipoDocs } from './useDocsType'
+import SelectCommon from '../../../Pos/common/SelectCommon'
 
 const UseFormDocs = () => {
     const inputRefDoc = useRef<HTMLInputElement>(null)
@@ -15,10 +19,23 @@ const UseFormDocs = () => {
         inputRefDoc.current?.focus()
 
     }, [])
+    const query = useDocs()
+    const columns = useColumnsDocs()
+    const mutation = useCreateDoc(createDocumento);
 
     const [isEdit, setIsEdit] = useState(false)
     const [selectRow, setSelecRow] = useState<any>()
-    const [itmesForm, setItemsForm] = useState({
+
+    //form 2
+    const [testop, setTestOp] = useState<any>([])
+    const [iDTipoDocDefault, setIDTipoDocDefault] = useState<any>()
+
+    const [enlace, setEnlace] = useState<any>()
+    const [ambiente, setAmbiente] = useState<any>()
+    const [typeDoc, setTypeDoc] = useState<any>()
+    const { data: tipoDocs, isLoading } = useTipoDocs()
+    const [itmesForm, setItemsForm] = useState<any>({
+        id_documento: '',
         documento: '',
         secuencial: '',
         numeracion: '',
@@ -30,9 +47,15 @@ const UseFormDocs = () => {
         establecimiento: '',
         sucursal: '',
         direccion: '',
+        activo: false,
+        visible: false,
+        imprime: false,
+        no_contabilizar: false,
+        imprimir_confirmacion: false,
+
     })
     //Formik
-    const validation = useFormik({
+    const validation: any = useFormik({
         enableReinitialize: true,
         initialValues: {
             documento: (itmesForm && itmesForm?.documento) || '',
@@ -46,6 +69,14 @@ const UseFormDocs = () => {
             establecimiento: (itmesForm && itmesForm?.establecimiento) || '',
             sucursal: (itmesForm && itmesForm?.sucursal) || '',
             direccion: (itmesForm && itmesForm?.direccion) || '',
+            tipoAmbiente: (itmesForm && itmesForm?.tipoAmbiente) || '',
+            tipoDocumento: (itmesForm && itmesForm?.tipoDocumento) || '',
+            activo: (itmesForm && itmesForm?.activo) || false,
+            visible: (itmesForm && itmesForm?.visible) || false,
+            imprime: (itmesForm && itmesForm?.imprime) || false,
+            no_contabilizar: (itmesForm && itmesForm?.no_contabilizar) || false,
+            imprimir_confirmacion: (itmesForm && itmesForm?.imprimir_confirmacion) || false,
+
         },
         validationSchema: Yup.object({
             //validaciones
@@ -53,7 +84,7 @@ const UseFormDocs = () => {
             secuencial: Yup.string().required('Secuencial Incorrecto'),
         }),
         //send form
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             if (isEdit) {
                 //editar
                 const updateForm = {
@@ -68,8 +99,17 @@ const UseFormDocs = () => {
                     establecimiento: values.establecimiento,
                     sucursal: values.sucursal,
                     direccion: values.direccion,
+                    id_tipo_documento: values.tipoDocumento,
+                    activo: values.activo,
+                    visible: values.visible,
+                    imprime: values.imprime,
+                    no_contabilizar: values.no_contabilizar,
+                    imprimir_confirmacion: values.imprimir_confirmacion,
                 }
-                console.log(updateForm)
+                const res: any = await updateDocumento(selectRow?.id_documento, updateForm)
+                if (res) {
+                    handleCleanForm()
+                }
             }
             else {
                 const newValues = {
@@ -84,34 +124,56 @@ const UseFormDocs = () => {
                     establecimiento: values["establecimiento"],
                     sucursal: values["sucursal"],
                     direccion: values["direccion"],
+                    id_tipo_documento: typeDoc || iDTipoDocDefault,
+                    enlace: enlace,
+                    activo: values["activo"],
+                    visible: values["visible"],
+                    imprime: values["imprime"],
+                    no_contabilizar: values["no_contabilizar"],
+                    imprimir_confirmacion: values["imprimir_confirmacion"],
                 }
-                console.log(newValues)
-                query.isRefetching
-                validation.resetForm()
-                inputRefDoc.current?.focus()
+                const res = await mutation.mutateAsync(newValues)
+                if (res) handleCleanForm()
+
 
             }
         }
     })
+
+
     useEffect(() => {
-        setItemsForm({
-            documento: '',
-            secuencial: '',
-            numeracion: '',
-            autorizacion: '',
-            direccion_ip: '',
-            observacion_ip: '',
-            desde: '',
-            hasta: '',
-            establecimiento: '',
-            sucursal: '',
-            direccion: '',
-        })
-    }, [isEdit])
+        if (isEdit) {
+            setItemsForm({
+                id_documento: selectRow?.id_documento,
+                documento: selectRow?.nombre,
+                secuencial: selectRow?.secuencial,
+                numeracion: selectRow?.numeracion,
+                autorizacion: selectRow?.autorizacion,
+                direccion_ip: selectRow?.direccion_ip,
+                observacion_ip: selectRow?.observacion_ip,
+                desde: selectRow?.desde,
+                hasta: selectRow?.hasta,
+                establecimiento: selectRow?.establecimiento,
+                sucursal: selectRow?.sucursal,
+                direccion: selectRow?.direccion,
+                tipoAmbiente: selectRow?.tipoAmbiente?.tipoAmbiente,
+                tipoDocumento: selectRow?.tipo_documento?.id_tipo_documento,
+                activo: selectRow?.activo,
+                visible: selectRow?.visible,
+                imprime: selectRow?.imprime,
+                no_contabilizar: selectRow?.no_contabilizar,
+                imprimir_confirmacion: selectRow?.imprimir_confirmacion,
+            })
+        } else {
+            setItemsForm({
+
+            })
+        }
+    }, [isEdit, selectRow])
     const itemTools = [
         {
             title: 'Herramientas', subItems: [
-                { text: 'Limpiar', onClick: () => console.log('/printers') },
+                { text: 'Limpiar', onClick: () => handleCleanForm() },
                 { text: 'Crear o Guardar', onClick: () => validation.handleSubmit() },
                 { text: 'Eliminar', onClick: () => console.log(true) },
                 { text: 'Salir', onClick: () => console.log(true) },
@@ -119,15 +181,39 @@ const UseFormDocs = () => {
         },
     ]
     const checkbox = [
-        { label: 'Activo', value: 'Activo' },
-        { label: 'Visible', value: 'Visible' },
-        { label: 'Imprime', value: 'Imprime' },
-        { label: 'No contabilizar', value: 'No contabilizar' },
-        { label: 'Imprimir sin confirmacion', value: 'Imprimir sin confirmacion' },
+        { name: 'activo', label: 'Activo', value: validation.values.activo },
+        { name: 'visible', label: 'Visible', value: validation.values.visible },
+        { name: 'imprime', label: 'Imprime', value: validation.values.imprime },
+        { name: 'no_contabilizar', label: 'No contabilizar', value: validation.values.no_contabilizar },
+        { name: 'imprimir_confirmacion', label: 'Imprimir sin confirmacion', value: validation.values.imprimir_confirmacion },
     ]
+    const handleToggleField = (fieldName: string) => {
+        validation.setFieldValue(fieldName, !validation.values[fieldName])
+    }
+    const handleCleanForm = () => {
+        inputRefDoc.current?.focus()
+        validation.resetForm()
+        setIsEdit(false)
+        query.refetch()
+        setSelecRow({})
 
-    const query = useDocs()
-    const columns = useColumnsDocs()
+    }
+
+    useEffect(() => {
+        if (tipoDocs) {
+            const mappedDocs = tipoDocs.map((item: any) => ({
+                label: item?.nombre || '',
+                value: item?.id_tipo_documento
+            }));
+            setIDTipoDocDefault(mappedDocs[0].value)
+            setTestOp(mappedDocs);
+        }
+    }, [tipoDocs]);
+    useEffect(() => {
+        if (selectRow) {
+            setIsEdit(true)
+        }
+    }, [selectRow])
     return (
         <>
             <Row>
@@ -318,7 +404,7 @@ const UseFormDocs = () => {
                     </Form>
                 </Col>
                 <Col lg='6' className="text-center">
-                    {query.isFetching ? (
+                    {query.isLoading ? (
                         <span className="text-center">Cargando...</span>
                     ) : query.isError ? (
                         <span className="text-danger text-center">Error al Cargar</span>
@@ -333,7 +419,7 @@ const UseFormDocs = () => {
                             tableClass='cursor-pointer w-100'
                             theadClass='position-sticky top-0 bg-table '
                             thClass='fs-11 fw-bold border'
-                            tdClass={'fs-10'}
+                            tdClass={'fs-10 border'}
                             tbodyClass='bg-light'
                             styleHeight='130px'
                             overflowY='scroll'
@@ -345,14 +431,19 @@ const UseFormDocs = () => {
                             checkbox.map((item, key) => (
                                 <div className="form-check  mx-1" key={key} >
                                     <Input
+                                        name={item.name}
                                         className="form-check-input"
                                         type="checkbox"
                                         value=""
-                                        id={item.value}
+                                        id={item.name}
+                                        checked={item.value}
+                                        onChange={() => handleToggleField(item.name)}
+
+
                                     />
                                     <Label
                                         className="form-check-label"
-                                        htmlFor={item.value}
+                                        htmlFor={item.name}
                                     >
                                         {item.label}
                                     </Label>
@@ -446,6 +537,78 @@ const UseFormDocs = () => {
                                       />
                                   </Row> */}
                     </>}
+                </Col>
+            </Row>
+            <Row>
+                <Col lg='6'>
+                    <Row className="mb-1">
+                        <Col lg='4'>
+                            <Label className=" text-capitalize">Tipo de Ambiente:</Label>
+                        </Col>
+                        <Col lg='8'>
+                            <SelectCommon
+                                value={ambiente}
+                                options={typeAmtOP}
+                                setSelectedOption={setAmbiente}
+                            />
+                        </Col>
+                    </Row>
+                    <Row className="mb-1">
+                        <Col lg='4'>
+                            <Label className=" text-capitalize">Validez:</Label>
+                        </Col>
+                        <Col lg='8'>
+                            <Input type="date"
+                                bsSize="sm"
+                            />
+                        </Col>
+                    </Row>
+                    <Row className="mb-1">
+                        <Col lg='4'>
+                            <Label className=" text-capitalize">Tipo Documento:</Label>
+                        </Col>
+                        <Col lg='8'>
+                            <div>
+                                {isLoading ? (
+                                    <div>cargando...</div>
+                                ) : (
+                                    <SelectGeneric
+                                        optionSelect={(e: number) => validation.setFieldValue('tipoDocumento', e)}
+                                        options={testop}
+                                        btnClear={false}
+                                        validationValue={validation.values.tipoDocumento}
+
+                                    />
+                                )}
+                            </div>
+                        </Col>
+
+                    </Row>
+                    <Row className="mb-1">
+                        <Col lg='4'>
+                            <Label className=" text-capitalize">Enlazar con:</Label>
+                        </Col>
+                        <Col lg='8'>
+
+                            <SelectGeneric
+                                btnClear={false}
+                                options={enlacesOp}
+                                optionSelect={setEnlace}
+                            />
+
+                        </Col>
+                    </Row>
+                    <Row className="mb-1">
+                        <Col lg='4'>
+                            <Label className=" text-capitalize">Observacion:</Label>
+                        </Col>
+                        <Col lg=''>
+                            <Input type="textarea"
+                                bsSize="sm"
+                            />
+                        </Col>
+                    </Row>
+
                 </Col>
             </Row>
         </>

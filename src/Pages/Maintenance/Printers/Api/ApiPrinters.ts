@@ -5,7 +5,6 @@ export const fetchGetPrinter = async () => {
     try {
         const result = await fetch(apiexpress + '/api/v1/impresoras/list')
         const data = await result.json()
-        console.log(data)
         if (result.status) {
             return data
         }
