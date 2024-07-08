@@ -400,14 +400,14 @@ const FormPrinters: FC<Ipros> = ({ validation, setIsEdit, setformPrinter, setIsD
                             columns={columns || []}
                             data={namesPrinters || []}
                             selectItemRow={setSelecRow}
-                            divClass='table-responsive text-black bg-table rounded'
+                            divClass='table-responsive text-black bg-white rounded'
                             tableClass='cursor-pointer w-100 p-1'
                             theadClass='position-sticky top-0  '
                             thClass='fs-14 fw-light border p-2 bg-primary text-white'
                             tdClass='fs-12 border px-2 py-1'
                             tbodyClass='bg-white'
-                            styleHeight='300px'
-                            overflowY='scroll'
+                            styleHeight='375px'
+                            overflowY='hidden'
                         />
                     </Col>
                 </Row >

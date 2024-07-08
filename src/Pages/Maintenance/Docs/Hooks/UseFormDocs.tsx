@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import InputCommon from '../../../../common/Inputs/InputCommon'
 import HeaderTools from '../../../../common/Ui/HeaderTools'
 import TableGeneric from '../../../../common/Generics/Table/TableGeneric'
-import { createDocumento, updateDocumento, useCreateDoc, useDocs } from './useDocuments'
+import { createDocumento, deleteDocumento, updateDocumento, useCreateDoc, useDocs } from './useDocuments'
 import useColumnsDocs from './useColumnsDocs'
 import SelectGeneric from '../../../../common/Select/SelectGeneric'
 import { enlacesOp, typeAmtOP } from '../Helpers/ListDocs'
@@ -175,7 +175,7 @@ const UseFormDocs = () => {
             title: 'Herramientas', subItems: [
                 { text: 'Limpiar', onClick: () => handleCleanForm() },
                 { text: 'Crear o Guardar', onClick: () => validation.handleSubmit() },
-                { text: 'Eliminar', onClick: () => console.log(true) },
+                { text: 'Eliminar', onClick: () => handleDeleteDoc() },
                 { text: 'Salir', onClick: () => console.log(true) },
             ]
         },
@@ -190,6 +190,15 @@ const UseFormDocs = () => {
     const handleToggleField = (fieldName: string) => {
         validation.setFieldValue(fieldName, !validation.values[fieldName])
     }
+
+    const handleDeleteDoc = async () => {
+        if (!selectRow?.id_documento) return
+        const res: any = await deleteDocumento(selectRow?.id_documento)
+        if (res) {
+            handleCleanForm()
+        }
+    }
+
     const handleCleanForm = () => {
         inputRefDoc.current?.focus()
         validation.resetForm()
@@ -209,11 +218,15 @@ const UseFormDocs = () => {
             setTestOp(mappedDocs);
         }
     }, [tipoDocs]);
+
+
     useEffect(() => {
         if (selectRow) {
             setIsEdit(true)
         }
     }, [selectRow])
+
+    
     return (
         <>
             <Row>

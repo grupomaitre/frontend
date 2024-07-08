@@ -42,6 +42,20 @@ export const updateDocumento = async (id: any, data: any) => {
         throw new Error("Error creating document")
     }
 }
+//delete documento
+export const deleteDocumento = async (id: number) => {
+    try {
+        const url = `/api/v1/delete/documentos/${id}`
+        const response = await axios.delete(url)
+        if (response.status) {
+            toastSuccess({ message: 'Eliminado con exito' })
+            return response
+        }
+    } catch (e) {
+        toastError({ message: e })
+        throw new Error("Error creating document")
+    }
+}
 
 //use crud
 //list
