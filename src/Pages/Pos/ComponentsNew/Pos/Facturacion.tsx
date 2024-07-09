@@ -16,11 +16,8 @@ const Facturacion = () => {
                 orden={orden}
 
             />
-
-            <InfoMesas />
-
-
             {mesas && <Mesas mesas={mesas} />}
+            <InfoMesas />
         </>
     )
 }

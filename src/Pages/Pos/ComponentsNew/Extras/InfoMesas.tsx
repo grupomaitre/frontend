@@ -14,7 +14,7 @@ export const InfoMesas = () => {
                 items.map((item, key) => (
 
                     <Fragment key={key}>
-                        <div className={item.color} style={{ width: '12px', height: '12px', borderRadius: '10px', marginLeft: '1px', background: item.color }}>
+                        <div className={item.color} style={{ width: '7px', height: '7px', borderRadius: '10px', marginLeft: '1px', background: item.color }}>
                         </div>
                         <span className='text-white py-1 fs-11' style={{ fontSize: '11px' }}> {item.name}</span>
 

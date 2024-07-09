@@ -50,17 +50,18 @@ const NumericKeyboard: FC<NumericKeyboardProps> = ({
                 display: 'grid',
                 gridTemplateColumns: `repeat(${gridTemplateColumns || 3}, 1fr)`,
                 gridTemplateRows: 'repeat(1,2fr)',
-                gap: '5px'
+                margin: '2px',
             }}>
                 {(keyboards || listNumbers).map((number) => (
                     <Button
                         type='button'
-                        color='light'
                         style={{
-                            width: widthKey,
+                            width: widthKey || '60px',
                             height: heightKey || '71px',
                             border: '1px solid #ccc',
+                            margin: '2px',
                             borderRadius: '1px',
+                            background: fondoKey || '#fff',
                             color: colorKeys || "#000",
                             fontSize: fontSizeKey || '1.5rem',
                         }}
@@ -72,22 +73,19 @@ const NumericKeyboard: FC<NumericKeyboardProps> = ({
                 ))}
 
 
-                {!showDelete &&
-                    <Button
-                        block
-                        color='danger'
-                        onClick={() => handleDelete()}
-                        className='shadow rounded fs-6'
-                        style={{
-                            fontSize: sizeBorrar || '10px',
-                            gridColumn: gridColumn || 'span 2',
-                            height: heightBtnDelete || '71px',
-                            margin: '2px', borderRadius: '2px',
-                            //  background: bgDelete || 'red',
-                            width: widthBorrar || '',
-                            color: colorDelete || '#fff'
-                        }}
-                    >Borrar</Button>}
+                {!showDelete && <Button
+                    onClick={() => handleDelete()}
+                    className='shadow'
+                    style={{
+                        fontSize: sizeBorrar || '10px',
+                        gridColumn: gridColumn || 'span 2',
+                        height: heightBtnDelete || '71px',
+                        margin: '2px', borderRadius: '2px',
+                        background: bgDelete || 'red',
+                        width: widthBorrar || '',
+                        color: colorDelete || '#fff'
+                    }}
+                >Borrar</Button>}
 
             </div >
         </>

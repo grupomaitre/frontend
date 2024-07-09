@@ -126,22 +126,22 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
                     items={{}}
                 />}
             <div >
-                <div style={{ background: '#3578a2' }} className='text-end roudned shadow-lg p-1 w-100' >
+                <div style={{ background: '#3578a2' }} className='text-end roudned shadow-lg  w-100' >
                     <div className='mt-1'>
-                        <SimpleBar autoHide={false} style={{ maxHeight: "125px" }} className="simplebar-track-danger">
+                        <SimpleBar autoHide={false} style={{ maxHeight: "176px" }} className="simplebar-track-danger">
 
                             <div className='gridContainerMesas ' >
                                 {
                                     mesas.map((item: any, key) => (
                                         /*  item.status === 3 ? null : */
                                         <span key={key}
-                                            className={"rounded  d-flex flex-column align-items-center  spanMesa border border-light shadow text-center  " +
+                                            className={"rounded   d-flex  flex-column align-items-center  spanMesa border border-light shadow text-center  " +
                                                 (item.status ? 'backgroundSuccess fw-bold' :
                                                     item.status_cobrar ? 'backgroundredCobrar fw-bold text-white' :
                                                         item.status_precuenta ? 'bgPrecuenta fw-bold text-white'
                                                             : 'bg-white text-black fw-medium')}
                                             onClick={() => handleStatusMesa(item)}
-                                            style={{ height: '30px' }}
+                                            style={{ height: '35px' }}
                                         >
                                             <span style={{ userSelect: 'none' }}>{item?.nombre_mesa || key}</span>
                                         </span>

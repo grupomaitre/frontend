@@ -131,7 +131,7 @@
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(3, 1fr) !important;
-    grid-gap: 2px;
+    gap: 5px;
     cursor: pointer;
 }
 

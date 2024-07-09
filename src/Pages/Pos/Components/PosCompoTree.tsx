@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import NumericKeyboard from '../common/NumericKeyboardProps'
-import { Button, Col, Row } from 'reactstrap'
+import { Button } from 'reactstrap'
 import BtnBilling from '../ComponentsNew/Buttons/BtnBilling'
 import ProductsDetails from '../ComponentsNew/CompoProducts/ProductsDetails'
 import { IProducts } from '../Interfaces/InterfaceGroups'
@@ -35,45 +35,36 @@ const PosCompoTree: FC<Props> = ({
         handleEnter()
     }
     return (
-        <Row className=' m-0 p-0 mx-2' >
-            <Col xl='2' sm='3' className='teclado-row-31 ' >
+        <div className='pos-row-3'>
+            <div className='teclado-row-3  d-flex rounded' style={{ background: '#ebebeb' }}>
 
-                <Row className=' d-flex'>
-                    <Col className='' xl='9' sm='8'>
-                        <NumericKeyboard
-                            onKeyPress={handleKeyPress}
-                            handleDelete={handleDelete}
-                            btnClass={'rounded border-sistema'}
-                            heightBtnDelete='80px'
-                            heightKey='80px'
+                <div className=''>
+                    <NumericKeyboard
+                        onKeyPress={handleKeyPress}
+                        handleDelete={handleDelete}
+                        btnClass='rounded'
 
+                    />
+                </div>
 
-                        />
-                    </Col>
-
-                    <Col className='ms-0 ps-0' xl='3' sm='3'>
-                        <Button
-                            color="light"
-                            style={{
-                                height: '180px',
-                                fontSize: '18px',
-                                fontWeight: '100'
-                            }}
-                            className="d-flex flex-column justify-content-center align-items-center border-sistema"
-                            onClick={onEnter}
-                        >
-                            <span className=""> Enter</span>
-                        </Button>
-                        <BtnBilling
-                            getMesa={getMesa}
-                        />
-                    </Col>
-                </Row>
+                <div className='btn-billing-group my-1'>
+                    <Button
+                        color="light"
+                        style={{ width: '100%', height: '143px', marginBottom: '2px', background: '#fff' }}
+                        className="d-flex flex-column justify-content-center align-items-center"
+                        onClick={onEnter}
+                    >
+                        <span className=""> Enter</span>
+                    </Button>
+                    <BtnBilling
+                        getMesa={getMesa}
+                    />
+                </div>
 
 
-            </Col >
+            </div>
 
-            <Col className='' xl='8' sm='6' >
+            <div className='product-details-row-3'>
                 <ProductsDetails
                     products={products || []}
                     activeInputIndex={activeInputIndex}
@@ -81,14 +72,13 @@ const PosCompoTree: FC<Props> = ({
                     inputRefs={inputRefs}
                     ClearInputKeyBoard={ClearInputKeyBoard}
                 />
-            </Col>
+            </div>
 
-            <Col className='p-0 m-0' xl='2' sm='3'>
+            <div className='facturacion-row-3 '>
                 <Facturacion />
+            </div>
 
-            </Col>
-
-        </Row >
+        </div>
     )
 }
 
