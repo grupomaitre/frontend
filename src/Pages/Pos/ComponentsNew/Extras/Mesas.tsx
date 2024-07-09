@@ -127,7 +127,7 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
                 />}
             <div >
                 <div style={{ background: '#3578a2' }} className='text-end roudned shadow-lg  w-100' >
-                    <div className='mt-1'>
+                    <div className=''>
                         <SimpleBar autoHide={false} style={{ maxHeight: "176px" }} className="simplebar-track-danger">
 
                             <div className='gridContainerMesas ' >
@@ -141,7 +141,7 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
                                                         item.status_precuenta ? 'bgPrecuenta fw-bold text-white'
                                                             : 'bg-white text-black fw-medium')}
                                             onClick={() => handleStatusMesa(item)}
-                                            style={{ height: '35px' }}
+                                            style={{ height: '32px' }}
                                         >
                                             <span style={{ userSelect: 'none' }}>{item?.nombre_mesa || key}</span>
                                         </span>
