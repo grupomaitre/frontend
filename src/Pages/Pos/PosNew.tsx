@@ -284,8 +284,8 @@ const PosNew = () => {
         nuevosValores[item] = '';
         setInputValues(nuevosValores);
     }
-    //const cart = useSelector((state: any) => state.cartSlice.cart)
-    //console.log(cart)
+    // const cart = useSelector((state: any) => state.cartSlice.cart)
+    // console.log(cart)
     return (
 
         <>

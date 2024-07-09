@@ -40,6 +40,7 @@ const BtnCardOrders: FC<IProp> = () => {
         setBtnIsCartSuccess(cartSuccess)
     }, [cart])
     const cantidad = cart.reduce((acc: any, item: any) => acc + item.cantidad, 0)
+    const terminal = (localStorage.getItem('terminal') || '0')
 
     const newComanda = async () => {
 
@@ -63,6 +64,7 @@ const BtnCardOrders: FC<IProp> = () => {
                             mesero: vendedor,
                             orden: orden,
                             cart: cart,
+                            terminal: terminal,
                         }
                     })
                 }
@@ -96,13 +98,14 @@ const BtnCardOrders: FC<IProp> = () => {
 
                 })
             })
-            axios.get('api/imprimir-comanda', {
+            await axios.get('api/imprimir-comanda', {
                 params: {
                     nombreMesa: mesacart,
                     pax: pax,
                     mesero: vendedor,
                     orden: orden,
                     cart: cart,
+                    terminal: terminal,
                 }
             })
 

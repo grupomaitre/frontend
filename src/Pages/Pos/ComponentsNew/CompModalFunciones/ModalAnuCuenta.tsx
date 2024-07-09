@@ -31,6 +31,11 @@ const ModalAnuCuenta: FC<IProps> = ({ show, onCloseClick, onCloseFunct }) => {
     const dispatch = useDispatch()
     const id_mesa = useSelector((state: any) => state.cartSlice.idMesa)
     const id_cart = useSelector((state: any) => state.cartSlice.idCart)
+    const mesacart = useSelector((state: any) => state.cartSlice.mesacart)
+    const vendedor = useSelector((state: any) => state.cartSlice.vendedor)
+    const orden = useSelector((state: any) => state.cartSlice.orden)
+    const cart = useSelector((state: any) => state.cartSlice.cart)
+    const terminal = (localStorage.getItem('terminal') || '0')
     const handleAnulacion = async () => {
         try {
             const result = await axios.post('api/anulacion-cuenta', {
@@ -49,6 +54,18 @@ const ModalAnuCuenta: FC<IProps> = ({ show, onCloseClick, onCloseFunct }) => {
                 dispatch(setSelectedProduct({}))
                 onCloseFunct()
                 onCloseClick()
+                await axios.get('api/imprimir-comanda', {
+                    params: {
+                        nombreMesa: mesacart,
+                        pax: 1,
+                        mesero: vendedor,
+                        orden: orden,
+                        cart: cart,
+                        terminal: terminal,
+                        cancelar_mesa: true,
+                        motivo: motivo,
+                    }
+                })
             }
         } catch (error) {
 

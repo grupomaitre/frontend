@@ -41,6 +41,7 @@ const BtnSaveCart: FC<IProps> = ({ cart, id_mesa, cantidad, orden, pax, id_caja,
 
     const handlesaveCart = async () => {
         const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
+        const terminal = (localStorage.getItem('terminal') || '0')
         try {
 
             if (id_mesa === 0 || cart.length === 0) {
@@ -64,7 +65,6 @@ const BtnSaveCart: FC<IProps> = ({ cart, id_mesa, cantidad, orden, pax, id_caja,
 
             if (result) {
                 console.log('second')
-
                 socketTest.emit('actualizarMesas')
                 dispatch(setVendedorSlice(''))
                 dispatch(clearIDMesa(0))
@@ -82,6 +82,7 @@ const BtnSaveCart: FC<IProps> = ({ cart, id_mesa, cantidad, orden, pax, id_caja,
                         mesero: vendedor,
                         orden: orden,
                         cart: cart,
+                        terminal: terminal,
                     }
                 })
 
