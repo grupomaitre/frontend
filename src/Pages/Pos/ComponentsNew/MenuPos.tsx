@@ -11,7 +11,7 @@ const ModalAnulacion = React.lazy(() => import('./Modals/ModalAnulacion'))
 import ModalReservas from './ComponetsMenuPos/ModalReservas'
 import ModalTimbrar from './ComponetsMenuPos/ModalTimbrar'
 import { clearCart, clearIDMesa, clearIDUser, clearMesa, clearPax, removeCartItem, setVendedorSlice } from '../../../slices/Cart/cartSlice'
-import ModalVerCart from './ComponetsMenuPos/ModalVerCart'
+import ModalReImpresion from './ComponetsMenuPos/ModalReImpresion'
 import ConfirmPrecuenta from './ComponetsMenuPos/ConfirmPrecuenta'
 import ModalRefencia from './ComponetsMenuPos/ModalReferencia'
 import ModalMensajes from './ComponetsMenuPos/ModalMensajes'
@@ -51,7 +51,7 @@ const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemU
     const [showModalReservas, setShowModalReservas] = useState(false)
     const [showModalComandas, setShowModalComandas] = useState(false)
     const [showModalTimbrar, setShowModalTimbrar] = useState(false)
-    const [showModalVerCart, setShowModalVerCart] = useState(false)
+    const [showModalReImpresion, setShowReImpresion] = useState(false)
     const [showModalPrecuenta, setShowModalPrecuenta] = useState(false)
     const [showModalConfirSalir, setShowModalConfirSalir] = useState(false)
     const menu = [
@@ -94,7 +94,7 @@ const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemU
         }
     }
     const handlePrint = async () => {
-        setShowModalVerCart(true)
+        setShowReImpresion(true)
     }
     const confirmSalir = async () => {
         dispatch(clearIDMesa(0))
@@ -143,10 +143,10 @@ const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemU
             }
 
             {/* Modal Ver carrito */}
-            {showModalVerCart &&
-                <ModalVerCart
-                    show={showModalVerCart}
-                    onCloseClick={() => setShowModalVerCart(false)}
+            {showModalReImpresion &&
+                <ModalReImpresion
+                    show={showModalReImpresion}
+                    onCloseClick={() => setShowReImpresion(false)}
                 />}
             {/* Modal Precuenta */}
             {showModalPrecuenta &&

@@ -6,7 +6,8 @@ interface IProps {
     show: boolean,
     onCloseClick: () => void
 }
-const ModalVerCart: FC<IProps> = ({ show, onCloseClick }) => {
+const ModalReImpresion: FC<IProps> = ({ show, onCloseClick }) => {
+    const terminal = (localStorage.getItem('terminal') || '0')
     const { cart, orden, pax, nombreMesa, vendedor } = useSelector((state: any) => ({
         cart: state.cartSlice.cart,
         nombreMesa: state.cartSlice.mesacart,
@@ -18,16 +19,17 @@ const ModalVerCart: FC<IProps> = ({ show, onCloseClick }) => {
     const onGenerar = async () => {
 
         try {
-            const print = await axios.get('/api/reimpresion', {
+            await axios.get('api/imprimir-comanda', {
                 params: {
-                    nombreMesa: nombreMesa,
+                    mesa: nombreMesa,
                     pax: pax,
-                    orden: orden,
                     mesero: vendedor,
-                    cart: cart
+                    orden: orden,
+                    cart: cart,
+                    terminal: terminal,
+                    reimpresion: 1
                 }
             })
-            console.log(print)
             onCloseClick()
 
         } catch (e) {
@@ -65,4 +67,4 @@ const ModalVerCart: FC<IProps> = ({ show, onCloseClick }) => {
     )
 }
 
-export default ModalVerCart
+export default ModalReImpresion
