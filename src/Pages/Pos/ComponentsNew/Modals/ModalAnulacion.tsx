@@ -1,5 +1,5 @@
 import { FC, useState, createRef, useRef, useEffect } from 'react'
-import { Modal, ModalBody, ModalHeader, ListGroup, ListGroupItem, Input, Label, Row, Col, Badge } from 'reactstrap'
+import { Modal, ModalBody, ListGroup, ListGroupItem, Input, Label, Row, Col, Badge } from 'reactstrap'
 
 import ModalConfirm from './Confirmacion/ModalConfirm'
 import { getListMesas } from '../../Helpers/getListMesas'
@@ -13,6 +13,7 @@ import { keyNumeris } from '../../common/Keys'
 import InputKeyBoard from '../Cards/CardOrders/InputKeyBoard'
 import { setOnModal } from '../../../../slices/Cart/tecladoSlice'
 import CardHeaderModal from '../../../../common/CardHeaderModal'
+import axios from 'axios'
 interface IrefInput {
     current: HTMLInputElement | null
 }
@@ -34,6 +35,9 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
     const vendedor = useSelector((state: any) => state.cartSlice.vendedor)
     const mesacart = useSelector((state: any) => state.cartSlice.mesacart)
     const selectedProduct = useSelector((state: any) => state.productSlice.selectedProduct)
+
+    const orden = useSelector((state: any) => state.cartSlice.orden)
+    const pax = useSelector((state: any) => state.cartSlice.pax)
     //    const [errorQuantity, setErrorQuantity] = useState(false)
     const [modalConfirm, setModalConfirm] = useState(false)
     const [itemAnulacion, setItemAnulacion] = useState<string>()
@@ -67,19 +71,33 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
 
 
 
-    const handleUpdateQuantity = () => {
+    const handleUpdateQuantity = async () => {
+        const terminal = (localStorage.getItem('terminal') || '0')
         const cant = parseInt(inputValues[0])
-        saveAnulacionItem(selectedProduct, itemAnulacion, cant || 1, mesacart, vendedor).then(() => {
-
+        const res: any = await saveAnulacionItem(selectedProduct, itemAnulacion, cant || 1, mesacart, vendedor)
+        if (res) {
             dispatch(updateQuantity({ item: selectedProduct, newQuantity: inputValues[0] || 1 }))
-            // setErrorQuantity(false)
             onCloseClick()
             setInputValues([''])
             getListMesas(id_mesa).then((res) => {
                 dispatch(setNewCart(res.product))
 
             })
-        })
+            await axios.get('/eliminar/item/cart/imprimir', {
+                params: {
+                    nombreMesa: mesacart,
+                    pax: pax,
+                    mesero: vendedor,
+                    orden: orden,
+                    terminal: terminal,
+                    item: selectedProduct,
+                    motivo: itemAnulacion
+                }
+            })
+
+        }
+
+
     }
 
     //teclado 

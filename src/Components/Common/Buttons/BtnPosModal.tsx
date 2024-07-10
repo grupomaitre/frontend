@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { Button, Label } from 'reactstrap'
+import { Button } from 'reactstrap'
 
 interface BtnPosModalProps {
     onAceptarClick: () => void
