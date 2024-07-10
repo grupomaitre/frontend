@@ -24,7 +24,7 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
 
             if (result) {
                 const { data } = result
-
+                console.log(data)
                 dispatch(setIdOrder(result.data.id_order))
                 dispatch(setNewCart(data.product))
                 dispatch(addPax(data.pax))
@@ -33,6 +33,7 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
                 dispatch(setIDUser(data.id_user))
                 dispatch(setIdMesa(result.data.id_mesa))
                 dispatch(addMesa(result.data.nombre_mesa))
+                sessionStorage.setItem('idCart', data.id_cart)
 
             }
 
@@ -63,27 +64,33 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
     const [contador, setContador] = useState(0)
 
     const handleStatusMesa = (item: any) => {
+        sessionStorage.setItem('nombre_mesa', item.nombre_mesa)
+        sessionStorage.setItem('id_mesa', item.id_mesa)
         if (item.status) {
             if (item.status_mudar_item) {
                 dispatch(setIdMesa(item.id_mesa))
                 // dispatch(addMesa(item.nombre_mesa))
                 setShowModalMudarItem(true)
+                console.log('1')
+
             } else {
                 handleGetAllCartClick(item)
                 dispatch(onErrorCart(false))
-                console.log('second')
+                console.log('2')
             }
         } else if (item.status_cobrar) {
             handleGetAllCartClick(item)
             dispatch(setIdMesa(item.id_mesa))
             dispatch(addMesa(item.nombre_mesa))
             setShowModalCobrar(true)
+            console.log('3')
             return
             // handleModalCobrar(item)
             dispatch(setStatusCobrar(item.status_cobrar))
 
         } else if (item.status_precuenta) {
             handleGetAllCartClick(item)
+            console.log('4')
         }
         else {
             dispatch(onErrorCart(false))
@@ -98,6 +105,8 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
             dispatch(setCuentaKey(true))
             dispatch(setOnUserName(false))
             dispatch(setIDUser(0))
+            sessionStorage.removeItem('idCart')
+            console.log('5')
 
 
         }

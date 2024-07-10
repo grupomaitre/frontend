@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState, createRef } from 'react'
-import { Button, Card, CardBody, CardFooter, CardHeader, Col, Input, Label, Modal, ModalBody, ModalHeader, Row, } from 'reactstrap'
+import { Button, Card, CardBody, CardFooter, CardHeader, Col, Input, Label, Modal, ModalBody, Row, } from 'reactstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { ArrowLeft, ArrowRight } from 'react-feather'
 import { addCuenta, removeCuenta, clearCuenta, setNewCartCuenta } from '../../../../slices/Cart/cuentaSlice'
@@ -21,7 +21,11 @@ import { totalCart } from '../../Func/FuncCart'
 import { totalCartFunc } from '../../Func/Caculos'
 import ConfirmPrecuenta from './ConfirmPrecuenta'
 import { saveCart } from '../../Helpers/ApiCart'
+import CardHeaderModal from '../../../../common/CardHeaderModal'
 const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
+    const nombre_mesa = (sessionStorage.getItem('nombre_mesa') || '')
+    const id_mesa: any = (sessionStorage.getItem('id_mesa' || ''))
+    const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
     const [inputDisabledCuenta2, setInputDisabledCuenta2] = useState<boolean>(false)
     const [showModalPrecuenta, setShowModalPrecuenta] = useState(false)
     const [disableRight, setDisableRight] = useState<boolean>(false)
@@ -35,19 +39,16 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     //teclado
     const [showKeyBoard, setShowKeyBoard] = useState(false)
     //misma cuenta
-    const [isSelfBill, setIsSelfBill] = useState(false)
     //ref inputs
     const dispatch = useDispatch()
-    const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
 
-    const { cart, cartNew, cuenta, idCart, pax, orden, vendedor, id_user, id_mesa, selectedProduct } = useSelector((state: any) => ({
+    const { cart, cartNew, cuenta, idCart, pax, orden, vendedor, id_user } = useSelector((state: any) => ({
         cart: state.cartSlice.cart,
         cartNew: state.cuentaSlice.cartNew,
         cuenta: state.cartSlice.mesacart,
         idCart: state.cartSlice.idCart,
         pax: state.cartSlice.pax,
         orden: state.cartSlice.orden,
-        id_mesa: state.cartSlice.idMesa,
         vendedor: state.cartSlice.vendedor,
         id_user: state.cartSlice.id_user,
         selectedProduct: state.productSlice.selectedProduct
@@ -94,11 +95,11 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     //useeffec
 
     useEffect(() => {
-        setInputValues([cuenta, '', '', ''])
+        setInputValues([nombre_mesa, '', '', ''])
         setTimeout(() => {
             inputRefs.current[1].current?.focus()
         }, 100);
-    }, [cuenta, show])
+    }, [nombre_mesa, show])
 
 
     useEffect(() => {
@@ -119,7 +120,6 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
         }
     }, [selectItemRow, selectItemRow2, cart, cartNew])
     const moveRight = () => {
-        console.log(selectItemRow)
         setActiveRow(null)
         dispatch(minusCart(selectItemRow))
         dispatch(addCuenta(selectItemRow))
@@ -141,9 +141,8 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     const onEditCart = async () => {
 
         const cantidad = cartNew.reduce((acc: any, item: any) => acc + item.cantidad, 0)
-        const res: any = await statusMudarItem(id_mesa, cartNew, cantidad, orden, pax, idCajaLocal, vendedor, id_user, idTempCuenta)
+        const res: any = await statusMudarItem(parseFloat(id_mesa), cartNew, cantidad, orden, pax, idCajaLocal, vendedor, id_user, idTempCuenta)
         handlesaveCart()
-        console.log(res)
         await axios.patch('api/v1/update-group-cart', {
             idCart: idCart,
             cart: cartNew,
@@ -215,7 +214,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
 
     }
     const onConfimation = async () => {
-        const res = await openCuenta(id_mesa, cuenta, idCart)
+        const res = await openCuenta((id_mesa), cuenta, idCart)
         console.log(res)
         setIdTempCuenta(res.id_temp_cuenta)
         setDisableRight(false)
@@ -223,7 +222,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
         setInputDisabledCuenta2(true)
         setInputValues(prevInputValues => {
             const newInputValues = [...prevInputValues]
-            newInputValues[1] = res?.sub_orden
+            newInputValues[1] = nombre_mesa + res?.sub_orden
             return newInputValues
         })
         setShowModal(false)
@@ -250,10 +249,10 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
 
         }, 100);
     }
-    const mismaCuenta = () => {
-        setShowModal(true)
-    }
-
+    /*     const mismaCuenta = () => {
+            setShowModal(true)
+        }
+     */
 
 
 
@@ -366,9 +365,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                     dispatch(setNewCartCuenta(res.product));
                 }
                 const cantidad = cartNew.reduce((acc: any, item: any) => acc + item.cantidad, 0);
-                const idMesa = parseFloat(inputValues[1]);
-
-                opMudarItems(cartNew, idMesa, cantidad, orden, pax, idCajaLocal, vendedor, id_user, cuenta).then((res: any) => {
+                opMudarItems(cartNew, parseFloat(id_mesa), cantidad, orden, pax, idCajaLocal, vendedor, id_user, cuenta).then((res: any) => {
                     console.log(res);
                     socketTest.emit('actualizarMesas');
 
@@ -439,9 +436,11 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                     cart={cartNew}
                 />}
             <Modal isOpen={show} style={{ maxWidth: '90%' }} backdrop={'static'} className='mt-3' fade={false}>
-                <ModalHeader className='py-0' toggle={onCloseClick}>
-                    {'Mover Items'}
-                </ModalHeader>
+                <CardHeaderModal
+                    onCloseClick={onCloseClick}
+                    text='Mover Items'
+                    classHeader='p-2 rounded'
+                />
                 <ModalBody style={{ background: '#e8e8e8' }} >
 
                     <Card className='m-0 mb-1'>
@@ -491,7 +490,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                                         onChange={(event) => handleInputChange(event, 1)}
                                         handleInputClick={() => handleInputClick(1)}
                                         handleKeydown={handleEnter}
-                                        classInput='text-center input-border fs-6'
+                                        classInput='text-center input-border fs-6 text-uppercase'
                                         type={'text'}
                                         handleInputFocus={() => handleInputFocus(1)}
                                         bsSize='sm'

@@ -7,7 +7,7 @@ import ModalMudarCuenta from './ComponetsMenuPos/ModalMudarCuenta'
 import ModalFunciones from './ComponetsMenuPos/ModalFunciones'
 import SpinnerLoad from '../../../Components/Common/Spinner/SpinnerLoad'
 import ModalMudarItem from './ComponetsMenuPos/ModalMudarItem'
-const ModalAnulacion = React.lazy(() => import('./Modals/ModalAnulacion'))
+import ModalAnulacion from './Modals/ModalAnulacion'
 import ModalReservas from './ComponetsMenuPos/ModalReservas'
 import ModalTimbrar from './ComponetsMenuPos/ModalTimbrar'
 import { clearCart, clearIDMesa, clearIDUser, clearMesa, clearPax, removeCartItem, setVendedorSlice } from '../../../slices/Cart/cartSlice'
@@ -244,12 +244,12 @@ const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemU
             {
                 menuPos ? <CargeSpinner /> :
                     <Suspense fallback={<Loader />}>
-                        <div className=' mb-2  d-flex justify-content-between align-items-center p-1 px- text-center ' style={{ background: '#eaeaea' }}>
+                        <div className=' mb-2  d-flex justify-content-between align-items-center p-1 px- text-center ' style={{ background: '#034460' }}>
                             {
                                 (menu || []).map((item, key) => (
 
                                     <Button key={key}
-                                        
+
                                         className='d-flex shadow-sm flex-column justify-content-center align-items-center border-icons btns-menu'
                                         style={{
                                             userSelect: 'none',

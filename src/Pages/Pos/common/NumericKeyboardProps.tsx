@@ -75,7 +75,7 @@ const NumericKeyboard: FC<NumericKeyboardProps> = ({
 
                 {!showDelete && <Button
                     onClick={() => handleDelete()}
-                    className='shadow'
+                    className='shadow rounded'
                     style={{
                         fontSize: sizeBorrar || '10px',
                         gridColumn: gridColumn || 'span 2',

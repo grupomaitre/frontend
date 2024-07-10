@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, createRef } from 'react'
-import { Modal, ModalHeader, ModalBody, Button, Row, Col, Label, Card, CardBody } from 'reactstrap'
+import { Modal, ModalBody, Button, Row, Col, Label, Card, CardBody } from 'reactstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import BtnPosModal from '../../../../Components/Common/Buttons/BtnPosModal'
 import { searchUser } from '../../Helpers/ApiUser'
@@ -9,6 +9,7 @@ import { BuscarMesa } from '../../Helpers/ApiMesas'
 import NumericKeyboard from '../../common/NumericKeyboardProps'
 import InputKeyBoard from '../Cards/CardOrders/InputKeyBoard'
 import { IrefInput } from './Interface/InterMudarItem'
+import CardHeaderModal from '../../../../common/CardHeaderModal'
 interface IProps {
     show: boolean,
     onCloseClick: () => void
@@ -172,15 +173,18 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
     }
     return (
 
-        <Modal isOpen={show} toggle={onCloseClick} style={{ maxWidth: '580px' }} backdrop={true} fade={false}>
-            <ModalHeader toggle={onCloseClick} className='p-0 px-4'>
-                Personal
-            </ModalHeader>
-            <ModalBody className=' mt-2 fondo-sistema'>
-                <Row>
-                    <Col lg='7' >
-                        <Card className='bgcolorTheme2 text-white shadow-lg fs-11'>
-                            <CardBody>
+        <Modal isOpen={show} toggle={onCloseClick} size='lg' backdrop={true} fade={false}>
+
+            <ModalBody className='p-0  '>
+
+                <Card className='rounded m-0'>
+                    <CardHeaderModal
+                        onCloseClick={onCloseClick}
+                        text='Personal'
+                    />
+                    <CardBody className='fs-14' >
+                        <Row>
+                            <Col lg='7' className='border-end d-flex flex-column justify-content-between'>
                                 <Row className="mb-2">
                                     <Col lg={5} >
                                         <Label>Cuenta Actual:</Label>
@@ -193,7 +197,7 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                                             onChange={(event) => handleInputChange(event, 0)}
                                             handleInputClick={() => handleInputClick(0)}
                                             handleKeydown={() => handleDownMesa({ key: 'Enter' })}
-                                            classInput='text-center input-border rounded-0 fs-11'
+                                            classInput='text-center input-border rounded-0 rounded-start fs-11'
                                             disabled={disabledMesa}
                                             type='text'
                                             handleInputFocus={() => handleInputFocus(0)}
@@ -202,7 +206,7 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                                         />
                                         <Button
                                             color='danger'
-                                            className='border-0 rounded-0'
+                                            className='border-0 rounded-0 rounded-end'
                                             onClick={() => handleClearInput()}
                                         >x</Button>
                                     </Col>
@@ -229,7 +233,7 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                                             onChange={(event) => handleInputChange(event, 1)}
                                             handleInputClick={() => handleInputClick(1)}
                                             handleKeydown={() => handleDownUser({ key: 'Enter' })}
-                                            classInput='text-center input-border rounded-0 fs-6'
+                                            classInput='text-center border-sistema shadow-sm rounded fs-6'
                                             //    disabled={inputDisabledcuenta}
                                             type='text'
                                             handleInputFocus={() => handleInputFocus(1)}
@@ -242,46 +246,52 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                                 </Row>
                                 <Row>
                                     <BtnPosModal
+                                        divClass='w-100 text-center'
                                         btnDisabled={btnAceptar}
                                         text='Aceptar'
                                         onAceptarClick={handleAceptar}
                                         onCloseClick={handleClose}
                                     />
                                 </Row>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col lg='5' className='float-end'>
-                        <Row className='mb-2'>
-                            <Col lg='8' className='' >
-
-                                <NumericKeyboard
-                                    handleDelete={() => handleDelete()}
-                                    onKeyPress={(e) => onKeyPress(e)}
-                                    heightKey='43px'
-                                    widthKey='43px'
-                                    heightBtnDelete='43px'
-                                />
                             </Col>
-                            <Col lg='4  ' className=' ps-0'>
+                            <Col lg='' className=''>
+                                <Row className='mb-2'>
+                                    <Col lg='8' className='' >
+
+                                        <NumericKeyboard
+                                            handleDelete={() => handleDelete()}
+                                            onKeyPress={(e) => onKeyPress(e)}
+                                            heightKey='55px'
+                                            widthKey='60px'
+                                            widthBorrar='100%'
+                                            heightBtnDelete='55px'
+                                            btnClass='rounded'
+
+                                        />
+                                    </Col>
+                                    <Col lg='3' className=' ps-0'>
+                                        <Button
+                                            onClick={() => handleDownEnter({ key: 'Enter' })}
+                                            block
+                                            className='fs-11 border-sistema h-100'
+                                            color='light'
+                                        >Enter</Button>
+                                    </Col>
+                                </Row>
+
                                 <Button
-                                    onClick={() => handleDownEnter({ key: 'Enter' })}
-                                    block
-                                    className='h-100'
+                                    style={{ width: '92%' }}
+                                    className='border-sistema'
                                     color='light'
-                                >Enter</Button>
+                                    onClick={() => setShowKeyboard(!showKeyboard)}
+                                >Teclado</Button>
+
                             </Col>
                         </Row>
+                    </CardBody>
+                </Card>
 
-                        <Button block
-                            color='light'
-                            onClick={() => setShowKeyboard(!showKeyboard)}
-                        >Teclado</Button>
 
-                    </Col>
-                </Row>
-                <Row>
-                </Row>
             </ModalBody>
 
         </Modal>

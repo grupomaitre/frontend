@@ -1,5 +1,5 @@
 import { FC, useState, createRef, useRef, useEffect } from 'react'
-import { Modal, ModalBody, ModalHeader, ListGroup, ListGroupItem, Input, Label, Row, Col } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ListGroup, ListGroupItem, Input, Label, Row, Col, Badge } from 'reactstrap'
 
 import ModalConfirm from './Confirmacion/ModalConfirm'
 import { getListMesas } from '../../Helpers/getListMesas'
@@ -12,6 +12,7 @@ import NumericKeyboard from '../../common/NumericKeyboardProps'
 import { keyNumeris } from '../../common/Keys'
 import InputKeyBoard from '../Cards/CardOrders/InputKeyBoard'
 import { setOnModal } from '../../../../slices/Cart/tecladoSlice'
+import CardHeaderModal from '../../../../common/CardHeaderModal'
 interface IrefInput {
     current: HTMLInputElement | null
 }
@@ -115,20 +116,23 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
     return (
         <>
             <ModalConfirm show={modalConfirm} onCloseClick={() => setModalConfirm(false)} />
-            <Modal isOpen={show} size='md' toggle={onCloseClick} className='mt-1' innerRef={modalInputRef} fade={false}>
-                <ModalHeader toggle={onCloseClick} style={{ height: '30px' }} className='p-0 mx-2'>
-                    <span className='fs-11'> Eliminar Item</span>
-                </ModalHeader>
-                <ModalBody style={{ background: '#23486b' }}>
-                    <div className='d-flex justify-content-around bg-black   fs-12'>
+            <Modal isOpen={show} size='md' toggle={onCloseClick} className='mt-2 ' innerRef={modalInputRef} fade={false}>
+
+                <ModalBody style={{ background: '#23486b' }} className='rounded p-0 p-1' >
+                    <CardHeaderModal
+                        text='Eliminar Items'
+                        onCloseClick={onCloseClick}
+                        classHeader='p-2'
+                    />
+                    <div className='d-flex   justify-content-around bg-black   fs-6 py-2'>
                         <span className='text-capitalize text-white'>{selectedProduct.nombre}</span>
-                        <span className='text-white'>{'Cantidad'}-<span>{selectedProduct.cantidad}</span></span>
+                        <span className='text-white'>{'Cantidad'}-<Badge color='warning' className='fs-6'>{selectedProduct.cantidad}</Badge ></span>
                     </div>
-                    <ListGroup className='border-0 rounded-0'>
+                    <ListGroup className=''>
                         {listAnulacion.map((item: any, key) => (
                             <ListGroupItem
                                 onClick={() => setItemAnulacion(item.name)}
-                                key={key} className=' bg-white fs-12'
+                                key={key} className=' bg-white fs-6'
                                 style={{ cursor: 'pointer' }}>
 
                                 {item.name}
@@ -178,12 +182,15 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
                                 keyboards={keyNumeris}
                             />
                         </Col>
+                        <BtnPosModal
+                            divClass='mt-2'
+                            onAceptarClick={handleUpdateQuantity}
+                            onCloseClick={handleClose}
+                            showCancelar={true}
+                        />
                     </Row>
                 </ModalBody>
-                <BtnPosModal
-                    onAceptarClick={handleUpdateQuantity}
-                    onCloseClick={handleClose}
-                />
+
             </Modal>
         </>
     )

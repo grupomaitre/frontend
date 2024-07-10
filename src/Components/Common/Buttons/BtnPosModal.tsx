@@ -13,6 +13,7 @@ interface BtnPosModalProps {
     styleAceptar?: any
     btnClassCancelar?: string
     styleCancelar?: any
+    showCancelar?: boolean
 }
 const BtnPosModal: FC<BtnPosModalProps> = ({
     onAceptarClick,
@@ -23,7 +24,8 @@ const BtnPosModal: FC<BtnPosModalProps> = ({
     btnClassAceptar,
     styleAceptar,
     styleCancelar,
-    divClass
+    divClass,
+    showCancelar
 
 }) => {
     const [disabled, setDisabled] = useState<boolean>(false)
@@ -42,7 +44,7 @@ const BtnPosModal: FC<BtnPosModalProps> = ({
             <Button
 
                 disabled={disabled}
-                className={'d-flex align-items-center border shadow-lg ' + btnClassAceptar}
+                className={'d-flex align-items-center  justify-content-center border shadow-lg ' + btnClassAceptar}
                 block
                 color='primary'
                 onClick={onAceptar}
@@ -50,18 +52,18 @@ const BtnPosModal: FC<BtnPosModalProps> = ({
 
                 {text || 'Aceptar'}
             </Button>
-            <Button
+            {!showCancelar && <Button
 
                 color='danger'
                 block
-                className={'d-flex align-items-center shadow-md ' + btnClassAceptar}
+                className={'d-flex align-items-center justify-content-center shadow-md ' + btnClassAceptar}
                 onClick={handleClose}
                 style={styleCancelar || { height: '50px', color: '#fff' }}
             >
 
                 {textCancelar || 'Cancelar'}
 
-            </Button>
+            </Button>}
             {/*         <Button
                 outline
                 color='danger'
