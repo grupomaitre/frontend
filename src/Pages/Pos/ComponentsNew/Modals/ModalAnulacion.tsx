@@ -83,7 +83,7 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
                 dispatch(setNewCart(res.product))
 
             })
-            await axios.get('/eliminar/item/cart/imprimir', {
+            await axios.get('api/eliminar/item/cart/imprimir', {
                 params: {
                     nombreMesa: mesacart,
                     pax: pax,
