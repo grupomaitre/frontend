@@ -1,10 +1,10 @@
 import axios from "axios";
-interface IResponse {
+/* interface IResponse {
     status: boolean
     data: any
     message: string
     cart?: any[]
-}
+} */
 import { toastError } from "../../../Components/Common/Swals/SwalsApi";
 import { verCarrro } from "./ApiGetAllCart";
 export const BuscarMesa = async (mesa: string, id_cart: number): Promise<any> => {
