@@ -60,7 +60,7 @@ const BtnCardOrders: FC<IProp> = () => {
                     axios.get('api/imprimir-comanda', {
                         params: {
                             mesa: mesacart,
-                            pax: pax,
+                            pax: pax || 1,
                             mesero: vendedor,
                             orden: orden,
                             cart: cart,
@@ -101,7 +101,7 @@ const BtnCardOrders: FC<IProp> = () => {
             await axios.get('api/imprimir-comanda', {
                 params: {
                     mesa: mesacart,
-                    pax: pax,
+                    pax: pax || 1,
                     mesero: vendedor,
                     orden: orden,
                     cart: cart,

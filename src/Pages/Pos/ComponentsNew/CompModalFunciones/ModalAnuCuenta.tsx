@@ -32,6 +32,7 @@ const ModalAnuCuenta: FC<IProps> = ({ show, onCloseClick, onCloseFunct }) => {
     const id_mesa = useSelector((state: any) => state.cartSlice.idMesa)
     const id_cart = useSelector((state: any) => state.cartSlice.idCart)
     const mesacart = useSelector((state: any) => state.cartSlice.mesacart)
+    const pax = useSelector((state: any) => state.cartSlice.pax)
     const vendedor = useSelector((state: any) => state.cartSlice.vendedor)
     const orden = useSelector((state: any) => state.cartSlice.orden)
     const cart = useSelector((state: any) => state.cartSlice.cart)
@@ -57,7 +58,7 @@ const ModalAnuCuenta: FC<IProps> = ({ show, onCloseClick, onCloseFunct }) => {
                 await axios.get('api/imprimir-comanda', {
                     params: {
                         mesa: mesacart,
-                        pax: 1,
+                        pax: pax || 1,
                         mesero: vendedor,
                         orden: orden,
                         cart: cart,

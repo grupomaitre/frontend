@@ -58,7 +58,7 @@ const editcaFunction: FC<IProps> = ({ id_cart, cart }) => {
                 await axios.get('api/imprimir-comanda', {
                     params: {
                         mesa: mesacart,
-                        pax: pax,
+                        pax: pax || 1,
                         mesero: vendedor,
                         orden: orden,
                         cart: cart,

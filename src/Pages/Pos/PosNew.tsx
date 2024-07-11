@@ -326,8 +326,7 @@ const PosNew = () => {
         nuevosValores[item] = '';
         setInputValues(nuevosValores);
     }
-    // const cart = useSelector((state: any) => state.cartSlice.cart)
-    // console.log(cart)
+
     const itemTools = [
         {
             title: 'Herramientas', subItems: [
@@ -337,6 +336,8 @@ const PosNew = () => {
         },
 
     ]
+    // const cart = useSelector((state: any) => state.cartSlice.cart)
+    //console.log(pax)
     return (
 
         <>

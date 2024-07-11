@@ -62,7 +62,7 @@ const BtnSaveCart: FC<IProps> = ({ cart, id_mesa, cantidad, orden, pax, id_caja,
             }
 
             const result = await saveCart(cart, cantidad, orden, id_mesa, pax, idCajaLocal || id_caja, vendedor, id_user, total)
-
+            console.log(result)
             if (result) {
                 console.log('second')
                 socketTest.emit('actualizarMesas')
@@ -78,7 +78,7 @@ const BtnSaveCart: FC<IProps> = ({ cart, id_mesa, cantidad, orden, pax, id_caja,
                 await axios.get('api/imprimir-comanda', {
                     params: {
                         mesa: mesacart,
-                        pax: pax,
+                        pax: pax || 1,
                         mesero: vendedor,
                         orden: orden,
                         cart: cart,

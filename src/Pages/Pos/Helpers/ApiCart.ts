@@ -34,7 +34,7 @@ export const saveCart = async (
             cantidad: cantidad,
             orden: orden,
             id_mesa: id_mesa,
-            pax: pax || 0,
+            pax: pax || 1,
             status: 1,
             id_caja_diaria: id_caja,
             vendedor: vendedor,
