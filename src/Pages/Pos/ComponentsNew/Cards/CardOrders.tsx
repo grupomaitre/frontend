@@ -1,5 +1,5 @@
 import { useEffect, useState, FC } from 'react'
-import { Row, Col, Card, CardBody, CardFooter } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 //toast
 import { ToastContainer } from 'react-toastify'
 //redux
