@@ -24,7 +24,6 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
 
             if (result) {
                 const { data } = result
-                console.log(data)
                 dispatch(setIdOrder(result.data.id_order))
                 dispatch(setNewCart(data.product))
                 dispatch(addPax(data.pax))
