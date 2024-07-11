@@ -185,7 +185,6 @@ const PosNew = () => {
             if (inputValues[0]) {
                 const res: any = await BuscarMesa(inputValues[0], idCart)
                 if (res.message === "Mesa no encontrada") {
-                    console.log('Mesa no encontrada')
                     setInputValues(['', '', '', '']);
                     inputRefs.current[0].current?.focus();
                     dispatch(setIdMesa(0))
@@ -194,7 +193,6 @@ const PosNew = () => {
                 }
 
                 if (res.message === "Cuenta sin items") {
-                    console.log('Cuenta sin items')
                     dispatch(setInputMesa(true))
                     dispatch(setInputVendedor(false))
                     dispatch(setIdMesa(res.data.id_mesa))
@@ -205,7 +203,6 @@ const PosNew = () => {
                     return
                 }
                 if (res.data.id_cart > 0) {
-                    console.log('con items', res.data)
                     inputRefs.current[1].current?.blur()
                     inputRefs.current[0].current?.blur()
                     inputRefs.current[1].current?.focus();
