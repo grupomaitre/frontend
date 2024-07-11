@@ -39,7 +39,7 @@ const editcaFunction: FC<IProps> = ({ id_cart, cart }) => {
 
     const editCart = async () => {
         const terminal = (localStorage.getItem('terminal') || '0')
-
+        const resultCart = cart.filter((item: any) => item.isCartSuccess === false);
         try {
             const result: any = await axios.patch(`api/edit-cart/${id_cart}`, { cart: cart, status: 1, total: total })
             if (result.status === "success") {
@@ -55,13 +55,13 @@ const editcaFunction: FC<IProps> = ({ id_cart, cart }) => {
                 dispatch(setCount(contador))
                 dispatch(setSelectedProduct({}))
                 dispatch(setModalMesaMap(true))
-                await axios.get('api/imprimir-comanda', {
+                await axios.get('api/imprimir-comanda-edit', {
                     params: {
                         mesa: mesacart,
                         pax: pax || 1,
                         mesero: vendedor,
                         orden: orden,
-                        cart: cart,
+                        cart: resultCart,
                         terminal: terminal,
                     }
                 })
