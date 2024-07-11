@@ -40,6 +40,8 @@ import { setInputMesa, setInputVendedor } from '../../slices/Cart/cartStatusSlic
 import { useQuery } from 'react-query'
 import { fetchGroupsTipo } from './Api/ApiGroups'
 import Overlay from '../../common/Loading/Overlay'
+import HeaderTools from '../../common/Ui/HeaderTools'
+import { enterFullScreen } from '../../common/FullScreenDropdown'
 const PosNew = () => {
     const dispatch = useDispatch()
     const [dataSubRubros, setDataSubGroup] = useState<ISubGroups[]>([])
@@ -286,9 +288,22 @@ const PosNew = () => {
     }
     // const cart = useSelector((state: any) => state.cartSlice.cart)
     // console.log(cart)
+    const itemTools = [
+        {
+            title: 'Herramientas', subItems: [
+
+                { text: 'Pantalla Completa', onClick: () => enterFullScreen() },
+            ]
+        },
+
+    ]
     return (
 
         <>
+            <HeaderTools
+                itemTools={itemTools}
+                classToggle='p-0 px-1 py-1'
+            />
             {!isLoading ? <div  >
                 {/*  <ModalMapMesas
                           items={mesas}

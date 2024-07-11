@@ -12,6 +12,8 @@ import LogoApp from '../../common/Img/LogoApp'
 import logoVertical from '../../assets/images/logos/logo-sistema.png'
 import axios from 'axios'
 import SpinnerLoad from '../../Components/Common/Spinner/SpinnerLoad'
+import HeaderTools from '../../common/Ui/HeaderTools'
+import { enterFullScreen } from '../../common/FullScreenDropdown'
 interface IrefInput {
     current: HTMLInputElement | null
 }
@@ -142,10 +144,24 @@ const LoginCover = () => {
     useEffect(() => {
         handleVerficar()
     }, [])
+
+    const itemTools = [
+        {
+            title: 'Herramientas', subItems: [
+
+                { text: 'Pantalla Completa', onClick: () => enterFullScreen() },
+            ]
+        },
+
+    ]
     return (
 
         <>
-            {verificar ? <div className="d-flex flex-column justify-content-center  align-items-center " style={{ height: '100vh', width: '100%', background: '#f2f2f2' }}>
+            <HeaderTools
+                itemTools={itemTools}
+                classToggle='p-0 px-1 py-1'
+            />
+            {verificar ? <div className="d-flex flex-column justify-content-center  align-items-center " style={{ height: '95vh', width: '100%', background: '#f2f2f2' }}>
 
                 <Row className='rounded  p-2'>
                     <Col lg='5' className='text-white shadow-sm border-1  border rounded  d-flex flex-column  jutify-content-center

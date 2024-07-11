@@ -12,6 +12,7 @@ import InfoApp from './Components/InfoApp'
 import HeaderTools from '../../common/Ui/HeaderTools'
 import { useState } from 'react'
 import ModalConfigMesas from '../Pos/common/ModalConfigMesas'
+import { enterFullScreen } from '../../common/FullScreenDropdown'
 const Dashboard = () => {
     const dispatch = useDispatch()
     const navitage = useNavigate()
@@ -29,8 +30,11 @@ const Dashboard = () => {
             title: 'Herramientas', subItems: [
                 { text: 'Impresiones', onClick: () => navitage('/printers') },
                 { text: 'Plano de mesas', onClick: () => setShowModalMesas(true) },
+                { text: 'Pantalla Completa', onClick: () => enterFullScreen() },
+
             ]
         },
+
     ]
     return (
         <>
