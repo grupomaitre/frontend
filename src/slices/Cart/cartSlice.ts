@@ -40,7 +40,7 @@ const initialState: cartState = {
     id_user: 0,
     idOrder: 0,
     isCartSuccess: false,
-    pax: 0,
+    pax: 1,
     orden: null,
     producto: {},
     quantity2: '1',

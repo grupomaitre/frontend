@@ -59,7 +59,7 @@ const BtnCardOrders: FC<IProp> = () => {
                     socketTest.emit('actualizarMesas');
                     axios.get('api/imprimir-comanda', {
                         params: {
-                            nombreMesa: mesacart,
+                            mesa: mesacart,
                             pax: pax,
                             mesero: vendedor,
                             orden: orden,
@@ -100,7 +100,7 @@ const BtnCardOrders: FC<IProp> = () => {
             })
             await axios.get('api/imprimir-comanda', {
                 params: {
-                    nombreMesa: mesacart,
+                    mesa: mesacart,
                     pax: pax,
                     mesero: vendedor,
                     orden: orden,

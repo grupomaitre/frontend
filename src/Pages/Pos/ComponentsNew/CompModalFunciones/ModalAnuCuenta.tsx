@@ -56,7 +56,7 @@ const ModalAnuCuenta: FC<IProps> = ({ show, onCloseClick, onCloseFunct }) => {
                 onCloseClick()
                 await axios.get('api/imprimir-comanda', {
                     params: {
-                        nombreMesa: mesacart,
+                        mesa: mesacart,
                         pax: 1,
                         mesero: vendedor,
                         orden: orden,

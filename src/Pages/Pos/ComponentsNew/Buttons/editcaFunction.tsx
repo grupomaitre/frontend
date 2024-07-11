@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import axios from 'axios';
 import { socketTest } from '../../Socket/ConctSocket';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, clearIDMesa, clearMesa, clearPax, onErrorCart, setIDCart, setIDUser, setIsCartSuccess, setVendedorSlice } from '../../../../slices/Cart/cartSlice';
 import { setCount } from '../../../../slices/Cart/tecladoSlice';
 import { Button } from 'reactstrap';
@@ -15,6 +15,12 @@ interface IProps {
 
 const editcaFunction: FC<IProps> = ({ id_cart, cart }) => {
     const total = totalCart()
+    const mesacart = useSelector((state: any) => state.cartSlice.mesacart)
+    const pax = useSelector((state: any) => state.cartSlice.pax)
+    const vendedor = useSelector((state: any) => state.cartSlice.vendedor)
+    const orden = useSelector((state: any) => state.cartSlice.orden)
+
+
 
     const dispatch = useDispatch()
     const [contador, setContador] = useState(0)
@@ -51,10 +57,10 @@ const editcaFunction: FC<IProps> = ({ id_cart, cart }) => {
                 dispatch(setModalMesaMap(true))
                 await axios.get('api/imprimir-comanda', {
                     params: {
-                        nombreMesa: 1,
-                        pax: 1,
-                        mesero: 1,
-                        orden: 1,
+                        mesa: mesacart,
+                        pax: pax,
+                        mesero: vendedor,
+                        orden: orden,
                         cart: cart,
                         terminal: terminal,
                     }

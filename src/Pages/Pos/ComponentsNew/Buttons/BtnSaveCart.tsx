@@ -77,7 +77,7 @@ const BtnSaveCart: FC<IProps> = ({ cart, id_mesa, cantidad, orden, pax, id_caja,
                 dispatch(setSelectedProduct({}))
                 await axios.get('api/imprimir-comanda', {
                     params: {
-                        nombreMesa: mesacart,
+                        mesa: mesacart,
                         pax: pax,
                         mesero: vendedor,
                         orden: orden,

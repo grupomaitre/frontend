@@ -19,7 +19,7 @@ const ModalReImpresion: FC<IProps> = ({ show, onCloseClick }) => {
     const onGenerar = async () => {
 
         try {
-            await axios.get('api/imprimir-comanda', {
+            await axios.get('', {
                 params: {
                     mesa: nombreMesa,
                     pax: pax,
