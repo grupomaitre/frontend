@@ -98,7 +98,7 @@ const BtnCardOrders: FC<IProp> = () => {
 
                 })
             })
-            await axios.get('api/imprimir-comanda', {
+            await axios.get('api/imprimir-comanda-edit', {
                 params: {
                     mesa: mesacart,
                     pax: pax || 1,
