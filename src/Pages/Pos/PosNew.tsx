@@ -180,55 +180,98 @@ const PosNew = () => {
         };
     }, []);
 
-    const handleEnter = () => {
+    const handleEnter = async () => {
         if (activeInputIndex === 0) {
-            inputValues[0] ?
-                BuscarMesa(inputValues[0], idCart).then((res: any) => {
-
-                    if (res.message === "Mesa no encontrada") {
-                        setInputValues(['', '', '', '']);
-                        setTimeout(() => {
-                            inputRefs.current[0].current?.focus();
-                        }, 100)
-                        dispatch(setIdMesa(0))
-                        dispatch(addMesa(''))
-                        return
-                    }
-                    if (res.message === "Cuenta sin items") {
-                        dispatch(setInputMesa(true))
-                        dispatch(setInputVendedor(false))
-                        dispatch(setIdMesa(res.data.id_mesa))
-                        dispatch(addMesa(res.data.nombre_mesa))
-                        inputRefs.current[0].current?.blur()
-                        setInputValues([res.data.nombre_mesa, '', '', ''])
-                        setTimeout(() => {
-                            inputRefs.current[1].current?.focus();
-                        }, 100)
-                        return
-                    }
-                    if (res.id_cart > 0) {
-                        dispatch(setInputMesa(true))
-                        dispatch(setInputVendedor(true))
-                        inputRefs.current[0].current?.blur()
-                        inputRefs.current[1].current?.blur()
-                        setTimeout(() => {
-                            inputRefs.current[2].current?.focus();
-
-                        }, 100)
-                        dispatch(setNewCart(res.product))
-                        dispatch(setIDCart(res.id_cart))
-                        dispatch(addPax(res.pax))
-                        dispatch(setIsCartSuccess(true))
-                        dispatch(addMesa(res.nombre_mesa))
-                        dispatch(setIdMesa(res.id_mesa))
-                        dispatch(setIDUser(res.id_user))
-                        dispatch(setVendedorSlice(res.resposable))
-                        setInputValues([res.id_mesa, '****', '', '']);
-                        return
-                    }
+            if (inputValues[0]) {
+                const res: any = await BuscarMesa(inputValues[0], idCart)
+                if (res.message === "Mesa no encontrada") {
+                    console.log('Mesa no encontrada')
+                    setInputValues(['', '', '', '']);
+                    inputRefs.current[0].current?.focus();
+                    dispatch(setIdMesa(0))
+                    dispatch(addMesa(''))
                     return
-                })
-                : inputRefs.current[0].current?.focus();
+                }
+
+                if (res.message === "Cuenta sin items") {
+                    console.log('Cuenta sin items')
+                    dispatch(setInputMesa(true))
+                    dispatch(setInputVendedor(false))
+                    dispatch(setIdMesa(res.data.id_mesa))
+                    dispatch(addMesa(res.data.nombre_mesa))
+                    inputRefs.current[0].current?.blur()
+                    setInputValues([res.data.nombre_mesa, '', '', ''])
+                    inputRefs.current[1].current?.focus();
+                    return
+                }
+                if (res.data.id_cart > 0) {
+                    console.log('con items', res.data)
+                    inputRefs.current[1].current?.blur()
+                    inputRefs.current[0].current?.blur()
+                    inputRefs.current[1].current?.focus();
+                    dispatch(setInputMesa(true))
+                    dispatch(setInputVendedor(true))
+                    setInputValues([res.data.nombre_mesa, '****', '', ''])
+                    dispatch(setNewCart(res.data.product))
+                    dispatch(setIDCart(res.data.id_cart))
+                    dispatch(addPax(res.data.pax || 1))
+                    dispatch(setIsCartSuccess(true))
+                    dispatch(addMesa(res.data.nombre_mesa))
+                    dispatch(setIdMesa(res.data.id_mesa))
+                    dispatch(setIDUser(res.data.id_user))
+                    dispatch(setVendedorSlice(res.data.resposable))
+                    return
+                }
+            } else {
+                inputRefs.current[0].current?.focus()
+            }
+            /*   inputValues[0] ?
+                  BuscarMesa(inputValues[0], idCart).then((res: any) => {
+  
+                      if (res.message === "Mesa no encontrada") {
+                          setInputValues(['', '', '', '']);
+                          setTimeout(() => {
+                              inputRefs.current[0].current?.focus();
+                          }, 100)
+                          dispatch(setIdMesa(0))
+                          dispatch(addMesa(''))
+                          return
+                      }
+                      if (res.message === "Cuenta sin items") {
+                          dispatch(setInputMesa(true))
+                          dispatch(setInputVendedor(false))
+                          dispatch(setIdMesa(res.data.id_mesa))
+                          dispatch(addMesa(res.data.nombre_mesa))
+                          inputRefs.current[0].current?.blur()
+                          setInputValues([res.data.nombre_mesa, '', '', ''])
+                          setTimeout(() => {
+                              inputRefs.current[1].current?.focus();
+                          }, 100)
+                          return
+                      }
+                      if (res.id_cart > 0) {
+                          dispatch(setInputMesa(true))
+                          dispatch(setInputVendedor(true))
+                          inputRefs.current[0].current?.blur()
+                          inputRefs.current[1].current?.blur()
+                          setTimeout(() => {
+                              inputRefs.current[2].current?.focus();
+  
+                          }, 100)
+                          dispatch(setNewCart(res.product))
+                          dispatch(setIDCart(res.id_cart))
+                          dispatch(addPax(res.pax))
+                          dispatch(setIsCartSuccess(true))
+                          dispatch(addMesa(res.nombre_mesa))
+                          dispatch(setIdMesa(res.id_mesa))
+                          dispatch(setIDUser(res.id_user))
+                          dispatch(setVendedorSlice(res.resposable))
+                          setInputValues([res.id_mesa, '****', '', '']);
+                          return
+                      }
+                      return
+                  })
+                  : inputRefs.current[0].current?.focus(); */
 
         }
 

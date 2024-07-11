@@ -1,5 +1,4 @@
 import axios from "axios";
-//import { toast } from 'react-toastify';
 interface IResponse {
     status: boolean
     data: any
@@ -8,31 +7,30 @@ interface IResponse {
 }
 import { toastError } from "../../../Components/Common/Swals/SwalsApi";
 import { verCarrro } from "./ApiGetAllCart";
-export const BuscarMesa = async (mesa: string, /* idMesa: number */ id_cart: number): Promise<any> => {
+export const BuscarMesa = async (mesa: string, id_cart: number): Promise<any> => {
     try {
-        const response: IResponse = await axios.get('api/buscar-mesa', {
+        const response = await axios.get('api/buscar-mesa', {
             params: {
                 nombre_mesa: mesa,
                 id_mesa: mesa,
             },
         });
-        switch (response.message) {
-            case "Mesa no encontrada":
-                return { message: response.message, data: response.data }
-            case "Cuenta sin items":
 
-                return { message: response.message, data: response.data }
-            case "Cuenta con items":
-                const id_mesa = response.data.id_mesa;
+        const id_mesa = response.data.id_mesa;
+
+        if (response.data.status) {
+            try {
                 const data = await verCarrro(id_mesa, id_cart)
-                return { message: response.message, data: data.data || data.product }
-            default:
-                // Acción por defecto si no coincide con ningún caso
-                break;
+                return data;
+            } catch (error) {
+                console.error(error)
+            }
+        } else {
+            return response
         }
     }
     catch (error) {
-        return toastError({ title: error })
+        return true
     }
 }
 export const updateMesaStatus = async (idMesa: number): Promise<any> => {
