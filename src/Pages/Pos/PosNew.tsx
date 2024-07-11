@@ -40,8 +40,6 @@ import { setInputMesa, setInputVendedor } from '../../slices/Cart/cartStatusSlic
 import { useQuery } from 'react-query'
 import { fetchGroupsTipo } from './Api/ApiGroups'
 import Overlay from '../../common/Loading/Overlay'
-import HeaderTools from '../../common/Ui/HeaderTools'
-import { enterFullScreen } from '../../common/FullScreenDropdown'
 const PosNew = () => {
     const dispatch = useDispatch()
     const [dataSubRubros, setDataSubGroup] = useState<ISubGroups[]>([])
@@ -222,53 +220,6 @@ const PosNew = () => {
             } else {
                 inputRefs.current[0].current?.focus()
             }
-            /*   inputValues[0] ?
-                  BuscarMesa(inputValues[0], idCart).then((res: any) => {
-  
-                      if (res.message === "Mesa no encontrada") {
-                          setInputValues(['', '', '', '']);
-                          setTimeout(() => {
-                              inputRefs.current[0].current?.focus();
-                          }, 100)
-                          dispatch(setIdMesa(0))
-                          dispatch(addMesa(''))
-                          return
-                      }
-                      if (res.message === "Cuenta sin items") {
-                          dispatch(setInputMesa(true))
-                          dispatch(setInputVendedor(false))
-                          dispatch(setIdMesa(res.data.id_mesa))
-                          dispatch(addMesa(res.data.nombre_mesa))
-                          inputRefs.current[0].current?.blur()
-                          setInputValues([res.data.nombre_mesa, '', '', ''])
-                          setTimeout(() => {
-                              inputRefs.current[1].current?.focus();
-                          }, 100)
-                          return
-                      }
-                      if (res.id_cart > 0) {
-                          dispatch(setInputMesa(true))
-                          dispatch(setInputVendedor(true))
-                          inputRefs.current[0].current?.blur()
-                          inputRefs.current[1].current?.blur()
-                          setTimeout(() => {
-                              inputRefs.current[2].current?.focus();
-  
-                          }, 100)
-                          dispatch(setNewCart(res.product))
-                          dispatch(setIDCart(res.id_cart))
-                          dispatch(addPax(res.pax))
-                          dispatch(setIsCartSuccess(true))
-                          dispatch(addMesa(res.nombre_mesa))
-                          dispatch(setIdMesa(res.id_mesa))
-                          dispatch(setIDUser(res.id_user))
-                          dispatch(setVendedorSlice(res.resposable))
-                          setInputValues([res.id_mesa, '****', '', '']);
-                          return
-                      }
-                      return
-                  })
-                  : inputRefs.current[0].current?.focus(); */
 
         }
 
@@ -327,24 +278,12 @@ const PosNew = () => {
         setInputValues(nuevosValores);
     }
 
-    const itemTools = [
-        {
-            title: 'Herramientas', subItems: [
 
-                { text: 'Pantalla Completa', onClick: () => enterFullScreen() },
-            ]
-        },
-
-    ]
     // const cart = useSelector((state: any) => state.cartSlice.cart)
     //console.log(pax)
     return (
 
         <>
-            <HeaderTools
-                itemTools={itemTools}
-                classToggle='p-0 px-1 py-1'
-            />
             {!isLoading ? <div  >
                 {/*  <ModalMapMesas
                           items={mesas}
