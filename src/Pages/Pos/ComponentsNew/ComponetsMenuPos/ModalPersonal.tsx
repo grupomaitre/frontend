@@ -3,13 +3,14 @@ import { Modal, ModalBody, Button, Row, Col, Label, Card, CardBody } from 'react
 import { useSelector, useDispatch } from 'react-redux'
 import BtnPosModal from '../../../../Components/Common/Buttons/BtnPosModal'
 import { searchUser } from '../../Helpers/ApiUser'
-import { addMesa, addPax, onErrorCart, setIDCart, setIDUser, setIdMesa, setIsCartSuccess, setNewCart, setVendedorSlice } from '../../../../slices/Cart/cartSlice'
+import { addMesa, addPax, clearCart, clearIDMesa, clearMesa, onErrorCart, setIDCart, setIDUser, setIdMesa, setIsCartSuccess, setIsPreference, setNewCart, setVendedorSlice } from '../../../../slices/Cart/cartSlice'
 import { UpdatePersonCart } from '../../Helpers/ApiCart'
 import { BuscarMesa } from '../../Helpers/ApiMesas'
 import NumericKeyboard from '../../common/NumericKeyboardProps'
 import InputKeyBoard from '../Cards/CardOrders/InputKeyBoard'
 import { IrefInput } from './Interface/InterMudarItem'
 import CardHeaderModal from '../../../../common/CardHeaderModal'
+import { setInputMesa, setInputVendedor } from '../../../../slices/Cart/cartStatusSlice'
 interface IProps {
     show: boolean,
     onCloseClick: () => void
@@ -65,22 +66,39 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
 
         }
     }, [show])
+
+    const handleClearMesa = () => {
+        handleInvInputValues(0)
+        dispatch(setInputMesa(false))
+        dispatch(setInputVendedor(true))
+        dispatch(clearCart())
+        dispatch(clearMesa())
+        dispatch(setVendedorSlice(''))
+        dispatch(clearIDMesa(0))
+        dispatch(setIDUser(0))
+        dispatch(setIsPreference(false))
+    }
     const handleDownMesa = (e: any) => {
         if (e.key === 'Enter') {
             BuscarMesa(inputValues[0], idCart).then((res: any) => {
-                if (res?.data?.status_cobrar) {
-                    console.log('abrir modal cobrar')
+                console.log(res)
+                if (res.message === "Mesa no encontrada") {
+                    handleClearMesa()
                     return
                 }
-                if (res.status) {
-                    dispatch(setNewCart(res.product))
-                    dispatch(setIDCart(res.id_cart))
-                    dispatch(addPax(res.pax))
+                if (res.message === "Cuenta sin items") {
+
+
+                }
+                if (res.data.id_cart > 0) {
+                    dispatch(setNewCart(res.data.product))
+                    dispatch(setIDCart(res.data.id_cart))
+                    dispatch(addPax(res.data.pax))
                     dispatch(setIsCartSuccess(true))
-                    dispatch(addMesa(res.id_mesa))
-                    dispatch(setIdMesa(res.id_mesa))
-                    dispatch(setIDUser(res.id_user))
-                    dispatch(setVendedorSlice(res.resposable))
+                    dispatch(addMesa(res.data.id_mesa))
+                    dispatch(setIdMesa(res.data.id_mesa))
+                    dispatch(setIDUser(res.data.id_user))
+                    dispatch(setVendedorSlice(res.data.resposable))
                     dispatch(onErrorCart(false))
                     setDisabledMesa(true)
                     setBtnAceptar(false)
@@ -88,13 +106,34 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                         inputRefs.current[1].current?.focus()
                     }, 100)
                     return
-                } else {
-
-                    handleClearInput()
 
                 }
-            }
-            )
+                /*         if (res?.data?.status_cobrar) {
+                            console.log('abrir modal cobrar')
+                            return
+                        }
+                        if (res.status) {
+                            dispatch(setNewCart(res.product))
+                            dispatch(setIDCart(res.id_cart))
+                            dispatch(addPax(res.pax))
+                            dispatch(setIsCartSuccess(true))
+                            dispatch(addMesa(res.id_mesa))
+                            dispatch(setIdMesa(res.id_mesa))
+                            dispatch(setIDUser(res.id_user))
+                            dispatch(setVendedorSlice(res.resposable))
+                            dispatch(onErrorCart(false))
+                            setDisabledMesa(true)
+                            setBtnAceptar(false)
+                            setTimeout(() => {
+                                inputRefs.current[1].current?.focus()
+                            }, 100)
+                            return
+                        } else {
+        
+                            handleClearInput()
+        
+                        } */
+            })
         }
     }
 
@@ -173,7 +212,7 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
     }
     return (
 
-        <Modal isOpen={show} toggle={onCloseClick} size='lg' backdrop={true} fade={false}>
+        <Modal isOpen={show} toggle={onCloseClick}  size='lg' backdrop={true} fade={false}>
 
             <ModalBody className='p-0  '>
 
@@ -182,9 +221,9 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                         onCloseClick={onCloseClick}
                         text='Personal'
                     />
-                    <CardBody className='fs-14' >
+                    <CardBody className='fs-14 ' >
                         <Row>
-                            <Col lg='7' className='border-end d-flex flex-column justify-content-between'>
+                            <Col lg='6' className='border-end d-flex flex-column justify-content-between'>
                                 <Row className="mb-2">
                                     <Col lg={5} >
                                         <Label>Cuenta Actual:</Label>
@@ -197,7 +236,7 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                                             onChange={(event) => handleInputChange(event, 0)}
                                             handleInputClick={() => handleInputClick(0)}
                                             handleKeydown={() => handleDownMesa({ key: 'Enter' })}
-                                            classInput='text-center input-border rounded-0 rounded-start fs-11'
+                                            classInput='text-center input-border rounded-0 rounded-start fs-5'
                                             disabled={disabledMesa}
                                             type='text'
                                             handleInputFocus={() => handleInputFocus(0)}
@@ -233,15 +272,15 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                                             onChange={(event) => handleInputChange(event, 1)}
                                             handleInputClick={() => handleInputClick(1)}
                                             handleKeydown={() => handleDownUser({ key: 'Enter' })}
-                                            classInput='text-center border-sistema shadow-sm rounded fs-6'
+                                            classInput='text-center border-sistema shadow-sm rounded fs-5'
                                             //    disabled={inputDisabledcuenta}
                                             type='text'
                                             handleInputFocus={() => handleInputFocus(1)}
                                             bsSize='sm'
                                             styleInput={{ height: '40px', borderRadius: '0' }}
                                         />
+                                    <Label className='mt-1 text-danger text-uppercase fs-13 fw-bold text-center'>{vendedor}</Label>
                                     </Col>
-                                    <Label className='mt-1 text-white text-uppercase fs-12 text-center'>{vendedor}</Label>
 
                                 </Row>
                                 <Row>
@@ -254,7 +293,7 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                                     />
                                 </Row>
                             </Col>
-                            <Col lg='' className=''>
+                            <Col lg='5' className=''>
                                 <Row className='mb-2'>
                                     <Col lg='8' className='' >
 
