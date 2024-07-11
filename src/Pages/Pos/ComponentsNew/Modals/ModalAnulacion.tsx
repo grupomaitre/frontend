@@ -3,7 +3,7 @@ import { Modal, ModalBody, ListGroup, ListGroupItem, Input, Label, Row, Col, Bad
 
 import ModalConfirm from './Confirmacion/ModalConfirm'
 import { getListMesas } from '../../Helpers/getListMesas'
-import { setNewCart, updateQuantity } from '../../../../slices/Cart/cartSlice'
+import { clearCart, clearIDMesa, clearMesa, setIDUser, setNewCart, setVendedorSlice, updateQuantity } from '../../../../slices/Cart/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 import BtnPosModal from '../../../../Components/Common/Buttons/BtnPosModal'
@@ -14,6 +14,8 @@ import InputKeyBoard from '../Cards/CardOrders/InputKeyBoard'
 import { setOnModal } from '../../../../slices/Cart/tecladoSlice'
 import CardHeaderModal from '../../../../common/CardHeaderModal'
 import axios from 'axios'
+import { socketTest } from '../../Socket/ConctSocket'
+import { setSelectedProduct } from '../../../../slices/Cart/productSlice'
 interface IrefInput {
     current: HTMLInputElement | null
 }
@@ -35,6 +37,7 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
     const vendedor = useSelector((state: any) => state.cartSlice.vendedor)
     const mesacart = useSelector((state: any) => state.cartSlice.mesacart)
     const selectedProduct = useSelector((state: any) => state.productSlice.selectedProduct)
+    const id_cart = useSelector((state: any) => state.cartSlice.idCart)
 
     const orden = useSelector((state: any) => state.cartSlice.orden)
     const pax = useSelector((state: any) => state.cartSlice.pax)
@@ -75,6 +78,27 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
         const terminal = (localStorage.getItem('terminal') || '0')
         const cant = parseInt(inputValues[0])
         const res: any = await saveAnulacionItem(selectedProduct, itemAnulacion, cant || 1, mesacart, vendedor)
+        console.log(res?.cart)
+        if (res?.cart.length === 0) {
+
+            const result = await axios.post('api/anulacion-cuenta', {
+                id_mesa: id_mesa,
+                id_cart: id_cart,
+                motivo: itemAnulacion,
+                observacion: itemAnulacion,
+            })
+            if (result) {
+                socketTest.emit('actualizarMesas')
+                dispatch(setVendedorSlice(''))
+                dispatch(setIDUser(0))
+                dispatch(clearCart())
+                dispatch(clearIDMesa(0))
+                dispatch(clearMesa())
+                dispatch(setSelectedProduct({}))
+                onCloseClick()
+            }
+            return
+        }
         if (res) {
             dispatch(updateQuantity({ item: selectedProduct, newQuantity: inputValues[0] || 1 }))
             onCloseClick()
