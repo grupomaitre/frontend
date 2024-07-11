@@ -78,28 +78,29 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
         const terminal = (localStorage.getItem('terminal') || '0')
         const cant = parseInt(inputValues[0])
         const res: any = await saveAnulacionItem(selectedProduct, itemAnulacion, cant || 1, mesacart, vendedor)
-        console.log(res?.cart)
-        if (res?.cart.length === 0) {
-
-            const result = await axios.post('api/anulacion-cuenta', {
-                id_mesa: id_mesa,
-                id_cart: id_cart,
-                motivo: itemAnulacion,
-                observacion: itemAnulacion,
-            })
-            if (result) {
-                socketTest.emit('actualizarMesas')
-                dispatch(setVendedorSlice(''))
-                dispatch(setIDUser(0))
-                dispatch(clearCart())
-                dispatch(clearIDMesa(0))
-                dispatch(clearMesa())
-                dispatch(setSelectedProduct({}))
-                onCloseClick()
-            }
-            return
-        }
         if (res) {
+            console.log(res?.cart)
+            if (res?.cart.length === 0) {
+
+                const result = await axios.post('api/anulacion-cuenta', {
+                    id_mesa: id_mesa,
+                    id_cart: id_cart,
+                    motivo: itemAnulacion,
+                    observacion: itemAnulacion,
+                })
+                if (result) {
+                    socketTest.emit('actualizarMesas')
+                    dispatch(setVendedorSlice(''))
+                    dispatch(setIDUser(0))
+                    dispatch(clearCart())
+                    dispatch(clearIDMesa(0))
+                    dispatch(clearMesa())
+                    dispatch(setSelectedProduct({}))
+                    onCloseClick()
+                }
+                return
+            }
+
             dispatch(updateQuantity({ item: selectedProduct, newQuantity: inputValues[0] || 1 }))
             onCloseClick()
             setInputValues([''])
