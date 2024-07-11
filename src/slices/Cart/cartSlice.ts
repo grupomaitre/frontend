@@ -159,6 +159,7 @@ const cartSlice = createSlice({
                     cantidad: parseInt(state.quantity2) || 1,
                     preference: false,
                     descuento: 0,
+                    preferences: [],
                     uuid_detalle: uuidv4()
                 })
                 state.quantity2 = ''
