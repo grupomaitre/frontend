@@ -169,8 +169,8 @@ const ItemsServicios = () => {
                 editable_precio: isEditProduct?.editable_precio || null,
                 editable_nombre: isEditProduct?.editable_nombre || null,
                 nota: isEditProduct?.nota || null,
-                id_sub_rubro: isEditProduct?.id_sub_rubro || null,
                 id_rubro: isEditProduct?.id_rubro || null,
+                id_sub_rubro: isEditProduct?.id_sub_rubro || null,
                 id_bodega: isEditProduct?.id_bodega || null,
                 id_marca: isEditProduct?.id_marca || null,
                 id_medida: isEditProduct?.id_medida || null,
@@ -219,6 +219,7 @@ const ItemsServicios = () => {
 
         }),
         onSubmit: (values) => {
+
             if (isEditProduct != null) {
                 const updateProduct = {
                     cod_fabrica: values.cod_fabrica,

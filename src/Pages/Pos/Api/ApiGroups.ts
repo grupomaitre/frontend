@@ -24,7 +24,7 @@ export const fetchGroupsTipo = async (status: number): Promise<IGroups[]> => {
 }
 
 export const usefetchGroupsMain = (status: number) => {
-    const query: any = useQuery(['rubrosMain'], () => fetchGroups(status), {
+    const query = useQuery(['rubrosMain'], () => fetchGroups(status), {
         refetchOnWindowFocus: false,
 
     });

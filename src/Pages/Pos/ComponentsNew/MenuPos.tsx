@@ -123,7 +123,6 @@ const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemU
     }
 
     const menuPos = false
-    console.log(selectedProduct)
     return (
         <>
             {/* salir */}

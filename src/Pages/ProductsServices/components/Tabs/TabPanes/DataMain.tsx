@@ -1,18 +1,15 @@
 import { FC, useEffect, useState } from 'react'
-
 import { Button, Col, Input, Label, Row, TabPane } from "reactstrap"
 import ModalMarcar from '../../Modal/ModalMarcar'
 import ModalMedida from '../../Modal/ModalMedida'
 import { getMarcas } from '../../../Api/ApiProducts'
 import { getMedidas } from '../../../Api/ApiMedidas'
-import { useGrupoByTipo } from '../../../Api/ApiGrupos'
 import { InterfacesProduct } from './Interfaces/InterfacesProduct'
 import SelectCommon from '../../../../Pos/common/SelectCommon'
-import { GetCategoriasByid } from '../../../helpers/GetCategoriasByid'
-import { SwalError } from '../../../../../Components/Common/Swals/SwalsApi'
 import InputCommon from '../../../../../common/Inputs/InputCommon'
 import Spinner from '../../../../../common/Loading/Spinner'
 import { usefetchGroupsMain } from '../../../../Pos/Api/ApiGroups'
+import SelectGeneric from '../../../../../common/Select/SelectGeneric'
 interface Props {
     tabId: string
     opSubCategorias?: any
@@ -24,23 +21,19 @@ interface Props {
     setIsIDRubro: any
     isID: any
     setIsID: any
-    setProducts: any
 }
 
-const DataMain: FC<Props> = ({ tabId, validation, setProducts }) => {
-    const id_tipo_rubro = JSON.parse(localStorage.getItem('IdTipoRubro') || '0')
+const DataMain: FC<Props> = ({ tabId, validation }) => {
+    //const id_tipo_rubro = JSON.parse(localStorage.getItem('IdTipoRubro') || '0')
 
-    const { data: grupos, isLoading } = usefetchGroupsMain(1)
+    const { data: grupos, isLoading, } = usefetchGroupsMain(1)
     const [showModalMarca, setShowModalMarca] = useState(false)
     const [showModalMedida, setShowModalMedida] = useState(false)
     //  const [options, setOptions] = useState([] as any)
     const [optionsMedidas, setOptionsMedidas] = useState([] as any)
     const [opCartegorias, setOpCategorias] = useState<any>([])
     const [opSubGrupo, setOpSetSubGrupo] = useState<any>([])
-
     //selection option selects
-    const [selectedOpGrupo, setSelectedOpGrupo] = useState<any>(null);
-    const [selectedSubGrupo, setSelectedSubGrupo] = useState<any>(null);
     const [selectedMarca, setSelectedMarca] = useState<any>(null);
     const [selectedMedida, setSelectedMedida] = useState<any>(null);
     const [selectedMedidaPre, setSelectedMedidaPre] = useState<any>(null)
@@ -64,22 +57,28 @@ const DataMain: FC<Props> = ({ tabId, validation, setProducts }) => {
                 {
                     value: item.id_rubro,
                     label: item.name_rubro,
-                    sub_rubros: item.sub_rubros || []
+                    sub_rubros: item.sub_rubros || [],
+
                 }
             )))
 
-        }
-    }, [grupos])
-    useEffect(() => {
-        setOpSetSubGrupo((selectedOpGrupo?.sub_rubros || []).map((items: any) => (
-            { value: items.id_sub_rubro, label: items.name_sub_rubro, productos: items?.products }
-        )))
-    }, [selectedOpGrupo])
+            if (!validation.values.id_rubro) {
 
-    useEffect(() => {
-        if (selectedSubGrupo)
-            setProducts(selectedSubGrupo.productos || [])
-    }, [selectedSubGrupo])
+                const filterRubro = grupos.filter((item: any) => item.id_rubro === grupos[0].id_rubro)
+                const mapSubCategories = (filterRubro[0].sub_rubros || []).map((item: any) => ({ value: item?.id_sub_rubro || '', label: item?.name_sub_rubro || '' })) || []
+                setOpSetSubGrupo(mapSubCategories)
+
+            } else {
+                const filterRubro = grupos.filter((item: any) => item.id_rubro === parseFloat(validation.values.id_rubro))
+                const mapSubCategories = (filterRubro[0].sub_rubros || []).map((item: any) => ({ value: item?.id_sub_rubro || '', label: item?.name_sub_rubro || '' })) || []
+                validation.setFieldValue('id_sub_rubro', mapSubCategories[0].value)
+                setOpSetSubGrupo(mapSubCategories)
+
+            }
+
+        }
+    }, [grupos, validation.values.id_rubro])
+
 
     const [optionsMarca, setOptionsMarca] = useState<any>([])
     useEffect(() => {
@@ -109,18 +108,15 @@ const DataMain: FC<Props> = ({ tabId, validation, setProducts }) => {
         })
     }, [showModalMedida])
 
+    useEffect(() => {
+        localStorage.setItem("id_rubro", JSON.stringify(validation.values.id_rubro));
+
+    }, [validation.values.id_rubro])
 
     useEffect(() => {
-        validation.setFieldValue('id_rubro', selectedOpGrupo?.value)
-        localStorage.setItem("id_rubro", JSON.stringify(selectedOpGrupo?.value));
+        localStorage.setItem("id_sub_rubro", JSON.stringify(validation.values.id_sub_rubro));
 
-    }, [selectedOpGrupo])
-
-    useEffect(() => {
-        validation.setFieldValue('id_sub_rubro', selectedSubGrupo?.value)
-        localStorage.setItem("id_sub_rubro", JSON.stringify(selectedSubGrupo?.value));
-
-    }, [selectedSubGrupo])
+    }, [validation.values.id_sub_rubro])
 
     useEffect(() => {
         validation.setFieldValue('id_medida', selectedMedida?.value)
@@ -131,20 +127,6 @@ const DataMain: FC<Props> = ({ tabId, validation, setProducts }) => {
     const handleToggleField = (fieldName: string) => {
         validation.setFieldValue(fieldName, !validation.values[fieldName])
     }
-    const getSubGrupo = async () => {
-        if (!selectedOpGrupo) return
-
-        try {
-            const res: any = await GetCategoriasByid(selectedOpGrupo.value);
-            if (res.status === 'success') {
-                setOpSetSubGrupo(res.data.map((items: any) => (
-                    { value: items.id_sub_rubro, label: items.name_sub_rubro }
-                )));
-            }
-        } catch (error) {
-            SwalError({ title: error })
-        }
-    };
     return (
         <>
             {showModalMarca && < ModalMarcar
@@ -171,11 +153,11 @@ const DataMain: FC<Props> = ({ tabId, validation, setProducts }) => {
                             </Col>
                             <Col lg='3'>
 
-                                <SelectCommon
-                                    value={selectedOpGrupo}
-                                    setSelectedOption={setSelectedOpGrupo}
+                                <SelectGeneric
+                                    optionSelect={(e: number) => validation.setFieldValue('id_rubro', e)}
                                     options={opCartegorias}
-                                    isClearable={true}
+                                    btnClear={false}
+                                    validationValue={validation.values.id_rubro}
 
                                 />
                             </Col>
@@ -189,6 +171,7 @@ const DataMain: FC<Props> = ({ tabId, validation, setProducts }) => {
                                     options={opMedidaPre}
                                     isClearable={true}
                                 />
+
                             </Col>
                         </Row>
                         <Row className='mb-1'>
@@ -196,11 +179,13 @@ const DataMain: FC<Props> = ({ tabId, validation, setProducts }) => {
                                 <Label className='fs-13'>Sub Grupo</Label>
                             </Col>
                             <Col lg='3'>
-                                <SelectCommon
-                                    value={selectedSubGrupo}
-                                    setSelectedOption={setSelectedSubGrupo}
+
+                                <SelectGeneric
+                                    optionSelect={(e: any) => validation.setFieldValue('id_sub_rubro', e)}
                                     options={opSubGrupo}
-                                    isClearable={true}
+                                    btnClear={false}
+                                    validationValue={validation.values.id_sub_rubro}
+
                                 />
                             </Col>
                             <Col lg='1'>

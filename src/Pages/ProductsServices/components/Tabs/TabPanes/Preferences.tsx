@@ -36,7 +36,7 @@ const Preferences: FC<Props> = ({ tabId, isEditProduct, fetchDataProduct }) => {
     }
     const getPreference = async () => {
         const res: any = await listPrefProduct(isEditProduct?.id_product)
-        console.log(res)
+     //   console.log(res)
         if (res?.status === 'success') {
             setData(res?.data)
         } else {
