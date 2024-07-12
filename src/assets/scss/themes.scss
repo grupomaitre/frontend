@@ -5,7 +5,7 @@
 @import "./shepherd.css";
 @import "./mermaid.min.css";
 
-.offcanvas-header-dark {
+/* .offcanvas-header-dark {
   .btn-close {
     filter: invert(1) grayscale(100%) brightness(200%);
   }
@@ -50,10 +50,10 @@ body {
 
 .dropzone .dz-message {
   text-align: center;
-}
+} */
 
 // //Calendar
-.fc-direction-ltr .fc-daygrid-event.fc-event-end,
+/* .fc-direction-ltr .fc-daygrid-event.fc-event-end,
 .fc-direction-rtl .fc-daygrid-event.fc-event-start {
   padding: 5px !important;
   font-size: 12px !important;
@@ -108,7 +108,7 @@ body {
 
 .rangeslider-horizontal .rangeslider__fill {
   background-color: #405189 !important;
-}
+} */
 
 // .Toastify__toast{
 //   min-height: 43px !important;
@@ -125,7 +125,7 @@ $value in $theme-colors {
 }
 
 // chat
-.chat-conversation .chat-list .message-box-drop {
+/* .chat-conversation .chat-list .message-box-drop {
   .nav-btn {
     font-size: 18px;
     padding: 4px;
@@ -150,24 +150,24 @@ $value in $theme-colors {
     position: absolute !important;
   }
 }
-
-.alert-msg-show {
+ */
+/* .alert-msg-show {
   right: 24px;
   top: 40px;
   z-index: 1005;
 }
-
+ */
 // Emoji Picker
 
-.pickerEmoji {
+/* .pickerEmoji {
   position: absolute;
   bottom: -50px;
   left: 10%;
   transform: translateX(-50%);
-}
+} */
 
 // Toast
-.Toastify {
+/* .Toastify {
   .Toastify__toast {
     min-height: 43px;
   }
@@ -179,11 +179,11 @@ $value in $theme-colors {
   .Toastify__close-button--light {
     color: $light;
   }
-}
+} */
 
 // Tranfer List
 
-.rdl-filter,
+/* .rdl-filter,
 .rdl-control {
   background-color: $input-bg;
   border: 1px solid $input-border-color !important;
@@ -213,4 +213,4 @@ $value in $theme-colors {
 .css-1n7v3ny-option {
   background-color: var(--#{$prefix}gray-300) !important;
   border-color: var(--#{$prefix}border-color) !important;
-}
+} */

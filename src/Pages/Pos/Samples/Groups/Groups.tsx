@@ -9,7 +9,6 @@ interface IGroupsProps {
 }
 
 const Groups: FC<IGroupsProps> = ({ HandleSetSubGroup, grupos }) => {
-    console.log(grupos.length)
     return (
         <>
             {grupos.length === 0
