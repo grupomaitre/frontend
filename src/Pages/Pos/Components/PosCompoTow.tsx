@@ -38,7 +38,7 @@ const PosCompoTow: FC<IProps> = ({
                         <SwiperSubCategorias dataSubRubros={dataSubRubros} setDataProducts={setDataProducts} />
                     </section>
 
-                    : <div className='py-2 h4 text-center text-white bg-white'>Sin Sub Caterorias</div>}
+                    : <div className='py-3 h4 text-center text-info bg-white border'>Sin Sub Caterorias</div>}
 
 
 

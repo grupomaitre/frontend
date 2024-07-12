@@ -47,7 +47,7 @@ const BuscadorProductos: FC<IProps> = memo(({
     const [showModalEdit, setShowModalEdit] = useState(false)
     const [itemProd, setItemPro] = useState<any>()
     useEffect(() => {
-        setSelectOp(products.map((item: any) => ({
+        setSelectOp((products || []).map((item: any) => ({
             cantidad: item.cantidad,
             descuento: item.descuento,
             id_bodega: item.id_bodega,

@@ -10,16 +10,15 @@ interface IGroupsProps {
 
 const Groups: FC<IGroupsProps> = ({ HandleSetSubGroup, grupos }) => {
 
-
     return (
         <>
-            {grupos
+            {grupos.lenght === 0
                 ? <SwiperGroups
                     dataCategorias={grupos || []}
                     HandleSetSubGroup={HandleSetSubGroup || []}
                     idMesa={null}
                 /> :
-                <><div>Sin registros</div></>}
+                <><div className='text-info w-100 py-3 h4 text-center border'>Sin registros</div></>}
         </>
     )
 }
