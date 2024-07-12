@@ -17,13 +17,17 @@ import { useDispatch } from "react-redux";
 import { setIDTipoRubro } from "../../slices/rubros/reducer";
 import { ToastContainer } from "react-toastify";
 const ItemsServicios = () => {
+    //    const id_tipo_rubro = 9
+    const id_tipo_rubro = JSON.parse(localStorage.getItem('IdTipoRubro') || '0')
+    const id_rubro = JSON.parse(sessionStorage.getItem('id_rubro') || '0')
+    const id_sub_rubro = JSON.parse(sessionStorage.getItem('id_sub_rubro') || '0')
     const [showModal, setShowModal] = useState(false)
     const [products, setProducts] = useState([])
     const [productsItem, setProductsitem] = useState({})
     const [isEditProduct, setIsEditProduct] = useState<any>(null)
     const [isEdit, setIsEdit] = useState(false)
     const [isDelete, setIsDelete] = useState(false)
-    const [formData, setFormData] = useState<InterfacesProduct>({
+    const [formData, setFormData] = useState<any>({
         cod_fabrica: '',
         nombre: '',
         precio: 0,
@@ -46,16 +50,15 @@ const ItemsServicios = () => {
         editable_precio: false,
         editable_nombre: false,
         nota: '',
-        id_sub_rubro: 0,
-        id_rubro: 0,
+        id_sub_rubro: id_sub_rubro,
+        id_rubro: id_rubro,
         id_bodega: null,
         id_marca: null,
         id_medida: null,
         id_precio: null,
         id_sitio_impresora_item: null
     })
-    //    const id_tipo_rubro = 9
-    const id_tipo_rubro = JSON.parse(localStorage.getItem('IdTipoRubro') || '0')
+
     const dispatch = useDispatch()
 
     const handleClear = () => {
@@ -82,8 +85,8 @@ const ItemsServicios = () => {
             editable_precio: false,
             editable_nombre: false,
             nota: '',
-            id_sub_rubro: isEditProduct?.id_rubro,
-            id_rubro: isEditProduct?.id_tipo_rubro,
+            id_sub_rubro: id_rubro,
+            id_rubro: id_sub_rubro,
             id_bodega: null,
             id_marca: null,
             id_medida: null,
@@ -244,8 +247,8 @@ const ItemsServicios = () => {
                     editable_precio: values.editable_precio,
                     editable_nombre: values.editable_nombre,
                     nota: values.nota,
-                    id_sub_rubro: values.id_sub_rubro,
-                    id_rubro: values.id_rubro,
+                    id_sub_rubro: id_sub_rubro || values.id_sub_rubro,
+                    id_rubro: id_rubro || values.id_rubro,
                     id_bodega: values.id_bodega,
                     id_marca: values.id_marca,
                     id_medida: values.id_medida,
@@ -255,10 +258,10 @@ const ItemsServicios = () => {
                 }
                 editProduct(isEditProduct?.id_product, updateProduct).then((data: any) => {
                     if (data.status) {
-                        //  handleClear()
+                        handleClear()
                         socketTest.emit('actualizarProductos')
                         fetchDataProduct()
-                        //  validation.resetForm();
+                        validation.resetForm();
                         setIsEdit(false)
                     }
                 })
@@ -266,9 +269,6 @@ const ItemsServicios = () => {
 
             }
             else {
-
-                const id_rubroLocal = JSON.parse(localStorage.getItem('id_rubro') || '0')
-                const id_sub_rubrolocal = JSON.parse(localStorage.getItem('id_sub_rubro') || '0')
 
                 const newAsignPrinter = {
 
@@ -294,14 +294,15 @@ const ItemsServicios = () => {
                     editable_precio: values['editable_precio'],
                     editable_nombre: values['editable_nombre'],
                     nota: values['nota'],
-                    id_sub_rubro: id_sub_rubrolocal || values['id_sub_rubro'],
-                    id_rubro: id_rubroLocal || values['id_rubro'],
+                    id_sub_rubro: id_sub_rubro || values['id_sub_rubro'],
+                    id_rubro: id_rubro || values['id_rubro'],
                     id_tipo_rubro: id_tipo_rubro,
                     id_bodega: values['id_bodega'],
                     id_marca: values['id_marca'],
                     id_medida: values['id_medida'],
                     id_precio: values['id_precio'],
                 };
+
                 addProduct(newAsignPrinter).then((data: any) => {
                     console.log(data)
                     if (data.status) {
@@ -310,7 +311,7 @@ const ItemsServicios = () => {
                         setShowModal(true)
                         fetchDataProduct()
                         socketTest.emit('actualizarProductos')
-                        //   validation.resetForm();
+                        validation.resetForm();
                         toastSuccess({ message: 'Producto Guardado' })
                     }
 

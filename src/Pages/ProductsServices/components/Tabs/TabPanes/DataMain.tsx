@@ -61,13 +61,13 @@ const DataMain: FC<Props> = ({ tabId, validation }) => {
 
                 }
             )))
-
             if (!validation.values.id_rubro) {
 
                 const filterRubro = grupos.filter((item: any) => item?.id_rubro === grupos[0]?.id_rubro)
                 const mapSubCategories = (filterRubro[0]?.sub_rubros || []).map((item: any) => ({ value: item?.id_sub_rubro || '', label: item?.name_sub_rubro || '' })) || []
                 setOpSetSubGrupo(mapSubCategories)
-
+                sessionStorage.setItem("id_rubro", JSON.stringify(grupos[0]?.id_rubro));
+                sessionStorage.setItem("id_sub_rubro", JSON.stringify(mapSubCategories[0].value));
             } else {
                 const filterRubro = grupos.filter((item: any) => item?.id_rubro === parseFloat(validation.values.id_rubro))
                 const mapSubCategories = (filterRubro[0]?.sub_rubros || []).map((item: any) => ({ value: item?.id_sub_rubro || '', label: item?.name_sub_rubro || '' })) || []
