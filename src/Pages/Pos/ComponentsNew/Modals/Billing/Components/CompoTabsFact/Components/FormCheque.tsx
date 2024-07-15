@@ -131,7 +131,7 @@ const FormCheque: FC<Props> = ({
                                 onChange={(event) => handleInputChange(event, key)}
                                 handleInputClick={() => handleInputClick(key)}
                                 //handleKeydown={handleKeydown}
-                                classInput='text-center  rounded-0 fs-15 custom-input'
+                                classInput='text-center  rounded fs-15 border-sistema shadow-sm'
                                 styleInput={{ height: '30px', borderRadius: '0' }}
                                 type={item.type}
                                 handleInputFocus={() => handleInputFocus(key)}

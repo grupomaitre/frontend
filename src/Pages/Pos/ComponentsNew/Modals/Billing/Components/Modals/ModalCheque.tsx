@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, createRef, useState } from 'react'
 import { Modal, ModalBody, ModalHeader } from 'reactstrap'
 import TabPaneCheque from '../CompoTabsFact/TabPaneCheque'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { createItemCheque, deleteItemCheque, getCheques, updateItemCheque } from '../CompoTabsFact/Api/ApiCheque'
 interface IrefInput {
     current: HTMLInputElement | null
@@ -16,8 +16,6 @@ interface Props {
 
 }
 const ModalCheque: FC<Props> = ({ show, onCloseClick, total, setInputChequeTab, testVuelto }) => {
-    const dispatch = useDispatch()
-    const [data, setDataForm] = React.useState<any>({})
     const [items, setItems] = React.useState<any>([])
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
     const getDataCheque = async () => {
@@ -33,11 +31,12 @@ const ModalCheque: FC<Props> = ({ show, onCloseClick, total, setInputChequeTab, 
     useEffect(() => {
         getDataCheque()
     }, [])
-
+    const [isLoading, setIsLoading] = useState(false)
     const saveCheque = async (dataChueque: any) => {
-
+        setIsLoading(true)
         const res: any = await createItemCheque(dataChueque)
         if (res.status) {
+            setIsLoading(false)
             //   dispatch(setIDCheque(res.data.id_factura_cheque))
             getDataCheque()
             setInputValues(['', '', '', '', '', '', '', '', ''])
@@ -110,12 +109,10 @@ const ModalCheque: FC<Props> = ({ show, onCloseClick, total, setInputChequeTab, 
             <ModalHeader toggle={onCloseClick} className='p-0 px-2'>
                 <span className='fs-13'>{`Total: ${(total.toFixed(2))}`}</span>
             </ModalHeader>
-            <ModalBody className='page-bg text-white'>
+            <ModalBody className='bg-gray'>
                 <TabPaneCheque
-                    testVuelto={testVuelto}
                     items={items}
                     total={total}
-                    setDataForm={setDataForm}
                     setInputChequeTab={setInputChequeTab}
                     //keyboard
                     inputRefs={inputRefs}
@@ -133,6 +130,8 @@ const ModalCheque: FC<Props> = ({ show, onCloseClick, total, setInputChequeTab, 
                     editCheque={editCheque}
                     saveCheque={saveCheque}
                     deleteCheque={deleteCheque}
+                    //isLoading
+                    isLoading={isLoading}
                 />
             </ModalBody>
 

@@ -13,7 +13,6 @@ import ModalAlert from '../../../../../../../common/Generics/Modal/ModalAlert'
 interface Props {
     items: any
     total: number
-    setDataForm: any
     setInputChequeTab: any
     //keyboard
     inputRefs?: any
@@ -31,10 +30,9 @@ interface Props {
     editCheque: (id: number, data: any) => void
     saveCheque?: any
     deleteCheque: (id: number) => void
-    testVuelto: any
-
+    isLoading: boolean
 }
-const TabPaneCheque: FC<Props> = ({ items, total, setDataForm,
+const TabPaneCheque: FC<Props> = ({ items, total,
     //keyboard
     inputRefs,
     onKeyPress,
@@ -51,8 +49,7 @@ const TabPaneCheque: FC<Props> = ({ items, total, setDataForm,
     editCheque,
     saveCheque,
     deleteCheque,
-    testVuelto
-
+    isLoading
 
 }) => {
     const [selectItem, setSelectItem] = useState<any>({})
@@ -264,6 +261,7 @@ const TabPaneCheque: FC<Props> = ({ items, total, setDataForm,
                                         innerRef={btnAgregarRef}
                                         color='primary'
                                         onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
+                                        disabled={isLoading}
                                         onKeyDown={
                                             (e) => {
                                                 if (e.key === 'Enter') {
