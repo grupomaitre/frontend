@@ -27,7 +27,7 @@ const FormTarjeta: FC<Props> = (
     const inputsForm: inputsForm[] = [
         {
             col: '2',
-            label: 'Monto',
+            label: 'MONTO',
             type: 'number',
             ref: inputRefs.current[0],
             value: inputValues[0],
@@ -37,7 +37,7 @@ const FormTarjeta: FC<Props> = (
         },
         {
             col: '2',
-            label: 'Propina',
+            label: 'PROPINA',
             type: 'number',
             ref: inputRefs.current[1],
             value: inputValues[1],
@@ -46,7 +46,7 @@ const FormTarjeta: FC<Props> = (
         },
         {
             col: '2',
-            label: 'Referencia',
+            label: 'REFERENCIA',
             type: 'text',
             ref: inputRefs.current[2],
             value: inputValues[2],
@@ -55,11 +55,11 @@ const FormTarjeta: FC<Props> = (
         },
         {
             col: '2',
-            label: 'Lote',
+            label: 'LOTE',
             type: 'text',
             ref: inputRefs.current[3],
             value: inputValues[3],
-            classStyle: 'border-0 rounded-0',
+            classStyle: 'border-sistema',
             disabled: false
         }
     ]
@@ -95,7 +95,7 @@ const FormTarjeta: FC<Props> = (
                                 onChange={(event) => handleInputChange(event, key)}
                                 handleInputClick={() => handleInputClick(key)}
                                 handleKeydown={handleKeydown}
-                                classInput='text-center  fs-15 shadow-sm'
+                                classInput='text-center  fs-15 shadow-sm border-sistema'
                                 type='number'
                                 bsSize={'sm'}
                                 handleInputFocus={() => handleInputFocus(key)}

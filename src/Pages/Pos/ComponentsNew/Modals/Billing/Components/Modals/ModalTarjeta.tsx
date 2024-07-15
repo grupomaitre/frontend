@@ -40,15 +40,18 @@ const ModalTarjeta: FC<Props> = ({ show, onCloseClick, total, setInputTarjeta, t
     }, [])
 
 
-
+    const [loading, setLoading] = useState(false);
 
     const saveTarjeta = async (data: any) => {
+        setLoading(true)
+
         try {
             const result = await axios.post('api/add-factura-tarjeta', { items: data })
             console.log(result)
             if (result.status) {
                 dispatch(setIDTarjeta(result.data.id_factura_tarjeta))
                 getCards()
+                setLoading(false)
             }
         } catch (error) { return error }
     }
@@ -126,7 +129,6 @@ const ModalTarjeta: FC<Props> = ({ show, onCloseClick, total, setInputTarjeta, t
             </ModalHeader>
             <ModalBody style={{ background: '#405c71' }} className='p-2 rounded'>
                 <TabPaneTarjeta
-                    testVuelto={testVuelto}
                     total={total}
                     setNewData={setNewData}
                     newData={newData}
@@ -147,6 +149,8 @@ const ModalTarjeta: FC<Props> = ({ show, onCloseClick, total, setInputTarjeta, t
                     saveTarjeta={saveTarjeta}
                     deleteTarjeta={deleteTarjeta}
                     onCloseClick={onCloseClick}
+                    //loading
+                    loading={loading}
                 />
 
             </ModalBody>

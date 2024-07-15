@@ -30,8 +30,8 @@ interface Props {
     saveTarjeta: any
     deleteTarjeta: (item: number) => void
     onCloseClick: any
-    setInputValues: any
-    testVuelto: any
+    setInputValues: any,
+    loading: boolean
 }
 const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, handleDelete, inputRefs, inputValues, setInputValues,
     handleInputChange,
@@ -42,7 +42,7 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
     editTarjeta,
     saveTarjeta,
     onCloseClick,
-    testVuelto
+    loading
 }) => {
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
     const totalItems = items.reduce((acc: any, el: any) => acc + (parseFloat(el.monto)), 0)
@@ -287,6 +287,7 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
                                 innerRef={btnAgregarRef}
                                 color='primary'
                                 type='submit'
+                                disabled={loading}
                                 onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
                             //  disabled={btnDisabled}
 
@@ -363,8 +364,8 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
                                     />
                                     <Button
                                         color='light'
-                                        className='fs-11 d-flex align-items-center justify-content-center border'
-                                        style={{ width: '60px', height: '65%', marginTop: '3px', textAlign: 'center' }}
+                                        className='fs-11 d-flex align-items-center justify-content-center border-sistema '
+                                        style={{ width: '60px', height: '96%', marginTop: '3px', textAlign: 'center' }}
                                         onClick={handleKeydown}
                                     >
                                         <span className=''>ENTER</span>
