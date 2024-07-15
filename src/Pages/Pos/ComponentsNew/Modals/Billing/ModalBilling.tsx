@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { Modal, ModalBody, Row, Col, Card, CardBody } from 'reactstrap'
+import { Modal, ModalBody, Row, Col, Card, CardBody, ModalHeader } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import BtnPosModal from '../../../../../Components/Common/Buttons/BtnPosModal'
 import CompDataClient from './Components/CompInterface/CompDataClient'
@@ -10,6 +10,9 @@ import './css/style.css'
 import { totalCart } from '../../../Func/FuncCart'
 import NumericKeyboard from '../../../common/NumericKeyboardProps'
 import { keyBoards } from '../../../common/Keys'
+import { useQuery } from 'react-query'
+import { getClientes } from '../../../Helpers/Apiclientes'
+import logo from '../../../../../assets/images/logos/logo-sistema.png'
 interface ModalBillingProps {
     show: boolean
     onCloseClick: () => void
@@ -20,10 +23,50 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
     const [cliente, setCliente] = useState<any>({})
     const [showKeyBoard, setShowKeyBoard] = useState(false)
     const [methodPay, setMethodPay] = useState('Efectivo')
-    const [consumidorFinal, setConsumidorFinal] = useState<any>({})
+    const [listClient, setListClient] = useState<any>({})
+
+    const { data: clienteData, isFetching } = useQuery('clientes', getClientes, {
+        staleTime: Infinity,
+        cacheTime: Infinity
+    });
+    console.log(isFetching)
+
+    useEffect(() => {
+        if (clienteData) {
+            const mapCliente = (clienteData?.data || []).map((item: any) => (
+                {
+                    value: item.id_cliente,
+                    razon_social: item.razon_social,
+                    label: item.razon_social + ' - ' + item.identificacion,
+                    identificacion: item.identificacion,
+                    direccion: item.direccion,
+                    telefono: item.telefono,
+                    email: item.email,
+                    observaciones: item.observaciones,
+                }
+            )
+            )
+            setListClient(mapCliente)
+            const consumidor = {
+                value: mapCliente[0]?.value || '',
+                razon_social: mapCliente[0]?.razon_social || '',
+                label: mapCliente[0]?.razon_social || '',
+                identificacion: mapCliente[0]?.identificacion || '',
+                telefono: mapCliente[0]?.telefono || '',
+                direccion: mapCliente[0]?.direccion || '',
+                email: mapCliente[0]?.email || '',
+                observaciones: '',
+            }
+            sessionStorage.setItem('consumidorLocal', JSON.stringify(consumidor))
+            setInputs({ ...consumidor })
+
+        }
+    }, [clienteData])
+
     useEffect(() => {
         setMethodPay('Efectivo')
     }, [show])
+
     const cart = useSelector((state: any) => state.cartSlice.cart)
     const total = cart.reduce((acc: any, el: any) => acc + (el.cantidad * el.total), 0)
     //state focus input
@@ -48,18 +91,7 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
     }
 
 
-    useEffect(() => {
-        setInputs({
-            value: cliente.value,
-            razon_social: cliente.razon_social,
-            label: cliente.razon_social,
-            identificacion: cliente.identificacion,
-            telefono: cliente.telefono,
-            direccion: cliente.direccion,
-            correo: cliente.correo,
-            observaciones: '',
-        })
-    }, [])
+
     //test ref cambiar <---
     const inputreftes = React.createRef<HTMLInputElement>()
     const inputBtn = React.createRef<HTMLInputElement>()
@@ -74,13 +106,12 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
     }, [inputs])
     const handleClose = () => {
         onCloseClick()
-        console.log('entro?')
     }
     const totalFinal = totalCart()
     return (
         <Modal isOpen={show} backdrop={'static'} size='lg' className='' fade={false} toggle={onCloseClick}>
 
-            <ModalBody className='rounded' style={{ background: '#f8f9fa' }} >
+            {!isFetching ? <ModalBody className='rounded' style={{ background: '#f8f9fa' }} >
                 <Row className='mb-2 justify-content-around bg-black text-white rounded m-0'>
                     <Col lg='10'>
                         <div className='fs-6'>{'Facturación'}</div>
@@ -98,11 +129,11 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
                                 <CompDataClient
                                     setCliente={setCliente}
                                     setInputs={setInputs}
+                                    listClient={listClient}
                                     //FOCUS
                                     focusID={focusID}
                                     setFocusID={setFocusID}
                                     inputreftes={inputreftes}
-                                    setConsumidorFinal={setConsumidorFinal}
                                 />
                                 <CompoFormCliente
                                     cliente={cliente}
@@ -115,7 +146,6 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
                                     inputreftes={inputreftes}
                                     inputBtn={inputBtn}
                                     setInputs={setInputs}
-                                    consumidorFinalData={consumidorFinal}
                                 />
                             </CardBody>
                         </Card>
@@ -152,7 +182,11 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
                 </Row>
 
 
-            </ModalBody >
+            </ModalBody > :
+                <ModalBody className='d-flex flex-column justify-content-center align-items-center'>
+                    <span className='fs-3 fw-light'>{'Cargando....'}</span>
+                </ModalBody>
+            }
             {
                 showKeyBoard &&
                 <NumericKeyboard

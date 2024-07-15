@@ -24,10 +24,9 @@ interface Props {
     inputreftes?: any
     inputBtn?: any
     setInputs: any
-    consumidorFinalData: any
 }
 
-const CompoFormCliente: FC<Props> = ({ cliente, consumidorFinalData,/* setCliente, */ onChangeInput, getInputValue, setInputName, inputName, /* focusID, */ inputreftes, inputBtn, setInputs }) => {
+const CompoFormCliente: FC<Props> = ({ cliente,/* setCliente, */ onChangeInput, getInputValue, setInputName, inputName, /* focusID, */ inputreftes, inputBtn, setInputs }) => {
     //  const inputRefEmpresa = React.useRef<HTMLInputElement>(null)
     const inputRefIdentificacion = React.useRef<HTMLInputElement>(null)
     const inputRefTelefono = React.useRef<HTMLInputElement>(null)
@@ -35,16 +34,18 @@ const CompoFormCliente: FC<Props> = ({ cliente, consumidorFinalData,/* setClient
     const inputRefCorreo = React.useRef<HTMLInputElement>(null)
     const inputRefObservaciones = React.useRef<HTMLInputElement>(null)
     const consumidorFinal = () => {
+        const consumidorLocal = JSON.parse(sessionStorage.getItem('consumidorLocal') || '')
+
         const inputs = {
-            razon_social: consumidorFinalData.razon_social,
-            identificacion: consumidorFinalData.identificacion,
-            telefono: consumidorFinalData.telefono,
-            direccion: consumidorFinalData.direccion,
-            correo: consumidorFinalData.email,
+            razon_social: consumidorLocal.razon_social,
+            identificacion: consumidorLocal.identificacion,
+            telefono: consumidorLocal.telefono,
+            direccion: consumidorLocal.direccion,
+            email: consumidorLocal.email,
             observaciones: '',
-            value: consumidorFinalData.value,
+            value: consumidorLocal.value,
         }
-        setInputs(inputs)
+        setInputs({ ...inputs })
 
 
     }
@@ -67,7 +68,7 @@ const CompoFormCliente: FC<Props> = ({ cliente, consumidorFinalData,/* setClient
         { id: 3, ref: inputRefTelefono, onChange: onChangeInput, inputName: "telefono", get: getInputValue('telefono'), label: 'Teléfono', type: 'text', value: cliente.telefono || '' },
         { id: 4, ref: inputRefDireccion, onChange: onChangeInput, inputName: "direccion", get: getInputValue('direccion'), label: 'Dirección', type: 'text', value: cliente.direccion || '' },
         {
-            id: 5, ref: inputRefCorreo, onChange: onChangeInput, inputName: "correo", get: getInputValue('correo'), label: 'Correo', type: 'text', value: cliente.email || '',
+            id: 5, ref: inputRefCorreo, onChange: onChangeInput, inputName: "email", get: getInputValue('email'), label: 'Correo', type: 'text', value: cliente.email || '',
             btn: <Button
                 style={{ width: '40px' }}
                 color='primary'
