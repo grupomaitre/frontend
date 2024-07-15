@@ -86,8 +86,8 @@ const FormDeposito: FC<Props> = ({
                                 onChange={(event) => handleInputChange(event, key)}
                                 handleInputClick={() => handleInputClick(key)}
                                 //handleKeydown={handleKeydown}
-                                classInput='text-center  rounded-0 fs-15 custom-input'
-                                styleInput={{ height: '32px', borderRadius: '0' }}
+                                classInput='text-center  fs-15 border-sistema shadow-sm'
+                                styleInput={{ height: '32px' }}
                                 type='text'
                                 handleInputFocus={() => handleInputFocus(key)}
                                 disabled={item.disabled}

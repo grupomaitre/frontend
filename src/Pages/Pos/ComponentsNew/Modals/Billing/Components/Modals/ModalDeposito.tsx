@@ -18,7 +18,7 @@ interface Props {
 const ModalDescuento: FC<Props> = ({ show, onCloseClick, total, setInputDeposito, testVuelto }) => {
     const [items, setItems] = useState<any>([])
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
-
+    const [isLoading, setIsLoading] = useState(false)
     const getDataDeposito = async () => {
         const res: any = await getDesositos(id_order)
         if (res.status) {
@@ -33,11 +33,13 @@ const ModalDescuento: FC<Props> = ({ show, onCloseClick, total, setInputDeposito
     }, [])
 
     const saveDeposito = async (data: any) => {
+        setIsLoading(true)
         try {
             const res = await axios.post('api/add-factura-deposito', { items: data })
             if (res.status) {
                 //  dispatch(setIDDeposito(res.data.id_factura_deposito))
                 getDataDeposito()
+                setIsLoading(false)
                 //    onCloseClick()
             }
         } catch (e) {
@@ -113,7 +115,7 @@ const ModalDescuento: FC<Props> = ({ show, onCloseClick, total, setInputDeposito
             <ModalHeader toggle={onCloseClick} className='p-0 px-3 '>
                 <span className='fs-11'>{`Deposito / Transferencias: ${total}`}</span>
             </ModalHeader>
-            <ModalBody className='page-bg'>
+            <ModalBody className='bg-gray text-black'>
                 <TabPaneDeposito
                     testVuelto={testVuelto}
                     items={items}
@@ -135,6 +137,8 @@ const ModalDescuento: FC<Props> = ({ show, onCloseClick, total, setInputDeposito
                     editDeposito={editDeposito}
                     deleteDeposito={deleteDeposito}
                     onCloseClick={onCloseClick}
+                    //isLoading
+                    isLoading={isLoading}
                 />
             </ModalBody>
 

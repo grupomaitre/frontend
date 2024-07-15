@@ -29,6 +29,7 @@ interface Props {
     deleteDeposito: (id: number) => void
     onCloseClick: () => void
     testVuelto: any
+    isLoading: boolean
 
 }
 const TabPaneDeposito: FC<Props> = ({ total, items,
@@ -47,6 +48,7 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
     editDeposito,
     deleteDeposito,
     onCloseClick,
+    isLoading
 }) => {
     //columns use meno 
     const totalItems = items.reduce((acc: any, el: any) => acc + (parseFloat(el.monto)), 0)
@@ -167,7 +169,7 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
                     backdrop={true}
                 />
             }
-            <div className=' text-white'>
+            <div className=''>
                 <TabPane tabId="6" id="settings">
                     <FormDeposito
                         handleInputChange={handleInputChange}
@@ -182,12 +184,15 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
                 </TabPane>
                 <Row className=''>
 
-                    <Col lg='8'>
-                        <div className='d-flex my-2'>
+                    <Col lg='8' className='border bg-white'>
+                        <div className='d-flex my-2 gap-5 justify-content-between'>
 
-                            <Button className='w-75 ms-1 fs-12 '
+                            <Button
+                                disabled={isLoading}
+                                block
+                                className=' ms-1 fs-12 '
                                 // innerRef={btnAgregarRef}
-                                color='light'
+                                color='primary'
                                 onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
                                 onKeyDown={
                                     (e) => {
@@ -198,8 +203,11 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
                                 }
                             >{!!isEdit ? 'Actualizar' : 'Agregar'}   </Button>
 
-                            <Button className='w-75 fs-12 '
-                                color='light'
+                            <Button
+                                outline
+                                block
+                                className='fs-12 '
+                                color='danger'
                                 onClick={handleDeleteItem}
                             >Eliminar</Button>
 
@@ -214,7 +222,8 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
                             divClass='table-responsive text-black bg-table'
                             tableClass='cursor-pointer w-100'
                             theadClass='position-sticky top-0 bg-table '
-                            thClass='fs-11 fw-light border'
+                            thClass='fs-11 fw-bold border'
+                            tdClass={'border fs-12'}
                             tbodyClass='bg-light'
                             styleHeight='130px'
                             overflowY='scroll'
@@ -226,19 +235,20 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
                             />
                         </div>
                     </Col>
-                    <Col lg='4' className='rounded-1 d-flex align-items-start px-0' style={{ background: '' }}>
+                    <Col lg='4' className=' border bg-white d-flex align-items-start px-0' style={{ background: '' }}>
                         <NumericKeyboard
                             handleDelete={() => handleDelete()}
                             onKeyPress={(e) => onKeyPress(e)}
                             heightKey='45px'
                             heightBtnDelete='50px'
+                            btnClass={'rounded border-sistema'}
                             keyboards={[
                                 '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '00'
                             ]}
                         />
                         <Button
                             color='light'
-                            className='fs-12 border shadow-md d-flex align-items-center justify-content-center'
+                            className='fs-12 text-black border-sistema shadow-md d-flex align-items-center justify-content-center'
                             style={{ width: '60px', height: '75%', marginTop: '3px', textAlign: 'center' }}
                             onClick={handleKeydown}
                         >
