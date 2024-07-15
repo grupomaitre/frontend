@@ -21,7 +21,6 @@ interface Props {
 }
 const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, */ inputBtn }) => {
     const [showModalFactur, setShowModalFactur] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
     const [showModalCobra, setShowModalCobra] = useState(false)
     const idMesa = useSelector((state: any) => state.cartSlice.idMesa)

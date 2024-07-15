@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { Modal, ModalBody, Row, Col, Card, CardBody, ModalHeader } from 'reactstrap'
+import { Modal, ModalBody, Row, Col, Card, CardBody } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import BtnPosModal from '../../../../../Components/Common/Buttons/BtnPosModal'
 import CompDataClient from './Components/CompInterface/CompDataClient'
@@ -12,7 +12,6 @@ import NumericKeyboard from '../../../common/NumericKeyboardProps'
 import { keyBoards } from '../../../common/Keys'
 import { useQuery } from 'react-query'
 import { getClientes } from '../../../Helpers/Apiclientes'
-import logo from '../../../../../assets/images/logos/logo-sistema.png'
 interface ModalBillingProps {
     show: boolean
     onCloseClick: () => void

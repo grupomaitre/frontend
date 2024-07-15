@@ -21,7 +21,6 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
 
         try {
             const result = await axios.get("api/list-cart-mesa", { params: { id_mesa: id_mesa, status: 1, status_mesa: 1 } })
-
             if (result) {
                 const { data } = result
                 dispatch(setIdOrder(result.data.id_order))
