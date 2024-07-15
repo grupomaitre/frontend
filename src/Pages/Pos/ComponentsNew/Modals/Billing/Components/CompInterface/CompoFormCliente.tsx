@@ -24,9 +24,10 @@ interface Props {
     inputreftes?: any
     inputBtn?: any
     setInputs: any
+    consumidorFinalData: any
 }
 
-const CompoFormCliente: FC<Props> = ({ cliente, /* setCliente, */ onChangeInput, getInputValue, setInputName, inputName, /* focusID, */ inputreftes, inputBtn, setInputs }) => {
+const CompoFormCliente: FC<Props> = ({ cliente, consumidorFinalData,/* setCliente, */ onChangeInput, getInputValue, setInputName, inputName, /* focusID, */ inputreftes, inputBtn, setInputs }) => {
     //  const inputRefEmpresa = React.useRef<HTMLInputElement>(null)
     const inputRefIdentificacion = React.useRef<HTMLInputElement>(null)
     const inputRefTelefono = React.useRef<HTMLInputElement>(null)
@@ -35,13 +36,13 @@ const CompoFormCliente: FC<Props> = ({ cliente, /* setCliente, */ onChangeInput,
     const inputRefObservaciones = React.useRef<HTMLInputElement>(null)
     const consumidorFinal = () => {
         const inputs = {
-            razon_social: 'Consumidor Final',
-            identificacion: '9999999999999',
-            telefono: '999999999',
-            direccion: 'N/A',
-            correo: 'sincorreo@gmail.com',
-            observaciones: 'Consumidor Final',
-            value: 11,
+            razon_social: consumidorFinalData.razon_social,
+            identificacion: consumidorFinalData.identificacion,
+            telefono: consumidorFinalData.telefono,
+            direccion: consumidorFinalData.direccion,
+            correo: consumidorFinalData.email,
+            observaciones: '',
+            value: consumidorFinalData.value,
         }
         setInputs(inputs)
 
@@ -121,7 +122,7 @@ const CompoFormCliente: FC<Props> = ({ cliente, /* setCliente, */ onChangeInput,
                             {item.label}:
                         </Label>
                     </Col>
-                    <Col  className='d-flex' >
+                    <Col className='d-flex' >
                         <Input
                             innerRef={item.ref}
                             type={item.type}

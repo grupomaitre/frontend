@@ -7,7 +7,7 @@ import TableGeneric from '../Table/TableGeneric'
 interface IProps {
     show: boolean
     onCloseClick: () => void
-    itemFacturacion: any
+    itemFacturacion?: any
 }
 const ModalFacturacion: FC<IProps> = ({ show, onCloseClick, itemFacturacion }) => {
     const [selectItemRow, setSelectItemRow] = useState()

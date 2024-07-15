@@ -12,10 +12,11 @@ interface Props {
     setFocusID: any
     focusID: any
     inputreftes?: any
+    setConsumidorFinal: any
 }
-const CompDataClient: FC<Props> = ({ setInputs, setFocusID, focusID, inputreftes }) => {
+const CompDataClient: FC<Props> = ({ setCliente, setConsumidorFinal, setInputs, setFocusID, focusID, inputreftes }) => {
     const dispatch = useDispatch()
-    const [listClient, setListClient] = useState([])
+    const [listClient, setListClient] = useState<any>({})
     const [menuIsOpen, setMenuIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
 
@@ -24,21 +25,46 @@ const CompDataClient: FC<Props> = ({ setInputs, setFocusID, focusID, inputreftes
         cacheTime: Infinity
     });
     useEffect(() => {
-        setListClient((clienteData?.data || []).map((item: any) => (
-            {
-                value: item.id_cliente,
-                razon_social: item.razon_social,
-                label: item.razon_social + ' - ' + item.identificacion,
-                identificacion: item.identificacion,
-                direccion: item.direccion,
-                telefono: item.telefono,
-                email: item.email,
-                observaciones: item.observaciones,
-            }
-        )
-        ))
+        if (clienteData) {
+            const mapCliente = (clienteData?.data || []).map((item: any) => (
+                {
+                    value: item.id_cliente,
+                    razon_social: item.razon_social,
+                    label: item.razon_social + ' - ' + item.identificacion,
+                    identificacion: item.identificacion,
+                    direccion: item.direccion,
+                    telefono: item.telefono,
+                    email: item.email,
+                    observaciones: item.observaciones,
+                }
+            )
+            )
+            setListClient(mapCliente)
+            setCliente({
+                value: mapCliente[0]?.value || '',
+                razon_social: mapCliente[0]?.razon_social || '',
+                label: mapCliente[0]?.razon_social || '',
+                identificacion: mapCliente[0]?.identificacion || '',
+                telefono: mapCliente[0]?.telefono || '',
+                direccion: mapCliente[0]?.direccion || '',
+                email: mapCliente[0]?.email || '',
+                observaciones: '',
+            })
+            setConsumidorFinal({
+                value: mapCliente[0]?.value || '',
+                razon_social: mapCliente[0]?.razon_social || '',
+                label: mapCliente[0]?.razon_social || '',
+                identificacion: mapCliente[0]?.identificacion || '',
+                telefono: mapCliente[0]?.telefono || '',
+                direccion: mapCliente[0]?.direccion || '',
+                email: mapCliente[0]?.email || '',
+                observaciones: '',
+            })
 
+        }
     }, [clienteData])
+
+
 
     const handleChange = (e: any) => {
         dispatch(setClientes(e))
@@ -108,9 +134,9 @@ const CompDataClient: FC<Props> = ({ setInputs, setFocusID, focusID, inputreftes
                 <Col lg='12 mb-4'>
                     <Select
                         value={selectedOption}
-                        className=' rounded border-success border'
+                        className=' rounded border-warning border'
                         options={listClient}
-                        placeholder='Buscar Cliente'
+                        placeholder='Consumidor Final'
                         onChange={handleChange}
                         onInputChange={(e: any) => onchangeCliente(e)}
                         onKeyDown={(e: any) => captureInput(e)}
@@ -123,6 +149,7 @@ const CompDataClient: FC<Props> = ({ setInputs, setFocusID, focusID, inputreftes
                                     height: '35px',
                                     minHeight: '35px',
                                     fontSize: '12px',
+                                    background: 'rgb(255, 175, 95,0.6)'
 
                                 })
                             }

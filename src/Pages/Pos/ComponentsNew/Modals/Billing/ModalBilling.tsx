@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
-import { Modal, ModalHeader, ModalBody, Row, Col, Card, CardBody } from 'reactstrap'
+import React, { FC, useEffect, useState } from 'react'
+import { Modal, ModalBody, Row, Col, Card, CardBody } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import BtnPosModal from '../../../../../Components/Common/Buttons/BtnPosModal'
 import CompDataClient from './Components/CompInterface/CompDataClient'
@@ -7,8 +7,9 @@ import CompoFormCliente from './Components/CompInterface/CompoFormCliente'
 import CompDocsBilling from './Components/CompInterface/CompDocsBilling'
 import CompTypeDisc from './Components/CompInterface/CompTypeDisc'
 import './css/style.css'
-import TestTelcado from '../../ComponetsMenuPos/Components/TestTelcado'
 import { totalCart } from '../../../Func/FuncCart'
+import NumericKeyboard from '../../../common/NumericKeyboardProps'
+import { keyBoards } from '../../../common/Keys'
 interface ModalBillingProps {
     show: boolean
     onCloseClick: () => void
@@ -19,6 +20,7 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
     const [cliente, setCliente] = useState<any>({})
     const [showKeyBoard, setShowKeyBoard] = useState(false)
     const [methodPay, setMethodPay] = useState('Efectivo')
+    const [consumidorFinal, setConsumidorFinal] = useState<any>({})
     useEffect(() => {
         setMethodPay('Efectivo')
     }, [show])
@@ -27,30 +29,11 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
     //state focus input
     const [focusID, setFocusID] = useState(false)
     /*Teclado funciones */
-    const keyboard = useRef()
     const [inputs, setInputs] = useState<any>({})
     //    const [layoutName, setLayoutName] = useState("default")
     const [inputName, setInputName] = useState("default")
 
-    const onChangeAll = (inputs: any) => {
-        setInputs({ ...inputs })
-    }
 
-    const onKeyPress = (button: string) => {
-        if (button === '{enter}') {
-            const inputsArray = Object.keys(inputs)
-            const currentIndex = inputsArray.findIndex((input) => input === inputName)
-            console.log('enter', currentIndex)
-            if (currentIndex !== -1 && currentIndex < inputsArray.length - 1) {
-                const nextInputName = inputsArray[currentIndex + 1]
-                setInputName(nextInputName)
-
-                if (keyboard.current) {
-                    (keyboard.current as any).setInput(inputs[nextInputName])
-                }
-            }
-        }
-    }
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = event.target.value
         const inputName = event.target.id
@@ -64,33 +47,17 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
         return inputs[inputName] || ""
     }
 
-    const customTeclas = {
-        default: [
-            "{esc} 1 2 3 4 5 6 7 8 9 0",
-            "Q W E R T Y U I O P {enter}",
-            "A S D F G H J K L Ñ ",
-            "Z X C V B N M {bksp}",
-            "@hotmail.com @gmail.com @ .com",
-            "{space}"
-        ],
-        shift: [
-            "1 2 3 4 5 6 7 8 9 0",
-            "Q W E R T Y U I O P",
-            "A S D F G H J K L Ñ",
-            "{shiftactivated} Z X C V B N M {bksp}",
-            "{space}"
-        ]
-    }
+
     useEffect(() => {
         setInputs({
-            value: 11,
-            razon_social: 'Consumidor Final',
-            label: 'Consumidor Final',
-            identificacion: '9999999999999',
-            telefono: '999999999',
-            direccion: 'N/A',
-            correo: 'sincorreo@gmail.com',
-            observaciones: 'Consumidor Final',
+            value: cliente.value,
+            razon_social: cliente.razon_social,
+            label: cliente.razon_social,
+            identificacion: cliente.identificacion,
+            telefono: cliente.telefono,
+            direccion: cliente.direccion,
+            correo: cliente.correo,
+            observaciones: '',
         })
     }, [])
     //test ref cambiar <---
@@ -111,17 +78,19 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
     }
     const totalFinal = totalCart()
     return (
-        <Modal isOpen={show} backdrop={'static'} size='lg' fade={false} toggle={onCloseClick}>
+        <Modal isOpen={show} backdrop={'static'} size='lg' className='' fade={false} toggle={onCloseClick}>
 
             <ModalBody className='rounded' style={{ background: '#f8f9fa' }} >
-                <Row className='mb-2 justify-content-around'>
+                <Row className='mb-2 justify-content-around bg-black text-white rounded m-0'>
                     <Col lg='10'>
                         <div className='fs-6'>{'Facturación'}</div>
                     </Col>
                     <Col>
-                        <div className='fs-16  text-success'>Total:{totalFinal}</div>
+                        <div className='fs-5 text-warning'>Total:{totalFinal.toFixed(2) || 0.00}</div>
                     </Col>
                 </Row>
+
+
                 <Row className=''>
                     <Col >
                         <Card className='rounded-3 m-0 shadow'>
@@ -133,6 +102,7 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
                                     focusID={focusID}
                                     setFocusID={setFocusID}
                                     inputreftes={inputreftes}
+                                    setConsumidorFinal={setConsumidorFinal}
                                 />
                                 <CompoFormCliente
                                     cliente={cliente}
@@ -145,6 +115,7 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
                                     inputreftes={inputreftes}
                                     inputBtn={inputBtn}
                                     setInputs={setInputs}
+                                    consumidorFinalData={consumidorFinal}
                                 />
                             </CardBody>
                         </Card>
@@ -184,12 +155,17 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
             </ModalBody >
             {
                 showKeyBoard &&
-                <TestTelcado
-                    customLayout={customTeclas}
-                    inputName={inputName}
-                    onChangeAll={onChangeAll}
-                    onKeyPress={onKeyPress}
+                <NumericKeyboard
+                    onKeyPress={(e) => console.log(e)}
+                    handleDelete={() => console.log()}
+                    btnClass='rounded'
+                    widthKey='65px'
+                    heightKey='40px'
+                    keyboards={keyBoards}
+                    gridTemplateColumns={'10'}
+                    fontSizeKey='1.2rem'
                 />
+
             }
 
         </Modal >

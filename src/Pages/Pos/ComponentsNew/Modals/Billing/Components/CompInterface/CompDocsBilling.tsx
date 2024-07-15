@@ -10,7 +10,6 @@ import { getOrdens } from '../../../../../Helpers/ApiOrders'
 import { addOrden, setIdOrder } from '../../../../../../../slices/Cart/cartSlice'
 import { useQuery } from 'react-query'
 import { getDocs, handleAbrirCajon } from '../Api/ApiDocs'
-import SimpleBar from 'simplebar-react'
 import './Components/btn.css'
 import { subFinal, totalCart, totalDescuento, totalIva, totalServicio, totalSubtotal } from '../../../../../Func/FuncCart'
 import ModalFacturacion from '../../../../../../../common/Generics/Facturacion/ModalFacturacion'
@@ -22,7 +21,6 @@ interface Props {
 }
 const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, */ inputBtn }) => {
     const [showModalFactur, setShowModalFactur] = useState(false)
-    const [items, setItems] = useState()
     const dispatch = useDispatch()
     const [showModalCobra, setShowModalCobra] = useState(false)
     const idMesa = useSelector((state: any) => state.cartSlice.idMesa)
@@ -106,7 +104,6 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
             // setInputTest(true)
         }
     }, [inputBtn])
-    const [isBtn, setIsBtn] = useState(false)
     const [newKey, setNewKey] = useState(0)
 
     const handleKeyDown = (e: any, key: any) => {
@@ -121,7 +118,6 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
                 <ModalFacturacion
                     show={showModalFactur}
                     onCloseClick={() => setShowModalFactur(false)}
-                    itemFacturacion={items}
                 />
             }
             {showModalCobra &&
@@ -153,12 +149,12 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
                         ))
                     }
                 </div>
-                <div className="form-check form-check-success my-3">
-                    <Input className="form-check-input" type="checkbox" id="formCheck8" defaultChecked />
-                    <Label className="form-check-label text-success" for="formCheck8">
+                <Button className="d-flex justify-content-center text-center" block color='primary' outline>
+                    <Input className="form-check-input border-success" type="checkbox" id="formCheck8" defaultChecked />
+                    <Label className="form-check-label" for="formCheck8">
                         Sin Detalle
                     </Label>
-                </div>
+                </Button>
                 {/*       <div className='d-flex'>
 
                     <Button block color='' className='my-2 bg-primary'
