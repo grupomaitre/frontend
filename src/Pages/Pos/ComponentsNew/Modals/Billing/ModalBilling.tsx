@@ -111,9 +111,9 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
         <Modal isOpen={show} backdrop={'static'} size='lg' className='' fade={false} toggle={onCloseClick}>
 
             {!isFetching ? <ModalBody className='rounded' style={{ background: '#f8f9fa' }} >
-                <Row className='mb-2 justify-content-around bg-black text-white rounded m-0'>
-                    <Col lg='10'>
-                        <div className='fs-6'>{'Facturación'}</div>
+                <Row className='mb-2 d-flex flex-row justify-content-between bg-black text-white rounded m-0'>
+                    <Col lg='9'>
+                        <div className='fs-6'>{'Cobrar'}</div>
                     </Col>
                     <Col>
                         <div className='fs-5 text-warning'>Total:{totalFinal.toFixed(2) || 0.00}</div>
