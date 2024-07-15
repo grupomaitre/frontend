@@ -435,7 +435,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                     onCloseClick={() => setShowModalPrecuenta(false)}
                     cart={cartNew}
                 />}
-            <Modal isOpen={show} style={{ maxWidth: '90%' }} backdrop={'static'} className='mt-3' fade={false}>
+            <Modal isOpen={show}  size='lg' backdrop={'static'} className='mt-3' fade={false}>
                 <CardHeaderModal
                     onCloseClick={onCloseClick}
                     text='Mover Items'

@@ -18,7 +18,7 @@ const ModalMensajes: React.FC<IProps> = ({ show, onCloseClick }) => {
     const [showKeyBoard, setShowKeyBoard] = useState(false)
     const [sitioImpre, setSitioImpre] = useState('')
     const [mensaje, setMensaje] = useState('')
-    const nombreMesa = useSelector((state: any) => state.cartSlice.nombreMesa)
+    const nombreMesa = useSelector((state: any) => state.cartSlice.mesacart)
 
     const sitio: any = [
         { name: 'Bebidas', icon: <Printer /> },
@@ -107,9 +107,9 @@ const ModalMensajes: React.FC<IProps> = ({ show, onCloseClick }) => {
     return (
         <Modal isOpen={show} toggle={onCloseClick} size='md' className='mt-0' fade={false}>
             <ModalHeader toggle={onCloseClick} >
-                {'Sitio de Impreción : ' + sitioImpre}
+                {'Sitio de Impreción : ' + sitioImpre || ''}
             </ModalHeader>
-            <ModalBody className='bgcolorTheme'>
+            <ModalBody className='bg-gray'>
 
                 <div className=''>
                     <ButtonGroup vertical className='bg-white rounded w-100'>
@@ -146,7 +146,7 @@ const ModalMensajes: React.FC<IProps> = ({ show, onCloseClick }) => {
 
                 </div>
                 <div className='d-flex justify-content-between'>
-                    <Label className='text-white'> {'Mesa :' + nombreMesa}</Label>
+                    <Label className='text-white'> {'Mesa :' + nombreMesa || ''}</Label>
 
                 </div>
                 <div className='d-flex align-items-center'>
