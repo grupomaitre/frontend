@@ -23,6 +23,8 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     const nombre_mesa = (sessionStorage.getItem('nombre_mesa') || '')
     const id_mesa: any = (sessionStorage.getItem('id_mesa' || ''))
     const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
+    const total = totalCart()
+
     const [showModal, setShowModal] = useState<boolean>(false)
     const [isMismaCuenta, setIsMismaCuenta] = useState<boolean>(false)
     const dispatch = useDispatch()
@@ -37,7 +39,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     const [idTempCuenta, setIdTempCuenta] = useState<number>()
     //disabled inputs mesa
     const [disabledCuenta1, setdisabledCuenta1] = useState(false)
-    const [disableArrowRight, setDisableArrowRight] = useState(false)
+    const [disableArrowRight, setDisableArrowRight] = useState(true)
     const [inputDisabledCuenta2, setInputDisabledCuenta2] = useState(false)
     //efectos iniciales
     //useeffec
@@ -87,50 +89,26 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     //end keyboard
 
 
-
+    //guardar newCart y edit cart old
     const onEditCart = async () => {
-
+        const id_cart_2 = (sessionStorage.getItem('id_cart_2') || '')
         const cantidad = cartNew.reduce((acc: any, item: any) => acc + item.cantidad, 0)
-        const res: any = await statusMudarItem(parseFloat(id_mesa), cartNew, cantidad, orden, pax, idCajaLocal, vendedor, id_user, idTempCuenta)
-        console.log(res)
-        handlesaveCart()
-        await axios.patch('api/v1/update-group-cart', {
-            idCart: idCart,
-            cart: cartNew,
-        })
-        dispatch(clearCuenta())
-        dispatch(clearCart())
-
-    }
-    const handlesaveCart = async () => {
-        const total = totalCart()
-
-        const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
-        const cantidad = cartNew.reduce((acc: any, item: any) => acc + item.cantidad, 0)
-        try {
-
-
-            const result = await saveCart(cartNew, cantidad, orden, parseInt(inputValues[1]), pax || 0, idCajaLocal || idCajaLocal, vendedor, id_user, total)
-
-            if (result) {
-                onCloseClick()
-                dispatch(setVendedorSlice(''))
-                dispatch(clearIDMesa(0))
-                dispatch(clearMesa())
-                dispatch(clearCart())
-                dispatch(clearPax())
-                dispatch(setIDCart(0))
-                dispatch(setIsCartSuccess(false))
-                dispatch(setIDUser(0))
-                socketTest.emit('actualizarMesas')
-
-            }
-
-        } catch (error) {
-            console.log(error)
-
+        const res: any = await statusMudarItem(parseFloat(id_mesa), cartNew, cantidad, orden, pax, idCajaLocal, vendedor, id_user, parseFloat(id_cart_2))
+        if (res) {
+            await axios.patch('api/v1/update-group-cart', {
+                idCart: idCart,
+                cart: cartNew,
+            })
+            dispatch(clearCuenta())
+            dispatch(clearCart())
+            onCloseClick()
+            sessionStorage.removeItem('id_cart_2')
+            socketTest.emit('actualizarMesas')
+            handleClose()
         }
+
     }
+
     const handleClearCuentaMain = () => {
         setInputValues(prevInputValues => {
             const newInputValues = [...prevInputValues]
@@ -156,6 +134,8 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     }
     const onConfimation = async () => {
         const res = await openCuenta((id_mesa), cuenta, idCart)
+        console.log(res?.id_cart)
+        sessionStorage.setItem('id_cart_2', res?.id_cart)
         setIdTempCuenta(res.id_temp_cuenta)
         setShowModal(false)
         setInputValues(prevInputValues => {
@@ -313,6 +293,8 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
         console.log(cantidad)
         if (cantidad === 1) {
             setDisableArrowRight(true)
+        } else {
+            setDisableArrowRight(false)
         }
     }, [cart])
 

@@ -62,7 +62,7 @@ export const deleteTempCuenta = async (id: number) => {
         return error
     }
 }
-export const statusMudarItem = async (id_mesa: number, cartNew: any, cantidad: any, orden: any, pax: any, id_caja: any, vendedor: any, id_user: any, idTempCuenta: any) => {
+export const statusMudarItem = async (id_mesa: number, cartNew: any, cantidad: any, orden: any, pax: any, id_caja: any, vendedor: any, id_user: any, id_cart_2: number) => {
 
     const data = {
         status: true,
@@ -74,7 +74,7 @@ export const statusMudarItem = async (id_mesa: number, cartNew: any, cantidad: a
         id_caja_diaria: id_caja,
         vendedor: vendedor,
         id_user: id_user,
-        id_temp_cuenta: idTempCuenta
+        id_cart_2: id_cart_2
     }
 
     try {

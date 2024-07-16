@@ -73,7 +73,7 @@ function TableContainer(props: IProps) {
                                     onClick={() => toggleSeleccion(index, item)}
                                 />
                             </td>
-                            <td className='text-uppercase'>{item.nombre}</td>
+                            <td className='text-uppercase'>{item.sub_orden}</td>
                             <td>{'Pendiente'}</td>
                             <td>{'Consumidor final'}</td>
                             <td>{item.total}</td>
