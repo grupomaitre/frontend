@@ -62,7 +62,7 @@ const InputCuenta: FC<IProps> = ({
                         onChange={(event) => onChangeProp(event, 0)}
                         handleInputClick={() => handleInputClick(0)}
                         handleKeydown={handleKeydown}
-                        classInput='text-center input-border rounded-2 shadow'
+                        classInput='text-center input-border rounded-2 shadow text-uppercase'
                         styleInput={{ fontSize: '1.7rem' }}
                         disabled={inputMesa}
                         type='text'
