@@ -7,6 +7,21 @@ import axios from "axios";
 } */
 import { toastError } from "../../../Components/Common/Swals/SwalsApi";
 import { verCarrro } from "./ApiGetAllCart";
+export const searchMesa = async (mesa: string) => {
+    try {
+        const response = await axios.get('api/buscar-mesa', {
+            params: {
+                nombre_mesa: mesa,
+                id_mesa: mesa,
+            },
+        });
+        if (response) {
+            return response
+        }
+    } catch (error) {
+        return error
+    }
+}
 export const BuscarMesa = async (mesa: string, id_cart: number): Promise<any> => {
     try {
         const response = await axios.get('api/buscar-mesa', {

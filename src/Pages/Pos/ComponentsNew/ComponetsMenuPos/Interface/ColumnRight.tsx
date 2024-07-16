@@ -1,6 +1,6 @@
 
 const ColumnRight = (props: any) => {
-    const { activeRow, setProductLeft } = props
+    const { activeRow } = props
     const columns = [
         {
             Header: 'Cant',
@@ -12,7 +12,7 @@ const ColumnRight = (props: any) => {
             Cell: ({ row }: any) => (
                 <div className='d-flex align-items-center'
                     style={{ background: activeRow === row.original.id_product ? '#39698a' : '', color: activeRow === row.original.id_product ? '#fff' : '' }}
-                    onClick={() => setProductLeft(row.original)}>
+                    onClick={() => console.log(row.original)}>
                     <span >{row.original.nombre}</span>
 
                 </div>
