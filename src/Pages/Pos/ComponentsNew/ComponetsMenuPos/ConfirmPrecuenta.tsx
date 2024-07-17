@@ -24,12 +24,16 @@ const ConfirmPrecuenta: FC<IProps> = ({ show, onCloseClick, cart }) => {
         idCart: state.cartSlice.idCart
 
     }))
-    const total = cart.reduce((acc: any, el: any) => acc + (el.cantidad * el.total), 0)
-    const subTotal = cart.reduce((sum: any, item: any) => sum + item.precio, 0)
-    const iva = cart.reduce((sum: any, item: any) => sum + item.total_iva, 0)
-    const servicio = cart.reduce((sum: any, item: any) => sum + item.tota_servicio, 0)
+    const subFinal = cart.reduce((acc: number, el: any) => acc + ((parseFloat(el.cantidad) * parseFloat(el.precio))), 0)
+    const totaldescuento = cart.reduce((acc: any, el: any) => acc + (parseFloat(el.descuento)), 0)
+    const subServiciototal = cart.reduce((acc: any, el: any) => acc + ((parseFloat(el.cantidad) * parseFloat(el.precio) - parseFloat(el.descuento)) * el.servicio / 100), 0)
+
+    const subTotal = (subFinal - totaldescuento) || 0
+    const totalIva = subTotal * 15 / 100
 
     const onGenerar = async () => {
+        const terminal = (localStorage.getItem('terminal') || '')
+        const empresa: any = JSON.parse(sessionStorage.getItem('authUser') || '')
         try {
 
             const statusMesa = await axios.post('/api/status-precuenta-mesa', {
@@ -51,11 +55,13 @@ const ConfirmPrecuenta: FC<IProps> = ({ show, onCloseClick, cart }) => {
                         orden: orden,
                         mesero: vendedor,
                         cart: cart,
-                        subTotal: subTotal,
-                        descuento: 0,
-                        iva: iva,
-                        servicio: servicio,
-                        total: total
+                        subTotal: subTotal.toFixed(2),
+                        descuento: totaldescuento.toFixed(2),
+                        iva: totalIva,
+                        servicio: subServiciototal,
+                        total: (subTotal + subServiciototal + totalIva).toFixed(2),
+                        terminal: terminal,
+                        empresa: empresa?.company || ''
                     }
                 })
 
