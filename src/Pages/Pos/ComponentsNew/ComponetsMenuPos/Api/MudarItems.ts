@@ -33,14 +33,28 @@ export const opMudarItems = async (
 
 }
 
-export const openCuenta = async (id_mesa: number, cuenta: string, id_cart: number) => {
+export const openCuenta = async (
+    orden: number | string,
+    pax: number,
+    responsable: string,
+    id_user: number,
+    id_caja_diaria: number,
+    id_mesa: number,
+    cuenta: string,
+    id_cart: number
+) => {
     try {
 
         const result = await axios.post('/api/v1/open/temp-cuenta', {
             status: true,
             id_mesa: id_mesa,
             nombre: cuenta,
-            id_cart: id_cart
+            id_cart: id_cart,
+            orden: orden,
+            responsable: responsable,
+            id_user: id_user,
+            id_caja_diaria: id_caja_diaria,
+            pax: pax,
         })
 
         if (result.status) {
@@ -62,7 +76,18 @@ export const deleteTempCuenta = async (id: number) => {
         return error
     }
 }
-export const statusMudarItem = async (id_mesa: number, cartNew: any, cantidad: any, orden: any, pax: any, id_caja: any, vendedor: any, id_user: any, id_cart_2: number) => {
+export const statusMudarItem = async (
+    id_mesa: number,
+    cartNew: any,
+    cantidad: any,
+    orden: any,
+    pax: any,
+    id_caja: any,
+    vendedor: any,
+    id_user: any,
+    id_cart_2: number,
+    total: number
+) => {
 
     const data = {
         status: true,
@@ -74,7 +99,8 @@ export const statusMudarItem = async (id_mesa: number, cartNew: any, cantidad: a
         id_caja_diaria: id_caja,
         vendedor: vendedor,
         id_user: id_user,
-        id_cart_2: id_cart_2
+        id_cart_2: id_cart_2,
+        total: total
     }
 
     try {

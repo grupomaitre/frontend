@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState, createRef } from 'react'
 import { Button, Card, CardFooter, CardHeader, Col, Modal, ModalBody } from 'reactstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearCuenta, setNewCartCuenta } from '../../../../slices/Cart/cuentaSlice'
-import { clearCart, clearIDMesa, clearMesa, clearPax, setIDCart, setIDUser, setIsCartSuccess, setIsPreference, setNewCart, setVendedorSlice } from '../../../../slices/Cart/cartSlice'
+import { clearCart, clearIDMesa, clearMesa, setIDUser, setIsPreference, setVendedorSlice } from '../../../../slices/Cart/cartSlice'
 import { IModalMudarItem, IrefInput } from './Interface/InterMudarItem'
 import { socketTest } from '../../Socket/ConctSocket'
 import { BuscarMesa, searchMesa } from '../../Helpers/ApiMesas'
@@ -12,8 +12,7 @@ import ConfirMudarItem from './CompoMudarItem/ConfirMudarItem'
 import { deleteTempCuenta, opMudarItems, openCuenta, statusMudarItem } from './Api/MudarItems'
 import axios from 'axios'
 import './css/styleMudarItem.css'
-import { totalCart } from '../../Func/FuncCart'
-import { saveCart } from '../../Helpers/ApiCart'
+import { totalCartTwo } from '../../Func/FuncCart'
 import CardHeaderModal from '../../../../common/CardHeaderModal'
 import { setInputMesa, setInputVendedor } from '../../../../slices/Cart/cartStatusSlice'
 import InputCuentaOneMudarItems from './CompoMudarItem/InputCuentaOneMudarItems'
@@ -23,7 +22,6 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     const nombre_mesa = (sessionStorage.getItem('nombre_mesa') || '')
     const id_mesa: any = (sessionStorage.getItem('id_mesa' || ''))
     const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
-    const total = totalCart()
 
     const [showModal, setShowModal] = useState<boolean>(false)
     const [isMismaCuenta, setIsMismaCuenta] = useState<boolean>(false)
@@ -88,12 +86,25 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     }
     //end keyboard
 
+    const totalCartNew = totalCartTwo()
 
     //guardar newCart y edit cart old
     const onEditCart = async () => {
+
         const id_cart_2 = (sessionStorage.getItem('id_cart_2') || '')
         const cantidad = cartNew.reduce((acc: any, item: any) => acc + item.cantidad, 0)
-        const res: any = await statusMudarItem(parseFloat(id_mesa), cartNew, cantidad, orden, pax, idCajaLocal, vendedor, id_user, parseFloat(id_cart_2))
+        const res: any = await statusMudarItem(
+            parseFloat(id_mesa),
+            cartNew,
+            cantidad,
+            orden,
+            pax,
+            idCajaLocal,
+            vendedor,
+            id_user,
+            parseFloat(id_cart_2),
+            totalCartNew)
+
         if (res) {
             await axios.patch('api/v1/update-group-cart', {
                 idCart: idCart,
@@ -133,8 +144,9 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
 
     }
     const onConfimation = async () => {
-        const res = await openCuenta((id_mesa), cuenta, idCart)
-        console.log(res?.id_cart)
+        const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
+
+        const res = await openCuenta(orden, pax, vendedor, id_user, idCajaLocal, (id_mesa), cuenta, idCart)
         sessionStorage.setItem('id_cart_2', res?.id_cart)
         setIdTempCuenta(res.id_temp_cuenta)
         setShowModal(false)
@@ -282,6 +294,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
         dispatch(setIDUser(0))
         dispatch(setIsPreference(false))
         onCloseClick()
+        sessionStorage.removeItem('id_cart_2')
         return
         await deleteTempCuenta(idTempCuenta || 0)
         setIdTempCuenta(0)
