@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Modal, ModalHeader, ModalBody, Input, Button, Label, ButtonGroup } from 'reactstrap'
 import BtnPosModal from '../../../../Components/Common/Buttons/BtnPosModal'
@@ -6,6 +6,7 @@ import axios from 'axios'
 import { SwalInfo } from '../../../../Components/Common/Swals/SwalsApi'
 import TestTelcado from './Components/TestTelcado'
 import { Printer, Menu } from 'react-feather'
+import { useSitioImpresion } from './Api/ApiMensajes'
 /* interface IStitio {
     name: string
 } */
@@ -15,16 +16,18 @@ interface IProps {
 }
 const ModalMensajes: React.FC<IProps> = ({ show, onCloseClick }) => {
     //   const [activeItem, setActiveItem] = useState({})
+    const [sitios, setSitios] = useState([])
     const [showKeyBoard, setShowKeyBoard] = useState(false)
-    const [sitioImpre, setSitioImpre] = useState('')
+    const [sitioImpre, setSitioImpre] = useState({ direccion_impresora: null, sitio: null })
     const [mensaje, setMensaje] = useState('')
     const nombreMesa = useSelector((state: any) => state.cartSlice.mesacart)
+    const query = useSitioImpresion()
+    useEffect(() => {
+        if (!query.isFetching) {
+            setSitios(query.data)
+        }
+    }, [])
 
-    const sitio: any = [
-        { name: 'Bebidas', icon: <Printer /> },
-        { name: 'Cocinas', icon: <Printer /> },
-        { name: 'Postres', icon: <Printer /> },
-    ]
     const msmDefecto = [
         { name: 'Mensaje 1' },
         { name: 'Mensaje 2' },
@@ -34,15 +37,17 @@ const ModalMensajes: React.FC<IProps> = ({ show, onCloseClick }) => {
          setActiveItem(item)
      } */
     const onPrint = async () => {
-
+        const terminal = (localStorage.getItem('terminal') || '')
         try {
             const msmTeclado = inputs.preferencias || '';
 
             const print = await axios.get('/api/mensaje-print', {
                 params: {
-                    placePrint: sitioImpre,
+                    direccion_impresora: sitioImpre.direccion_impresora,
+                    sitio: sitioImpre.sitio,
                     nombreMesa: nombreMesa,
                     mensaje: mensaje + ' ' + msmTeclado,
+                    terminal: terminal || ''
                 }
             })
 
@@ -105,26 +110,32 @@ const ModalMensajes: React.FC<IProps> = ({ show, onCloseClick }) => {
         ]
     }
     return (
-        <Modal isOpen={show} toggle={onCloseClick} size='md' className='mt-0' fade={false}>
+        <Modal isOpen={show} toggle={onCloseClick} size='md' className='' fade={false}>
             <ModalHeader toggle={onCloseClick} >
-                {'Sitio de Impreción : ' + sitioImpre || ''}
+                {'Sitio de Impreción  '}
             </ModalHeader>
             <ModalBody className='bg-gray'>
 
                 <div className=''>
                     <ButtonGroup vertical className='bg-white rounded w-100'>
                         {
-                            sitio.map((item: any, key: number) => (
+                            sitios.map((item: any, key: number) => (
                                 <Button
                                     key={key}
-                                    onClick={() => setSitioImpre(item.name)}
+                                    onClick={() => setSitioImpre({ direccion_impresora: item.direccion_impresora, sitio: item.sitio_impresora })}
                                     block
+                                    disabled={item.direccion_impresora === null ? true : false}
                                     color='light'
-                                    className=' mx-0 p-1  d-flex  rounded-0 d-flex justify-content-between border'
+                                    className=' mx-0 p-1 text-uppercase d-flex  rounded-0 d-flex justify-content-between border'
                                 >
-                                    <span>{item.name}</span>
-                                    <span>{item.icon}</span>
+                                    {
+                                        item.direccion_impresora === null
+                                            ? <span>{item.sitio_impresora} - <span className='fs-10 text-lowercase'>Impresora No Asignada</span>  </span>
+                                            : item.sitio_impresora
+                                    }
+                                    <Printer />
                                 </Button>
+
                             ))
                         }
                     </ButtonGroup>
