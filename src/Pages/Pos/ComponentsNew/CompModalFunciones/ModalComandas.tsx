@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
-import { Card, CardBody, CardHeader, Modal, ModalBody, ModalHeader } from 'reactstrap'
-import BtnPosModal from '../../../../Components/Common/Buttons/BtnPosModal'
+import { Card, CardBody, Modal, ModalBody } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import TableGeneric from '../../../../common/Generics/Table/TableGeneric'
+import CardHeaderModal from '../../../../common/CardHeaderModal'
 interface IProps {
     show: boolean
     onCloseClick: () => void
@@ -11,7 +11,6 @@ interface IProps {
 const ModalComandas: FC<IProps> = ({ show, onCloseClick }) => {
     const [data, setData] = React.useState<any>()
     const [selectItemRow, setSelectItemRow] = React.useState<any>()
-    console.log('delet', selectItemRow)
     const id_cart = useSelector((state: any) => state.cartSlice.idCart)
 
     const columns = React.useMemo(
@@ -66,14 +65,15 @@ const ModalComandas: FC<IProps> = ({ show, onCloseClick }) => {
         getCartProducts()
     }, [])
     return (
-        <Modal isOpen={show} toggle={onCloseClick} size='xl'>
-            <ModalHeader toggle={onCloseClick} />
+        <Modal isOpen={show} toggle={onCloseClick} size='lg'>
+            <CardHeaderModal
+                onCloseClick={onCloseClick}
+                text='Lista Comandas'
+                classHeader='p-2'
+            />
             <ModalBody className='rounded bg-gray' >
 
                 <Card>
-                    <CardHeader>
-                        Lista Comandas
-                    </CardHeader>
                     <CardBody>
                         <TableGeneric
                             showFilter={false}
@@ -83,19 +83,15 @@ const ModalComandas: FC<IProps> = ({ show, onCloseClick }) => {
                             selectItemRow={setSelectItemRow}
                             divClass='table-responsive text-black bg-table'
                             tableClass='cursor-pointer w-100'
-                            theadClass='position-sticky top-0 bg-table '
-                            thClass='fs-14 fw-light border'
-                            tbodyClass='bg-table-td'
+                            theadClass='position-sticky top-0 page-bg text-white '
+                            thClass='fs-13 fw-bold border'
+                            tdClass={'border fs-12'}
                             styleHeight='300px'
                             overflowY='scroll'
                         />
 
                     </CardBody>
                 </Card>
-                <BtnPosModal
-                    onAceptarClick={onCloseClick}
-                    onCloseClick={onCloseClick}
-                />
             </ModalBody>
         </Modal>
     )
