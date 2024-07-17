@@ -14,7 +14,6 @@ interface IProps {
 
 function TableContainer(props: IProps) {
     const { items, handleRow, selectItem, setSelectItem, buscarCartProducts } = props
-    console.log(items)
     const [seleccion, setSeleccion] = useState<number[]>([])
     const dispatch = useDispatch()
     const toggleSeleccion = (index: number, item: any) => {
