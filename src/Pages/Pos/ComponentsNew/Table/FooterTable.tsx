@@ -37,19 +37,18 @@ const FooterTable: FC<IProps> = ({ orden }) => {
     }, [mesa])
     return (
 
-        <div className='d-flex  justify-content-between p-1 rounded-top-1' style={{ background: '#034460' }}>
+        <div className='d-flex  justify-content-between p-1 ' style={{ background: '#034460' }}>
             <div style={{ border: '1px solid rgb(251, 180, 0,0.5)' }} className='px-1 py-1'>
                 {
                     itemsTotals.map((item, key) => (
                         <div className='mb-1 d-flex align-items-center justify-content-between' key={key}>
 
-                            <span className='text-white ' style={{ fontSize: '9px' }}>{item.name}</span>
+                            <span className='text-white ' style={{ fontSize: '9px', userSelect: 'none' }}>{item.name}</span>
                             <Input
                                 type="text"
                                 className='rounded-0 text-end fs-12'
                                 placeholder='0.00'
                                 value={item.value || 0.00}
-                                // value={Math.round(item.value * 100) / 100 || 0.00}
                                 readOnly
                                 style={{ height: '20px', width: '70px' }} />
 
@@ -58,18 +57,22 @@ const FooterTable: FC<IProps> = ({ orden }) => {
                 }
             </div>
             <div className='text-center w-100'>
-                <div className='bg-black ' >
-                    <span style={{ color: '#33ff00', fontSize: '35px' }} className=''> {totalCart.toFixed(2)}{/*  {(Math.round((totalCart * 100) / 100) || 0.00)} */}</span>
+                <div className='bg-black ' style={{ border: '1px solid rgb(251, 180, 0,0.5)', userSelect: 'none' }} >
+                    <span style={{ color: '#33ff00', fontSize: '35px' }} className='d-flex justify-content-around align-items-center'>
+                        <Label className='' style={{ color: '#ff3a00', fontSize: '35px' }}>Total:</Label>
+                        <Label>    {totalCart.toFixed(2)}</Label>
+                    </span>
                 </div>
-                <Label className='' style={{ color: '#ff3a00', fontSize: '30px' }}>Total</Label>
 
-                <Row className='fs-11 text-white'>
-                    <Col>
-                        {totalAnulado ? <span className='badge bg-danger fs-10'>Anulados:{totalAnulado}</span> : ''}
+
+                <Row className='fs-11 text-white mt-1'>
+                    <Col lg='6' className='border-end'>
+                        {totalAnulado ? <span className='badge bg-danger fs-10'>Anulados:{totalAnulado || 55}</span> : ''}
                     </Col>
-                    <Col>
-                        <Label className='' >Orden: {idCart || 0}</Label>
-                        <Label className='' >Factura: {orden}</Label>
+                    <Col lg='6' className='d-flex flex-column align-items-center justify-content-around'>
+                        <span className='' >Orden: {idCart || 0}</span>
+                        <span className='' >Factura 001-002: {orden}</span>
+                        <span className='' >Consumo Personal: {orden}</span>
                     </Col>
                 </Row>
             </div>

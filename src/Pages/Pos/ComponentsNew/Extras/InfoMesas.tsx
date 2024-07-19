@@ -9,7 +9,7 @@ export const InfoMesas = () => {
 
     ]
     return (
-        <div className='d-flex flex-row  justify-content-around align-items-center rounded-0' style={{ background: '#07709d' }}>
+        <div className='d-flex flex-row  justify-content-around align-items-center rounded-0' style={{ background: '#07709d', userSelect: 'none' }} >
             {
                 items.map((item, key) => (
 

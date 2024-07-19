@@ -137,16 +137,15 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
                     items={{}}
                 />}
             <div >
-                <div style={{ background: '#3578a2' }} className='text-end roudned shadow-lg  w-100' >
+                <div style={{ background: '#3578a2' }} className='text-end roudned shadow-lg  w-100 ' >
                     <div className=''>
-                        <SimpleBar autoHide={false} style={{ maxHeight: "176px" }} className="simplebar-track-danger">
+                        <SimpleBar autoHide={false} style={{ maxHeight: "197px", height: '197px' }} className="simplebar-track-danger">
 
-                            <div className='gridContainerMesas ' >
+                            <div className='gridContainerMesas p-1' >
                                 {
                                     mesas.map((item: any, key) => (
-                                        /*  item.status === 3 ? null : */
                                         <span key={key}
-                                            className={"rounded   d-flex  flex-column align-items-center  spanMesa border border-light shadow text-center  " +
+                                            className={"rounded fs-15   d-flex  flex-column align-items-center  spanMesa border-sistema shadow text-center  " +
                                                 (item.status ? 'backgroundSuccess fw-bold' :
                                                     item.status_cobrar ? 'backgroundredCobrar fw-bold text-white' :
                                                         item.status_precuenta ? 'bgPrecuenta fw-bold text-white'
