@@ -89,6 +89,9 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
 
         } else if (item.status_precuenta) {
             handleGetAllCartClick(item)
+            if (item.status_mudar_item) {
+                setShowModalMudarItem(true)
+            }
             console.log('4')
         }
         else {
