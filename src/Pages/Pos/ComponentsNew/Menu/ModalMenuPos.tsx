@@ -56,6 +56,8 @@ const ModalMenuPos: FC<IPropsMenuPos> = ({
 
 }) => {
     const cart = useSelector((state: any) => state.cartSlice.cart)
+    const nombreMesa = useSelector((state: any) => state.cartSlice.mesacart)
+
     return (
         <>
             {/* salir */}
@@ -80,6 +82,7 @@ const ModalMenuPos: FC<IPropsMenuPos> = ({
                     show={showModalPrecuenta}
                     onCloseClick={() => setShowModalPrecuenta(false)}
                     cart={cart}
+                    nombreMesa={nombreMesa}
                 />}
             {/* Modal Anulacion */}
             {showModalAnulacion &&

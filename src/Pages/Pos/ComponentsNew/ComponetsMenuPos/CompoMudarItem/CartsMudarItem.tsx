@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Button, CardBody, Col, Input, Label, Row } from 'reactstrap'
+import { Badge, Button, CardBody, Col, Input, Label, Row } from 'reactstrap'
 import GloblaTable from '../../../../../common/Generics/Table/GloblaTable'
 import InputKeyBoard from '../../Cards/CardOrders/InputKeyBoard'
 import NumericKeyboard from '../../../common/NumericKeyboardProps'
@@ -9,7 +9,7 @@ import { addCartPrueba, minusCart } from '../../../../../slices/Cart/cartSlice'
 import { addCuenta, removeCuenta } from '../../../../../slices/Cart/cuentaSlice'
 import ColumnRight from '../Interface/ColumnRight'
 import { totalCartFunc } from '../../../Func/Caculos'
-import ConfirmPrecuenta from '../ConfirmPrecuenta'
+import BtnPreCuentaMudarItem from './BtnPreCuentaMudarItem'
 interface IProps {
     inputValues: any
     inputRefs: any
@@ -38,7 +38,6 @@ const CartsMudarItem: FC<IProps> = ({
     const cartNew = useSelector((state: any) => state.cuentaSlice.cartNew)
     const [selectItemRow, setSelectItemRow] = useState<any>({})
     const [selectItemRow2, setSelectItemRow2] = useState<any>({})
-    const [showModalPrecuenta, setShowModalPrecuenta] = useState(false)
     const [showKeyBoard, setShowKeyBoard] = useState(false)
 
     const columns1 = [
@@ -89,15 +88,9 @@ const CartsMudarItem: FC<IProps> = ({
     const totalCartNew = totalCartFunc(cartNew || [])
     return (
         <>
-            {/* precuenta modal */}
-            {showModalPrecuenta &&
-                <ConfirmPrecuenta
-                    show={showModalPrecuenta}
-                    onCloseClick={() => setShowModalPrecuenta(false)}
-                    cart={cartNew}
-                />}
+
             <CardBody className=''>
-                <Row className='mb-2 border-bottom'>
+                <Row className='border-bottom'>
                     <Col className='rounded ' lg='5'>
 
                         <GloblaTable
@@ -111,32 +104,24 @@ const CartsMudarItem: FC<IProps> = ({
                             styleHeight='150px'
                         />
                     </Col>
+
                     <Col lg='2' >
-                        <Button block
-                            className='mb-2'
-                            color='success'
-                            onClick={() => setShowModalPrecuenta(true)}
-                        >
-                            Precuenta
-                        </Button>
-                        <Input type='text' className='mb-2  inputMudar' placeholder='Cant' />
+
                         <div className='d-flex flex-column '>
                             <Button color='success'
                                 outline
                                 disabled={disableArrowRight}
-                                className='rounded shadow' onClick={() => moveRight()}><ArrowRight /></Button>
+                                className='rounded shadow-sm' onClick={() => moveRight()}><ArrowRight /></Button>
                             <Button
                                 color='danger'
-                                //  disabled={disableLeft}
                                 outline
-                                className='rounded my-3 shadow' onClick={() => moveLeft()}><ArrowLeft /></Button>
+                                className='rounded my-3 shadow-sm' onClick={() => moveLeft()}><ArrowLeft /></Button>
+                            <Input type='text' className='border-sistema text-center' bsSize='sm' placeholder='Cant' />
 
                         </div>
                     </Col>
                     <Col className=' rounded' lg='5'>
                         <GloblaTable
-                            /*       showFilter={false}
-                                  showFooter={false} */
                             columns={columns || []}
                             data={cartNew || []}
                             setSelectItemRowInv={(e: any) => setSelectItemRow2(e)}
@@ -144,27 +129,31 @@ const CartsMudarItem: FC<IProps> = ({
                             tableClass='cursor-pointer w-100'
                             theadClass='position-sticky top-0 bg-table '
                             thClass='fs-11 fw-light border'
-                            /*        tbodyClass='bg-gray' */
                             styleHeight='150px'
-                        /*        overflowY='scroll' */
                         />
 
                     </Col>
                 </Row>
-                <Row className='text-warning bg-black'>
-                    <Col lg='6' className='d-flex justify-content-around'>
-                        <Label>Total:</Label>
-                        <Label>{Math.round((totalCartFinal) * 100) / 100 || 0}</Label>
+
+                <Row className='text-warning  py-1 '>
+                    <Col lg='5' className=''>
+                        <Badge color="warning" className='fs-7'>
+                            Total:{(totalCartFinal).toFixed(2) || 0}
+                        </Badge>
                     </Col>
-                    <Col lg='6' >
-                        <Label className='float-end'>Total:{(totalCartNew).toFixed(2) || 0}</Label>
+                    <Col lg='7' className=''>
+                        <Badge color='warning' className='float-end '>Total:{(totalCartNew).toFixed(2) || 0}</Badge>
                     </Col>
                 </Row>
+
+                <BtnPreCuentaMudarItem />
+
+
                 <Row className='d-flex justify-content-between text-black'>
                     <Col lg='2' className='d-flex align-items-center'>
-                        <Label>Pax: </Label>
 
                         <InputKeyBoard
+                            placeholder='Pax'
                             inputRef={inputRefs.current[2]}
                             value={inputValues[2]}
                             onChange={(event) => handleInputChange(event, 2)}
@@ -178,10 +167,17 @@ const CartsMudarItem: FC<IProps> = ({
                             styleInput={{ height: '40px', borderRadius: '0' }}
                         />
                     </Col>
+                    <Col lg='2'>
+                        <Button
+                            block
+                            outline
+                            color='success'
+                            onClick={() => setShowKeyBoard(!showKeyBoard)}
+                        >Teclado</Button>
+                    </Col>
                     <Col lg='2' className='d-flex align-items-center'>
-                        <Label>Pax: </Label>
-
                         <InputKeyBoard
+                            placeholder='Pax'
                             inputRef={inputRefs.current[3]}
                             value={inputValues[3]}
                             onChange={(event) => handleInputChange(event, 3)}
@@ -196,18 +192,9 @@ const CartsMudarItem: FC<IProps> = ({
                         />
                     </Col>
                 </Row>
-                <Row className='my-2'>
-                    <Col lg='2'>
-                        <Button
-                            block
-                            outline
-                            color='success'
-                            onClick={() => setShowKeyBoard(!showKeyBoard)}
-                        >Teclado</Button>
-                    </Col>
-                </Row>
-                {showKeyBoard && <Row className='mt-2'>
-                    <Col lg=''>
+
+                {showKeyBoard && <Row className='mt-2 bg-gray  border'>
+                    <Col lg='10'>
 
                         <NumericKeyboard
                             handleDelete={() => handleDelete()}
@@ -223,13 +210,13 @@ const CartsMudarItem: FC<IProps> = ({
                             fontSizeKey='1.55rem'
                             heightBtnDelete='50px'
                             widthBorrar='80px'
-                            fondoKey='#e6ecec'
                             colorKeys='#13284e'
                             gridColumn='span 1'
                             sizeBorrar={'0.9rem'}
                             bgDelete={'#ff0000'}
                             colorDelete={'#fff'}
                             showDelete={true}
+                            btnClass='rounded fs-19 shadow-sm'
 
                         />
                     </Col>
@@ -245,7 +232,7 @@ const CartsMudarItem: FC<IProps> = ({
                             {'Borrar'}
                         </Button>
                     </Col>
-                    <Col lg='2' >
+                    {/*          <Col lg='2' >
                         <Button
                             block
                             onClick={() => handleEnter()}
@@ -255,7 +242,7 @@ const CartsMudarItem: FC<IProps> = ({
                         >
                             {'Enter'}
                         </Button>
-                    </Col>
+                    </Col> */}
 
                 </Row>}
             </CardBody>

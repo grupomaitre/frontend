@@ -64,7 +64,7 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
     const handleStatusMesa = (item: any) => {
         sessionStorage.setItem('nombre_mesa', item.nombre_mesa)
         sessionStorage.setItem('id_mesa', item.id_mesa)
-        console.log(item)
+        //   console.log(item)
         if (item.status) {
             if (item.status_mudar_item) {
                 dispatch(setIdMesa(item.id_mesa))

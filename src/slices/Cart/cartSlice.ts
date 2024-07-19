@@ -132,7 +132,6 @@ const cartSlice = createSlice({
                 }, */
         addCartPrueba(state, action: PayloadAction<any>) {
             const producto = action.payload;
-            console.log(producto)
             // Verificar si el objeto producto está vacío o si no se ha proporcionado una carga útil
             if (!producto || Object.keys(producto).length === 0) {
                 // No hacer nada si el objeto producto está vacío o no se proporciona ninguna carga útil

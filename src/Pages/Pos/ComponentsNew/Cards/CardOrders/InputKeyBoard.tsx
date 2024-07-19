@@ -16,9 +16,10 @@ interface InputCantProps {
     handleInputFocus?: (index: number) => void
     bsSize?: string | any
     dataSelect?: any
+    placeholder?: string
 }
 const InputKeyBoard: FC<InputCantProps> = (props) => {
-    const { inputRef, value, onChange, handleInputClick, handleKeydown, classInput, styleInput, handleInputFocus, bsSize, dataSelect } = props
+    const { inputRef, value, onChange, handleInputClick, handleKeydown, classInput, styleInput, handleInputFocus, bsSize, dataSelect, placeholder } = props
     const handleFunctioKey = (e: any) => {
         if (e.key === 'Enter') {
             handleKeydown()
@@ -39,6 +40,7 @@ const InputKeyBoard: FC<InputCantProps> = (props) => {
 
                     :
                     <Input
+                        placeholder={placeholder}
                         bsSize={bsSize}
                         className={classInput}
                         style={styleInput}

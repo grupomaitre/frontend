@@ -65,9 +65,14 @@ export const openCuenta = async (
         return toastError({ message: error })
     }
 }
-export const deleteTempCuenta = async (id: number) => {
+export const deleteTempCuenta = async (id: number, idCart: number) => {
     try {
-        const res = await axios.delete(`/api/v1/delete/temp-cuenta/${id}`)
+        const res = await axios.post('/api/v1/delete/temp-cuenta',
+            {
+                id_cart_2: id,
+                id_cart: idCart
+            }
+        )
         if (res.status) {
             return res
         }

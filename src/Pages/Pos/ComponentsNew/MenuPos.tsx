@@ -37,6 +37,7 @@ interface IProps {
 const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemUniCart }) => {
     const navigate = useNavigate()
     const cart = useSelector((state: any) => state.cartSlice.cart)
+    const nombreMesa = useSelector((state: any) => state.cartSlice.mesacart)
     const selectedProduct = useSelector((state: any) => state.productSlice.selectedProduct)
     const dispatch = useDispatch()
     const [showModalAnulacion, setShowModalAnulacion] = useState(false)
@@ -153,6 +154,7 @@ const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemU
                     show={showModalPrecuenta}
                     onCloseClick={() => setShowModalPrecuenta(false)}
                     cart={cart}
+                    nombreMesa={nombreMesa}
                 />}
             {/* Modal Anulacion */}
             {showModalAnulacion &&

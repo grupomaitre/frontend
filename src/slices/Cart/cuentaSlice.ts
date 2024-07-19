@@ -2,19 +2,23 @@ import { createSlice } from '@reduxjs/toolkit'
 interface cuentaState {
     cartNew: any[],
     statusCobrar: boolean
+    subCuentaTwo: string
 }
 const initialState: cuentaState = {
     cartNew: [],
-    statusCobrar: false
+    statusCobrar: false,
+    subCuentaTwo: ''
 
 }
 const cuentaSlice = createSlice({
     name: 'cuenta',
     initialState,
     reducers: {
+        setSubCuenta(state: any, action: any) {
+            state.subCuentaTwo = action.payload
+        },
         addCuenta(state: any, action: any) {
             const producto = action.payload;
-            console.log(producto)
             // Verificar si el objeto producto está vacío o si no se ha proporcionado una carga útil
             if (!producto || Object.keys(producto).length === 0) {
                 // No hacer nada si el objeto producto está vacío o no se proporciona ninguna carga útil
@@ -75,7 +79,8 @@ export const {
     updateQuantity,
     clearCuenta,
     setStatusCobrar,
-    setNewCartCuenta
+    setNewCartCuenta,
+    setSubCuenta
 
 } = cuentaSlice.actions
 export default cuentaSlice.reducer

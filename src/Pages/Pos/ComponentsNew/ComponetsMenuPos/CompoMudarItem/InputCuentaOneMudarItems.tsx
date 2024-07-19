@@ -32,14 +32,15 @@ const InputCuentaOneMudarItems: FC<IProps> = ({
                         onChange={handleInputChange}
                         handleInputClick={handleInputClick}
                         handleKeydown={handleEnter}
-                        classInput='text-center border-sistema rounded fs-6'
+                        classInput='text-center border-sistema rounded fs-6 rounded-end-0'
                         disabled={disabledCuenta1}
                         type='text'
                         handleInputFocus={() => handleInputFocus(0)}
                         bsSize='sm'
                         styleInput={{ height: '40px', borderRadius: '0' }}
                     />
-                    <Button className='ms-1 rounded-0'
+                    <Button
+                        className='rounded-start-0 fs-17'
                         color='danger'
                         onClick={() => handleClearCuentaMain()}
                     >

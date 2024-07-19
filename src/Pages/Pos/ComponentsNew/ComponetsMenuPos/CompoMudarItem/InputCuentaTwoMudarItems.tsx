@@ -33,7 +33,7 @@ const InputCuentaTwoMudarItems: FC<IProps> = ({
                         onChange={(event) => handleInputChange(event, 1)}
                         handleInputClick={() => handleInputClick(1)}
                         handleKeydown={handleEnter}
-                        classInput='text-center input-border fs-6 text-uppercase'
+                        classInput='text-center border-sistema rounded fs-6 rounded-end-0'
                         type={'text'}
                         handleInputFocus={() => handleInputFocus(1)}
                         bsSize='sm'
@@ -41,7 +41,8 @@ const InputCuentaTwoMudarItems: FC<IProps> = ({
                         disabled={inputDisabledCuenta2}
                     />
 
-                    <Button className='ms-1 rounded-0'
+                    <Button
+                        className='rounded-start-0 fs-17'
                         color='danger'
                         onClick={() => handleClearCuenta()}
                     >

@@ -11,12 +11,12 @@ interface IProps {
     show: boolean,
     onCloseClick: () => void
     cart: any
+    nombreMesa: string
 }
-const ConfirmPrecuenta: FC<IProps> = ({ show, onCloseClick, cart }) => {
+const ConfirmPrecuenta: FC<IProps> = ({ show, onCloseClick, cart, nombreMesa }) => {
     const dispatch = useDispatch()
     // const [btnDisabled, setBtnDisabled] = React.useState(false)
-    const { orden, pax, nombreMesa, vendedor, idMesa, idCart } = useSelector((state: any) => ({
-        nombreMesa: state.cartSlice.mesacart,
+    const { orden, pax, vendedor, idMesa, idCart } = useSelector((state: any) => ({
         orden: state.cartSlice.orden,
         pax: state.cartSlice.pax,
         vendedor: state.cartSlice.vendedor,

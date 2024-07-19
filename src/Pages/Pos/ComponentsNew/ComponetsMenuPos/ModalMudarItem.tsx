@@ -9,7 +9,7 @@ import { BuscarMesa, searchMesa } from '../../Helpers/ApiMesas'
 import BtnPosModal from '../../../../Components/Common/Buttons/BtnPosModal'
 import ModalConfimacion from './Components/ModalConfimacion'
 import ConfirMudarItem from './CompoMudarItem/ConfirMudarItem'
-import { deleteTempCuenta, opMudarItems, openCuenta, statusMudarItem } from './Api/MudarItems'
+import { deleteTempCuenta, /* opMudarItems */ openCuenta, statusMudarItem } from './Api/MudarItems'
 import axios from 'axios'
 import './css/styleMudarItem.css'
 import { totalCartTwo } from '../../Func/FuncCart'
@@ -90,7 +90,6 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
 
     //guardar newCart y edit cart old
     const onEditCart = async () => {
-
         const id_cart_2 = (sessionStorage.getItem('id_cart_2') || '')
         const cantidad = cartNew.reduce((acc: any, item: any) => acc + item.cantidad, 0)
         const res: any = await statusMudarItem(
@@ -104,7 +103,6 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
             id_user,
             parseFloat(id_cart_2),
             totalCartNew)
-
         if (res) {
             await axios.patch('api/v1/update-group-cart', {
                 idCart: idCart,
@@ -147,6 +145,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
         const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
 
         const res = await openCuenta(orden, pax, vendedor, id_user, idCajaLocal, (id_mesa), cuenta, idCart)
+        console.log(res)
         sessionStorage.setItem('id_cart_2', res?.id_cart)
         setIdTempCuenta(res.id_temp_cuenta)
         setShowModal(false)
@@ -283,34 +282,38 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
 
 
     const handleClose = async () => {
-        dispatch(clearCuenta())
-        dispatch(clearCart())
-        dispatch(clearMesa())
-        dispatch(setInputMesa(false))
-        dispatch(setInputVendedor(true))
-        setInputValues(['', '', '', ''])
-        dispatch(setVendedorSlice(''))
-        dispatch(clearIDMesa(0))
-        dispatch(setIDUser(0))
-        dispatch(setIsPreference(false))
-        onCloseClick()
-        sessionStorage.removeItem('id_cart_2')
-        return
-        await deleteTempCuenta(idTempCuenta || 0)
-        setIdTempCuenta(0)
-    }
+        const id_cart_2 = (sessionStorage.getItem('id_cart_2') || '')
+        console.log(id_cart_2.length)
+        if (id_cart_2.length === 0) {
+            onCloseClick()
 
+        } else {
+            const res: any = await deleteTempCuenta(parseFloat(id_cart_2), idCart)
+            console.log(res)
+            if (res) {
+                sessionStorage.removeItem('id_cart_2')
+                dispatch(clearCuenta())
+                dispatch(clearCart())
+                dispatch(clearMesa())
+                dispatch(setInputMesa(false))
+                dispatch(setInputVendedor(true))
+                setInputValues(['', '', '', ''])
+                dispatch(setVendedorSlice(''))
+                dispatch(clearIDMesa(0))
+                dispatch(setIDUser(0))
+                dispatch(setIsPreference(false))
+                onCloseClick()
+
+            }
+        }
+
+    }
     useEffect(() => {
         const cantidad = cart.reduce((acc: number, el: any) => acc + ((parseFloat(el.cantidad))), 0)
-        console.log(cart)
-        console.log(cantidad)
         if (cantidad === 1) {
             setDisableArrowRight(true)
-        } else {
-            setDisableArrowRight(false)
         }
-    }, [cart])
-
+    }, [cart, cartNew])
 
     return (
         <>
@@ -335,16 +338,16 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                 />
             }
 
-            <Modal isOpen={show} size='lg' backdrop={'static'} className='mt-3' fade={false}>
+            <Modal isOpen={show} size='lg' backdrop={'static'}  fade={false}>
                 <CardHeaderModal
-                    onCloseClick={onCloseClick}
+                    onCloseClick={handleClose}
                     text='Mover Items'
                     classHeader='p-2 rounded'
                 />
                 <ModalBody style={{ background: '#e8e8e8' }} >
 
-                    <Card className='m-0 mb-1'>
-                        <CardHeader className='d-flex justify-content-between  bg-gray align-items-center text-black' >
+                    <Card className='m-0 '>
+                        <CardHeader className='d-flex  justify-content-between  bg-gray align-items-center text-black' >
                             <InputCuentaOneMudarItems
                                 handleInputClick={handleInputClick}
                                 handleInputFocus={handleInputFocus}
@@ -394,6 +397,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                             <BtnPosModal
                                 onAceptarClick={onEditCart}
                                 onCloseClick={handleClose}
+                                btnDisabled={cartNew.length === 0 ? true : false}
                             // btnDisabled={btnDisabledSave}
                             />
                         </CardFooter>
