@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Badge, Button, CardBody, Col, Input, Label, Row } from 'reactstrap'
+import { Badge, Button, CardBody, Col, Input, Row } from 'reactstrap'
 import GloblaTable from '../../../../../common/Generics/Table/GloblaTable'
 import InputKeyBoard from '../../Cards/CardOrders/InputKeyBoard'
 import NumericKeyboard from '../../../common/NumericKeyboardProps'
@@ -11,6 +11,7 @@ import ColumnRight from '../Interface/ColumnRight'
 import { totalCartFunc } from '../../../Func/Caculos'
 import BtnPreCuentaMudarItem from './BtnPreCuentaMudarItem'
 interface IProps {
+    setInputValues: any
     inputValues: any
     inputRefs: any
     handleInputChange: any
@@ -30,7 +31,8 @@ const CartsMudarItem: FC<IProps> = ({
     handleInputFocus,
     handleDelete,
     onKeyPress,
-    disableArrowRight
+    disableArrowRight,
+    setInputValues
 }) => {
     const dispatch = useDispatch()
     const [activeRow, setActiveRow] = useState(null);
@@ -146,7 +148,9 @@ const CartsMudarItem: FC<IProps> = ({
                     </Col>
                 </Row>
 
-                <BtnPreCuentaMudarItem />
+                <BtnPreCuentaMudarItem
+                    setInputValues={setInputValues}
+                />
 
 
                 <Row className='d-flex justify-content-between text-black'>

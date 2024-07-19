@@ -34,7 +34,6 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
     const orden = useSelector((state: any) => state.cartSlice.orden)
     const vendedor = useSelector((state: any) => state.cartSlice.vendedor)
     const id_user = useSelector((state: any) => state.cartSlice.id_user)
-    const [idTempCuenta, setIdTempCuenta] = useState<number>()
     //disabled inputs mesa
     const [disabledCuenta1, setdisabledCuenta1] = useState(false)
     const [disableArrowRight, setDisableArrowRight] = useState(true)
@@ -129,13 +128,14 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
         dispatch(clearCart())
     }
     const handleClearCuentaTwo = () => {
+        console.log('first')
         dispatch(clearCuenta())
         setInputValues(prevInputValues => {
             const newInputValues = [...prevInputValues]
             newInputValues[1] = ''
             return newInputValues
         })
-
+        setInputDisabledCuenta2(false)
 
         inputRefs.current[1].current?.focus()
         inputRefs.current[1].current?.select()
@@ -145,9 +145,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
         const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
 
         const res = await openCuenta(orden, pax, vendedor, id_user, idCajaLocal, (id_mesa), cuenta, idCart)
-        console.log(res)
         sessionStorage.setItem('id_cart_2', res?.id_cart)
-        setIdTempCuenta(res.id_temp_cuenta)
         setShowModal(false)
         setInputValues(prevInputValues => {
             const newInputValues = [...prevInputValues]
@@ -199,18 +197,6 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                     });
                     return;
                 }
-
-                /*           if (res.status) {
-                              dispatch(setNewCart(res.product));
-                              setTimeout(() => {
-                                  inputRefs.current[1].current?.focus();
-                                  inputRefs.current[1].current?.select();
-                              }, 100);
-                              return;
-                          } else {
-                              dispatch(setNewCart([]));
-                          }
-           */
                 break;
             case 1:
 
@@ -240,30 +226,6 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                     default:
                         break
                 }
-
-
-
-                /*           if (res.message === "Mesa no encontrada") {
-                              ClearInputKeyBoard(1)
-                              setTimeout(() => {
-                                  inputRefs.current[1].current?.focus();
-                              }, 100)
-                              return
-                          } else {
-                              setShowConfirMudarItem(true)
-                              dispatch(setNewCartCuenta(res.product));
-                          }
-                          const cantidad = cartNew.reduce((acc: any, item: any) => acc + item.cantidad, 0);
-                          opMudarItems(cartNew, parseFloat(id_mesa), cantidad, orden, pax, idCajaLocal, vendedor, id_user, cuenta).then((res: any) => {
-                              console.log(res);
-                              socketTest.emit('actualizarMesas');
-          
-                              setTimeout(() => {
-                                  inputRefs.current[2].current?.focus();
-                                  inputRefs.current[2].current?.select();
-                              }, 100);
-                          });
-                         */
                 break;
             case 2:
                 setTimeout(() => {
@@ -338,7 +300,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                 />
             }
 
-            <Modal isOpen={show} size='lg' backdrop={'static'}  fade={false}>
+            <Modal isOpen={show} size='lg' backdrop={'static'} fade={false}>
                 <CardHeaderModal
                     onCloseClick={handleClose}
                     text='Mover Items'
@@ -392,6 +354,7 @@ const ModalMudarItem: FC<IModalMudarItem> = ({ show, onCloseClick }) => {
                             handleDelete={handleDelete}
                             onKeyPress={onKeyPress}
                             disableArrowRight={disableArrowRight}
+                            setInputValues={setInputValues}
                         />
                         <CardFooter>
                             <BtnPosModal
