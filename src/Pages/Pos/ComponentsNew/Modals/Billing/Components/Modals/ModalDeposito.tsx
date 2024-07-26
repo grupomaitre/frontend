@@ -4,7 +4,8 @@ import TabPaneDeposito from '../CompoTabsFact/TabPaneDeposito'
 import axios from 'axios'
 import { toastError } from '../../../../../../../Components/Common/Swals/SwalsApi'
 import { deleteItemDepo, getDesositos, updateItemDeposito } from '../CompoTabsFact/Api/ApiDepositos'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setIDDeposito } from '../../../../../../../slices/Orders/OrdersSlice'
 interface IrefInput {
     current: HTMLInputElement | null
 }
@@ -16,6 +17,7 @@ interface Props {
     testVuelto: any
 }
 const ModalDescuento: FC<Props> = ({ show, onCloseClick, total, setInputDeposito, testVuelto }) => {
+    const dispatch = useDispatch()
     const [items, setItems] = useState<any>([])
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
     const [isLoading, setIsLoading] = useState(false)
@@ -37,7 +39,7 @@ const ModalDescuento: FC<Props> = ({ show, onCloseClick, total, setInputDeposito
         try {
             const res = await axios.post('api/add-factura-deposito', { items: data })
             if (res.status) {
-                //  dispatch(setIDDeposito(res.data.id_factura_deposito))
+                dispatch(setIDDeposito(res.data.id_factura_deposito))
                 getDataDeposito()
                 setIsLoading(false)
                 //    onCloseClick()

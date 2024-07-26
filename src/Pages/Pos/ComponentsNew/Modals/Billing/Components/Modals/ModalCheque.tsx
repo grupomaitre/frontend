@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useRef, createRef, useState } from 'react'
 import { Modal, ModalBody, ModalHeader } from 'reactstrap'
 import TabPaneCheque from '../CompoTabsFact/TabPaneCheque'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createItemCheque, deleteItemCheque, getCheques, updateItemCheque } from '../CompoTabsFact/Api/ApiCheque'
+import { setIDCheque } from '../../../../../../../slices/Orders/OrdersSlice'
 interface IrefInput {
     current: HTMLInputElement | null
 }
@@ -16,6 +17,7 @@ interface Props {
 
 }
 const ModalCheque: FC<Props> = ({ show, onCloseClick, total, setInputChequeTab, testVuelto }) => {
+    const dispatch = useDispatch()
     const [items, setItems] = React.useState<any>([])
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
     const getDataCheque = async () => {
@@ -37,7 +39,7 @@ const ModalCheque: FC<Props> = ({ show, onCloseClick, total, setInputChequeTab, 
         const res: any = await createItemCheque(dataChueque)
         if (res.status) {
             setIsLoading(false)
-            //   dispatch(setIDCheque(res.data.id_factura_cheque))
+            dispatch(setIDCheque(res.data.id_factura_cheque))
             getDataCheque()
             setInputValues(['', '', '', '', '', '', '', '', ''])
             // onCloseClick()
