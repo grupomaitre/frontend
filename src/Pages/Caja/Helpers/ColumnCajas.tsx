@@ -6,20 +6,17 @@ const ColumnCajas = (props: any) => {
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Codigo caja',
+                Header: 'Caja',
                 accessor: 'id_caja_diaria',
             },
+           
             {
-                Header: 'Nombre creador',
+                Header: 'Responsable',
                 accessor: 'nombre_creador',
             },
             {
-                Header: 'Saldo inicial',
+                Header: 'Saldo Inicial',
                 accessor: 'saldo_inicial',
-            },
-            {
-                Header: 'Saldo final',
-                accessor: 'saldo_final',
             },
             {
                 Header: 'Fecha creación',
@@ -28,6 +25,10 @@ const ColumnCajas = (props: any) => {
             {
                 Header: 'Fecha finalizacion',
                 accessor: 'fecha_finalizacion',
+            },
+            {
+                Header: 'Observación',
+                accessor: 'Observacion',
             },
             {
                 Header: "Estado",
@@ -48,13 +49,13 @@ const ColumnCajas = (props: any) => {
             },
 
             {
-                Header: "Acciones",
+                Header: "Ver",
                 Cell: () => {
                     return (
                         <div>
                             <ul className="list-inline  gap-0 mb-0">
                                 <li className="list-inline-item" title="View">
-                                    <Button outline size='sm' className="  align-bottom fs-11" onClick={() => { setShowModalHisCaja((true)) }} > Ver</Button>
+                                    <Button outline size='sm' className="  align-bottom fs-11" onClick={() => { setShowModalHisCaja((true)) }} >Ver Caja</Button>
                                 </li>
                             </ul>
                         </div>

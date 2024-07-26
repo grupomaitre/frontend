@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState, KeyboardEvent } from 'react'
-import { Button, Card, CardBody, CardHeader, Col, Container, Row } from 'reactstrap'
+import { Button, Card, CardBody, CardHeader, Col, Container, Input, Label, Row } from 'reactstrap'
 import { getCuentasCount, getReportCajaAll } from '../Helpers/ApiCaja'
 import TableComprobantes from './Tables/TableComprobantes'
 import TableEgreso from './Tables/TableEgreso'
@@ -27,6 +27,7 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
     const [ingresos, setIngresos] = useState([])
     const [egresos, setEgresos] = useState([])
     const getReportAllCaja = async () => {
+        console.log(idCajaLocal)
         try {
             const res: any = await getReportCajaAll(idCajaLocal || idCaja)
             console.log(res)
@@ -93,7 +94,8 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
         setTotalCaja(totalcaja)
     }, [])
     return (
-        <Container>
+        //no trae los datos de la caja selecionada id caja
+        <Container fluid>
             <div className=' d-flex justify-content-center gap-4'>
                 <div className='border border-ligth  card w-50 p-2 px-3 border-blue shadow'>
 
@@ -145,6 +147,12 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
                             />
                         </Col>
 
+                    </Row>
+                    <Row className='mt-2'>
+                        <Col className='text-center'>
+                            <Label className=''>Observación</Label>
+                            <Input className='border-sistema' />
+                        </Col>
                     </Row>
                 </div>
             </div>
