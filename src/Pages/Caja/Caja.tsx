@@ -9,7 +9,6 @@ import TabneCaja from './Components/Tabs/TabneCaja'
 import ModalCrudCaja from "./Components/Modals/ModalCrudCaja";
 import DeleteModal from "../../Components/Common/DeleteModal";
 import Header from "../../Layouts/Header";
-import ButtonSalir from "../../common/Button/ButtonSalir";
 const Caja = () => {
     const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
 
