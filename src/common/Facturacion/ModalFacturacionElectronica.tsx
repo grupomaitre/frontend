@@ -2,7 +2,6 @@ import { FC, useState } from 'react'
 import { Check, X } from 'react-feather'
 import { Modal, ModalBody, ModalHeader, Row, Col, Label, Button, Input, Card, CardHeader, CardBody, CardFooter, Spinner } from 'reactstrap'
 import TableGeneric from '../Generics/Table/TableGeneric'
-import { imprimirComprobante } from '../../Api/Facturacion/ApiFacturacion'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { toastError } from '../../Components/Common/Swals/SwalsApi'
@@ -20,7 +19,7 @@ const ModalFacturacionElectronica: FC<IProps> = ({ show, onCloseClick, itemFactu
     const [selectItemRow, setSelectItemRow] = useState()
     const total = 100
     const handlePrint = () => {
-        const url = 'http://127.0.0.1:3000/api/v1/borrador';
+        const url = 'http://127.0.0.1:8000/api/v1/genearar/ride/borrador';
 
         axios.post(url, { cart: cart }).then((data) => (
             console.log(data)
