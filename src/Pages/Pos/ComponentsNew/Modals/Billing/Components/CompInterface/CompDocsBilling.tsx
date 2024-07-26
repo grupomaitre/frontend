@@ -21,6 +21,7 @@ interface Props {
 }
 const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, */ inputBtn }) => {
     const [showModalFactur, setShowModalFactur] = useState(false)
+    const [btnDisabled, setBtnDisabled] = useState(false)
     const dispatch = useDispatch()
     const [showModalCobra, setShowModalCobra] = useState(false)
     const idMesa = useSelector((state: any) => state.cartSlice.idMesa)
@@ -44,6 +45,7 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
              setShowModalFactur(true)
              return */
         console.log(idCajaLocal)
+        setBtnDisabled(true)
         try {
             const addClienteResult = await addCliente(cliente);
             if (addClienteResult) {
@@ -74,6 +76,7 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
                         const getOrdensResult = await getOrdens();
                         dispatch(addOrden(getOrdensResult.data));
                         await handleAbrirCajon()
+                        setBtnDisabled(false)
                     }
                 }
             }
@@ -136,6 +139,7 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
                             <Button
                                 block
                                 color=''
+                                disabled={btnDisabled}
                                 innerRef={key === newKey ? inputBtn : null}
                                 key={item?.id_documento}
                                 onClick={() => handleModal(item)}

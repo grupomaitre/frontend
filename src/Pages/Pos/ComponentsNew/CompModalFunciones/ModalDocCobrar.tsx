@@ -57,7 +57,7 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 accessor: 'factura',
             },
             {
-                Header: 'Serv',
+                Header: 'Serv 10%',
                 accessor: 'serv',
             },
             {
@@ -68,10 +68,10 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 Header: 'Saldo',
                 accessor: 'saldo',
             },
-            {
+         /*    {
                 Header: 'forma_pago',
                 accessor: 'forma_pago',
-            },
+            }, */
 
             {
                 Header: 'Efectivo',
@@ -87,7 +87,38 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                     )
                 }
             },
-
+            {
+                Header: 'Deposito',
+                accessor: 'Deposito',
+                Cell: ({ row }: any) => {
+                    return (
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original)}>
+                            {/* status color */}
+                            <span
+                                className={row.original.forma_pago === 'Efectivo' ? 'badge bg-success' : 'badge bg-danger '}
+                            >{row.original.forma_pago === 'Efectivo' ? 'SI' : null}</span>
+                        </div>
+                    )
+                }
+            },
+            {
+                Header: 'Tarjeta',
+                accessor: 'tarjeta',
+                Cell: ({ row }: any) => {
+                    return (
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original)}>
+                            {/* status color */}
+                            <span
+                                className={row.original.forma_pago === 'Tarjeta' ? 'badge bg-success' : 'badge bg-danger '}
+                            >{row.original.forma_pago === 'Tarjeta' ? 'SI' : null}</span>
+                        </div>
+                    )
+                }
+            },
+            {
+                Header: 'Propina Tarjeta',
+                accessor: 'propina',
+            },
             {
                 Header: 'Cheque',
                 accessor: 'cheque',
@@ -103,20 +134,7 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 }
             },
 
-            {
-                Header: 'Tarjeta',
-                accessor: 'tarjeta',
-                Cell: ({ row }: any) => {
-                    return (
-                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original)}>
-                            {/* status color */}
-                            <span
-                                className={row.original.forma_pago === 'Tarjeta' ? 'badge bg-success' : 'badge bg-danger '}
-                            >{row.original.forma_pago === 'Tarjeta' ? 'SI' : null}</span>
-                        </div>
-                    )
-                }
-            },
+
             {
                 Header: 'Referencia',
                 accessor: 'referencia',
