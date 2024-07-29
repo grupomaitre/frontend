@@ -25,3 +25,7 @@ sumar propina mas total
 poner la pronida debajo del vuelto
 cambier el total left
 en deposito campo obligatorio**depisito ver al agregar
+//anulacion de factura column numero de orden
+//ver dividir cuentas
+modal observacion 
+cambiar buscar por observacion
