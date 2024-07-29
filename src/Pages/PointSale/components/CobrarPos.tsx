@@ -179,7 +179,7 @@ const CobrarPos: FC<IProp> = ({ onCloseClick }) => {
         }
     }
     const handleverificar_ruc = () => {
-        const res = verificarRuc("1501701767001", 0)
+        const res = verificarRuc("1751622159", 1)
         console.log(res)
     }
     return (

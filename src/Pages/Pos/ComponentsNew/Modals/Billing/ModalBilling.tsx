@@ -28,7 +28,6 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
         staleTime: Infinity,
         cacheTime: Infinity
     });
-    console.log(isFetching)
 
     useEffect(() => {
         if (clienteData) {
@@ -92,7 +91,8 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
 
 
     //test ref cambiar <---
-    const inputreftes = React.createRef<HTMLInputElement>()
+    const inputRefEmpresa = React.createRef<HTMLInputElement>()
+    const inputRefIdentificacion = React.createRef<HTMLInputElement>()
     const inputBtn = React.createRef<HTMLInputElement>()
     const selectRef = React.createRef<HTMLSelectElement>()
     useEffect(() => {
@@ -132,7 +132,7 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
                                     //FOCUS
                                     focusID={focusID}
                                     setFocusID={setFocusID}
-                                    inputreftes={inputreftes}
+                                    inputRefIdentificacion={inputRefIdentificacion}
                                 />
                                 <CompoFormCliente
                                     cliente={cliente}
@@ -142,7 +142,8 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
                                     setInputName={setInputName}
                                     inputName={inputName}
                                     focusID={focusID}
-                                    inputreftes={inputreftes}
+                                    inputRefEmpresa={inputRefEmpresa}
+                                    inputRefIdentificacion={inputRefIdentificacion}
                                     inputBtn={inputBtn}
                                     setInputs={setInputs}
                                 />

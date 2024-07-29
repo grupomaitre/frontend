@@ -49,18 +49,13 @@ export const verificarRuc = (txt_ruc: string, sw_cedula: number) => {
     let string1 = parseInt(cedula.substring(9, 10));
 
     if (tot == string1) {
-        console.log('return??')
         return 0;
     }
 
     if (cedula.substring(2, 3) === ("6") && txt_ex1.length == 13 && sw_cedula == 0) {
-        console.log('return2')
-
         return 0;
     }
     if (cedula.substring(2, 3) === ("9") && txt_ex1.length == 13 && sw_cedula == 0) {
-        console.log('return2')
-
         return 0;
     }
 }

@@ -9,17 +9,16 @@ interface Props {
     setInputs: any
     setFocusID: any
     focusID: any
-    inputreftes?: any
     listClient: any
+    inputRefIdentificacion: any
 }
-const CompDataClient: FC<Props> = ({ setInputs, listClient, setFocusID, focusID, inputreftes }) => {
+const CompDataClient: FC<Props> = ({ setInputs, listClient, setFocusID, focusID, inputRefIdentificacion }) => {
     const dispatch = useDispatch()
     const [menuIsOpen, setMenuIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
 
 
     const handleChange = (e: any) => {
-        console.log(e)
         dispatch(setClientes(e))
         setInputs({
             razon_social: e?.razon_social || null,
@@ -53,7 +52,8 @@ const CompDataClient: FC<Props> = ({ setInputs, listClient, setFocusID, focusID,
         //validar numero
         if (e.key === 'Enter') {
             const numero = /^\d+$/.test(e.target.value);
-            inputreftes.current?.focus()
+
+            inputRefIdentificacion.current?.focus()
             if (!numero) {
                 setInputs({
                     empresa: e.target.value,
@@ -81,7 +81,7 @@ const CompDataClient: FC<Props> = ({ setInputs, listClient, setFocusID, focusID,
     return (
         <>
 
-            < Label className='fs-11 text-black' > Búsqueda: (Ruc, cedula, empresa, persona)</Label >
+            < Label className='fs-11 text-black' > Búsqueda: (Ruc, cedula, empresa)</Label >
 
             <Row className='d-flex align-items-center'>
                 <Col lg='12 mb-4'>

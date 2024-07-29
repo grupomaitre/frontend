@@ -55,8 +55,8 @@ const index = () => {
                         <DetallesUIItems />
 
                         {!showCobrar && <BuscadorProductosCliente />}
-
-                        {showCobrar && <CobrarPos onCloseClick={() => setShowCobrar(!showCobrar)} />}
+                        <CobrarPos onCloseClick={() => setShowCobrar(!showCobrar)} />
+                        {/*    {showCobrar && <CobrarPos onCloseClick={() => setShowCobrar(!showCobrar)} />} */}
 
                     </Container>
 
