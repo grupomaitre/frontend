@@ -123,6 +123,8 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
     }
 
     const handlePushData = () => {
+        const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
+
         if (inputValues[0] === 0) return
         const dataPush = {
             id_order: id_order,
@@ -133,6 +135,7 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
             nombre_adquiriente: tarjeta,
             forma_pago,
             total: totalPropina,
+            id_caja_diaria: idCajaLocal,
             uiID: uuidv4()
         }
         if (isEdit) {

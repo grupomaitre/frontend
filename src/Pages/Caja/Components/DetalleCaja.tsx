@@ -1,11 +1,10 @@
 import { FC, useEffect, useRef, useState, KeyboardEvent } from 'react'
-import { Button, Card, CardBody, CardHeader, Col, Container, Input, Label, Row } from 'reactstrap'
+import { Button, Col, Container, Input, Label, Row } from 'reactstrap'
 import { getCuentasCount, getReportCajaAll } from '../Helpers/ApiCaja'
 import TableComprobantes from './Tables/TableComprobantes'
 import TableEgreso from './Tables/TableEgreso'
 import TableIngresos from './Tables/TableIngresos'
 import TableCierraCaja from './Tables/TableCierraCaja'
-import { useSelector } from 'react-redux'
 import { SwalInfo } from '../../../Components/Common/Swals/SwalsApi'
 import {
     getCajasList as onGetCajasList,
@@ -18,8 +17,7 @@ interface IProps {
     setOntabs: any
 }
 const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
-    const idCaja = useSelector((state: any) => state.cajaSlice.caja)
-    const cajaObj = useSelector((state: any) => state.cajaSlice.cajaObj)
+    const dataCaja = JSON.parse(sessionStorage.getItem('dataCaja') || '')
     const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0');
 
     const [totalCaja, setTotalCaja] = useState<any>(0)
@@ -27,10 +25,9 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
     const [ingresos, setIngresos] = useState([])
     const [egresos, setEgresos] = useState([])
     const getReportAllCaja = async () => {
-        console.log(idCajaLocal)
         try {
-            const res: any = await getReportCajaAll(idCajaLocal || idCaja)
-            console.log(res)
+            const res: any = await getReportCajaAll(idCajaLocal)
+
             if (res?.status) {
                 setDocumentos(res?.documentos || [])
                 setIngresos(res?.ingresos || [])
@@ -66,8 +63,8 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
         SwalInfo({ title: `Extisten ${resCount} cuentas aperturadas` }).then((res) => {
 
             if (res.isConfirmed) {
-                if (idCajaLocal || idCaja) {
-                    deleteCajas(idCajaLocal || idCaja)
+                if (idCajaLocal) {
+                    deleteCajas(idCajaLocal)
                         .then((data) => {
                             console.log(data)
                             onGetCajasList()
@@ -94,13 +91,12 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
         setTotalCaja(totalcaja)
     }, [])
     return (
-        //no trae los datos de la caja selecionada id caja
         <Container fluid>
             <div className=' d-flex justify-content-center gap-4'>
                 <div className='border border-ligth  card w-50 p-2 px-3 border-blue shadow'>
 
                     <Row className='mb-2 fs-11 bg-light'>
-                        <WidgetsHistorial cajaDiaria={cajaObj.id_caja_diaria || 0} saldoInicial={cajaObj.saldo_inicial || 0} />
+                        <WidgetsHistorial cajaDiaria={idCajaLocal || 0} saldoInicial={dataCaja.saldo_inicial || 0} />
                     </Row>
                     <Row>
                         <Container>
@@ -108,6 +104,7 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
                                 totalCaja={totalCaja}
                                 documentos={documentos}
                             />
+
                             <TableIngresos
                                 totalCaja={totalCaja}
                                 data={ingresos || []}
@@ -132,7 +129,7 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
                                 className='fs-11  '
                                 block
                                 style={{ height: '57px' }}
-                                disabled={idCajaLocal || idCaja > 0 ? false : true}
+                                disabled={idCajaLocal > 0 ? false : true}
                                 onClick={() => deleteCaja()} >
                                 Cerrar Caja
                             </Button>
@@ -143,7 +140,7 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
                             <TableCierraCaja
                                 handleKeyDown={handleKeyDown}
                                 totalCaja={totalCaja}
-                                saldoInicial={cajaObj?.saldo_inicial || 0}
+                                saldoInicial={dataCaja?.saldo_inicial || 0}
                             />
                         </Col>
 

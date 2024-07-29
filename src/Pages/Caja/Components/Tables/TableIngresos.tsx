@@ -1,14 +1,12 @@
 import React, { FC, useEffect, useState } from 'react'
-import HeaderTest from './HeaderTest'
 import TableGeneric from '../../../../common/Generics/Table/TableGeneric'
-import { Card, CardBody, CardFooter, CardHeader, Label, Row } from 'reactstrap'
+import { Card, CardBody, CardFooter, CardHeader } from 'reactstrap'
 import ModalInfoFormas from '../Modals/ModalInfoFormas'
 interface Props {
     totalCaja: number
     data: any
 }
 const TableIngresos: FC<Props> = ({ data }) => {
-    console.log(data)
     const [selectItemRow, setSelectItemRow] = useState<any>({})
     const [totalIngreso, setTotalIngreso] = useState<any>()
     const [showModal, setShowModal] = useState(false)

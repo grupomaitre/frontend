@@ -151,6 +151,7 @@ const TabPaneCheque: FC<Props> = ({ items, total,
     ]
 
     const handlePushData = () => {
+        const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
         if (inputValues[0] === 0) return
         const newFechaEmision = new Date(fecha_emision || null).toISOString().slice(0, 10) || null
         const newFechaCheque = new Date(fecha_cheque || null).toISOString().slice(0, 10) || null
@@ -166,6 +167,7 @@ const TabPaneCheque: FC<Props> = ({ items, total,
             ingreso_banco,
             id_order: id_order,
             id_cart: id_cart,
+            id_caja_diaria: idCajaLocal,
             uiID: uuidv4()
         }
         if (isEdit) {

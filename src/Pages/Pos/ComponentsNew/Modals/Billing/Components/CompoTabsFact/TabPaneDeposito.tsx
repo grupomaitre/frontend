@@ -97,6 +97,8 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
         }
     ]
     const handlePushData = () => {
+        const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
+
         if (inputValues[0] === 0) return
         const dataPush = {
             monto: inputValues[0],
@@ -104,6 +106,7 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
             cuenta_acreditada: inputValues[2],
             observaciones: inputValues[3],
             id_order,
+            id_caja_diaria: idCajaLocal,
             uiID: uuidv4()
 
         }

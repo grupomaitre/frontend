@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import {
     getCajasList as onGetCajasList,
@@ -20,7 +20,6 @@ const Caja = () => {
     // const dispatch = useDispatch()
     const dispatch = useDispatch<any>();
 
-    const idCaja = useSelector((state: any) => state.cajaSlice.caja)
     // const cajaObj = useSelector((state: any) => state.cajaSlice.cajaObj)
     //tabs status
     const [informacion, setInformacion] = useState(false)
@@ -35,7 +34,7 @@ const Caja = () => {
 
 
     const saveCaja = () => {
-        if (idCaja > 0) {
+        if (idCajaLocal > 0) {
             dispatch(onAddNewCajas())
                 .then(() => {
                     navigate('/dashboard')
@@ -57,7 +56,7 @@ const Caja = () => {
             setInformacion(false)
             setDetalle(true)
         }
-    }, [idCaja])
+    }, [idCajaLocal])
     const handleSalir = () => {
         navigate('/dashboard')
 
@@ -82,7 +81,7 @@ const Caja = () => {
 
             <TabneCaja
                 ontabs={ontabs}
-                data={idCaja}
+                data={idCajaLocal}
                 openModal={openModal}
                 informacion={informacion}
                 detalle={detalle}

@@ -23,6 +23,7 @@ const Dashboard = () => {
         onSuccess: (data) => {
             dispatch(setCaja(data?.caja || 0))
             dispatch(setCajaObj(data?.dataCajas || {}))
+            sessionStorage.setItem('dataCaja', JSON.stringify(data?.dataCajas))
         },
     })
     const itemTools = [
