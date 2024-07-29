@@ -85,6 +85,8 @@ const BtnCardOrders: FC<IProp> = () => {
     }
 
     const editComanda = async () => {
+        console.log(cart)
+        return
         setInputDisabledMarchar(true)
         try {
 

@@ -96,7 +96,7 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
                 <div className='border border-ligth  card w-50 p-2 px-3 border-blue shadow'>
 
                     <Row className='mb-2 fs-11 bg-light'>
-                        <WidgetsHistorial cajaDiaria={idCajaLocal || 0} saldoInicial={dataCaja.saldo_inicial || 0} />
+                        <WidgetsHistorial cajaDiaria={idCajaLocal || 0} saldoInicial={dataCaja?.saldo_inicial || 0} />
                     </Row>
                     <Row>
                         <Container>

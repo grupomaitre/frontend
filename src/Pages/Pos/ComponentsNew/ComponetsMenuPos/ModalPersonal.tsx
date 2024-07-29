@@ -212,7 +212,7 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
     }
     return (
 
-        <Modal isOpen={show} toggle={onCloseClick}  size='lg' backdrop={true} fade={false}>
+        <Modal isOpen={show} toggle={onCloseClick} size='lg' backdrop={'static'} fade={false}>
 
             <ModalBody className='p-0  '>
 
@@ -274,12 +274,12 @@ const ModalPersonal: React.FC<IProps> = ({ show, onCloseClick }) => {
                                             handleKeydown={() => handleDownUser({ key: 'Enter' })}
                                             classInput='text-center border-sistema shadow-sm rounded fs-5'
                                             //    disabled={inputDisabledcuenta}
-                                            type='text'
+                                            type='password'
                                             handleInputFocus={() => handleInputFocus(1)}
                                             bsSize='sm'
                                             styleInput={{ height: '40px', borderRadius: '0' }}
                                         />
-                                    <Label className='mt-1 text-danger text-uppercase fs-13 fw-bold text-center'>{vendedor}</Label>
+                                        <Label className='mt-1 text-danger text-uppercase fs-13 fw-bold text-center'>{vendedor}</Label>
                                     </Col>
 
                                 </Row>
