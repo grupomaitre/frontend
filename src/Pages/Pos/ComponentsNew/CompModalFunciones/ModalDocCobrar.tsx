@@ -233,8 +233,8 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 <ModalCliente
                     show={showModalCliente}
                     onCloseClick={() => setShowModalCliente(false)}
-                    cliente={selectItemRow ? selectItemRow : {}}
-                    getData={getData}
+                 /*    cliente={selectItemRow ? selectItemRow : {}}
+                    getData={getData} */
                 />
             }
             {

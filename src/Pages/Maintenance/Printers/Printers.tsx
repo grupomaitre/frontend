@@ -59,9 +59,9 @@ const Printers = () => {
     ], [])
 
     const listPrintAsgin = async () => {
-        getAssignPrinter().then((data: any) => {
-            setListAsigPrint(data.data)
-        })
+        const res: any = await getAssignPrinter()
+        setListAsigPrint(res.data)
+
     }
 
     useEffect(() => {
@@ -157,7 +157,6 @@ const Printers = () => {
             }
         })
     }
-
 
     return (
         <div className='' style={{ background: '#ecf0f1' }}>

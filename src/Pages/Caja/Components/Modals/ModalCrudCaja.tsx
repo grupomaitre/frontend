@@ -1,12 +1,15 @@
 import { useState, FC, useRef, createRef, useEffect } from 'react'
 import BtnPosModal from '../../../../Components/Common/Buttons/BtnPosModal'
-import { Card, CardBody, CardFooter, CardHeader, Input, Modal, ModalBody, ModalHeader } from 'reactstrap'
+import { Card, CardBody, CardFooter, CardHeader, Input, Label, Modal, ModalBody, ModalHeader } from 'reactstrap'
 import NumericKeyboard from '../../../Pos/common/NumericKeyboardProps'
 import ClassCrudCaja from '../../Api/ClassCrudCaja'
 import { ToastContainer } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { SwalSuccess } from '../../../../Components/Common/Swals/SwalsApi'
 import ModalConfimacion from '../../../Pos/ComponentsNew/ComponetsMenuPos/Components/ModalConfimacion'
+import { BuscarUser } from '../../../Pos/Helpers/ApiUser'
+import ModalAlert from '../../../../common/Generics/Modal/ModalAlert'
+import axios from 'axios'
 interface Props {
     onCloseClick: any
     show: boolean
@@ -22,9 +25,9 @@ const ModalCrud: FC<Props> = ({ onCloseClick, show, isEdit }) => {
     const [inputValues, setInputValues] = useState<Array<string>>(['', ''])
     const [activeInputIndex, setActiveInputIndex] = useState(0)
     const inputRefs = useRef<IrefInput[]>(inputValues.map(() => createRef()));
-
+    const [error, setError] = useState('')
     const userData = JSON.parse(sessionStorage.getItem('authUser') || '{}')
-
+    const [userPrint, setUserPrint] = useState('')
     const newCaja = {
         saldo_inicial: inputValues[0] || 0,
         nombre_creador: userData.name_personal || null,
@@ -75,44 +78,100 @@ const ModalCrud: FC<Props> = ({ onCloseClick, show, isEdit }) => {
         newInputValues[activeInputIndex] = newInputValues[activeInputIndex].slice(0, -1);
         setInputValues(newInputValues);
     }
+    const handleKeyDown = async (e: any, op: number) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            switch (op) {
+                case 0:
+                    inputRefs.current[1].current?.focus();
+                    break;
+                case 1:
+                    const res: any = await BuscarUser(inputValues[1])
+                    if (res === 'No existe Vendedor') {
+                        setError(res)
+                        console.log('clear')
+                        setInputValues([inputValues[0], ''])
+                    } else {
+                        setUserPrint(res?.persona.name + '-' + res.persona.last_name)
+                        setShowConfirm(true)
+                        setError('')
+                    }
+                    break;
+                default:
+                    console.log('Opción no reconocida');
+                    break;
+            }
+        }
+    }
+    const handleAcept = async () => {
+        const maquina = (localStorage.getItem('terminal') || '')
+        handleSaveCaja()
+        onCloseClick()
+        await axios.post('api/imprimir/saldo/inicial', {
+            saldo: inputValues[0] || 0,
+            usuario: userPrint || null,
+            maquina: maquina
+        })
+    }
+
+    const handleClose = () => {
+        onCloseClick()
+        setShowConfirm(false)
+        setInputValues(['', ''])
+        handleSaveCaja()
+
+    }
 
     return (
         <>
-            <ModalConfimacion
-                //confirmar={() => console.log(0)}
-                onCloseClick={() => setShowConfirm(false)}
-                show={showConfirm}
-            />
+            {showConfirm &&
+                <ModalAlert
+                    onAceptar={() => handleAcept()}
+                    show={showConfirm}
+                    onCancelar={() => handleClose()}
+                    onCloseClick={() => handleClose()}
+                    text='Desea Imprimir'
+                    showAceptar={true}
+                    showCancelar={true}
+                    backdrop={true}
+                />}
             <Modal isOpen={show} toggle={onCloseClick} size='sm'>
-                <ModalHeader  >
-                    {isEdit ? 'Editar caja' : 'Nueva Caja'}
+                <ModalHeader className='text-center'>
+                    <span>{isEdit ? 'Editar caja' : 'Nueva Caja'}</span>
                 </ModalHeader>
                 <ModalBody style={{ background: '#c2c2c2' }} className='m-0 p-0'>
                     <Card className='rounded-0 m-0'>
                         <CardHeader >
+                            <Label>Saldo Inicial</Label>
                             <Input
                                 innerRef={inputRefs.current[0]}
                                 value={inputValues[0]}
                                 onClick={() => handleInputClick(0)}
                                 onChange={(e) => handleInputChange(e, 0)}
                                 onFocus={() => handleInputFocus(0)}
-                                className='mb-3'
-                                placeholder='Saldo Inicial'
+                                className='mb-3 text-center border-sistema'
+                                onKeyDown={(e) => handleKeyDown(e, 0)}
                             />
+                            <Label>Ingrese Clave</Label>
                             <Input
                                 innerRef={inputRefs.current[1]}
                                 value={inputValues[1]}
                                 onClick={() => handleInputClick(1)}
                                 onChange={(e) => handleInputChange(e, 1)}
                                 onFocus={() => handleInputFocus(1)}
-                                placeholder='Usuario'
+                                onKeyDown={(e) => handleKeyDown(e, 1)}
+                                className='text-center border-sistema'
+                                type='password'
+
                             />
+                            <span className='text-danger text-center'>{error && error}</span>
 
                         </CardHeader>
                         <CardBody >
                             <NumericKeyboard
                                 handleDelete={() => handleDelete()}
                                 onKeyPress={(e) => onKeyPress(e)}
+                                btnClass='rounded'
 
                             />
                         </CardBody>

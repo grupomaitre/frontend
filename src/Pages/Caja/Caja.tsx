@@ -69,12 +69,12 @@ const Caja = () => {
                 handleSalir={handleSalir}
             />
 
-            {isShowModal && <ModalCrudCaja
-                // isEdit={isEdit}
-                show={isShowModal}
-                onCloseClick={() => setIsShowModal(false)}
-                saveCaja={saveCaja}
-            />}
+            {isShowModal &&
+                <ModalCrudCaja
+                    show={isShowModal}
+                    onCloseClick={() => setIsShowModal(false)}
+                    saveCaja={saveCaja}
+                />}
             {isModalDelete && <DeleteModal
                 show={isModalDelete}
                 onCloseClick={() => setIsModalDelete(false)}
