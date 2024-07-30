@@ -1,8 +1,7 @@
 import { FC, useState, useEffect } from 'react'
-import { Search, Send, Star, User, Users } from 'react-feather'
+import { Eye, Send, Star, User, Users } from 'react-feather'
 import { Button, Col } from 'reactstrap'
 import ModalVendedor from '../Modals/ModalVendedor'
-import ModalBuscar from '../../Modals/ModalBuscar'
 import ModalPax from '../../Modals/Modal/ModalPax'
 import { editCart, saveCart } from '../../../Helpers/ApiCart'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,13 +10,14 @@ import { verCarrro } from '../../../Helpers/ApiGetAllCart'
 import { socketTest } from '../../../Socket/ConctSocket'
 import axios from 'axios'
 import { totalCart } from '../../../Func/FuncCart'
+import ModalObsComd from '../../CompModalFunciones/ModalVentas/ModalObsComd'
 interface IProp {
 }
 const BtnCardOrders: FC<IProp> = () => {
     const dispatch = useDispatch()
     const [showModalVendedor, setShowModalVendedor] = useState(false)
-    const [showModalBuscar, setShowModalBuscar] = useState(false)
     const [shoModalPax, setShowModalPax] = useState(false)
+    const [showModalObs, setshowModalObs] = useState(false)
     const [inputDisabledMarchar, setInputDisabledMarchar] = useState<boolean>(true)
     const [btnIsCartSuccess, setBtnIsCartSuccess] = useState(false)
 
@@ -31,7 +31,6 @@ const BtnCardOrders: FC<IProp> = () => {
     const idCart = useSelector((state: any) => state.cartSlice.idCart)
     const id_user = useSelector((state: any) => state.cartSlice.id_user)
     const id_caja = useSelector((state: any) => state.cajaSlice.caja)
-    const producto = useSelector((state: any) => state.productSlice.productSliceList)
 
     const total = totalCart()
 
@@ -85,8 +84,7 @@ const BtnCardOrders: FC<IProp> = () => {
     }
 
     const editComanda = async () => {
-        console.log(cart)
-        return
+
         setInputDisabledMarchar(true)
         try {
 
@@ -131,21 +129,23 @@ const BtnCardOrders: FC<IProp> = () => {
                     onCloseClick={() => setShowModalVendedor(false)}
                 />
             }
-            {
-                showModalBuscar &&
-                <ModalBuscar
-                    show={showModalBuscar}
-                    onCloseClick={() => setShowModalBuscar(false)}
-                    producto={producto}
-                />
-
-            }
+        
 
             {shoModalPax &&
                 <ModalPax
                     show={shoModalPax}
                     onCloseClick={() => setShowModalPax(false)}
                 />}
+
+            {
+                showModalObs &&
+                < ModalObsComd
+                    show={showModalObs}
+                    onCloseClick={() => setshowModalObs(false)}
+                />
+
+
+            }
             <Col lg='6' className='bg-white border-start'>
 
                 <div className=' my-1' style={{ borderRadius: '70px' }}>
@@ -192,13 +192,13 @@ const BtnCardOrders: FC<IProp> = () => {
                         <Button
                             block
                             color='light'
-                            className=" text-black  d-flex flex-row fs-12 align-items-center   btn-custom"
-                            onClick={() => setShowModalBuscar(true)}
+                            className=" text-black  d-flex flex-column fs-12 align-items-center   btn-custom"
+                            onClick={() => setshowModalObs(true)}
                         >
-                            <span><Search
-                                color='#2c58ec'
-                                size={14}
-                            /> Buscar</span>
+                            <Eye
+                                color='#ff7f01'
+                                size={14} />
+                            Observación
                         </Button>
                     </div>
                     <Button

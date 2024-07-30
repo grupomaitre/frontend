@@ -42,9 +42,9 @@ const ModalTimbrar: FC<IProps> = ({ show, onCloseClick }) => {
     }
     return (
         <Modal isOpen={show} toggle={onCloseClick} fullscreen={false} size='md'
-            backdrop={true} fade={false}
+            backdrop={'static'} fade={false}
         >
-            <ModalHeader toggle={onCloseClick}>
+            <ModalHeader>
                 {'Timbrar'}
             </ModalHeader>
             <ModalBody className='fondo-sistema text-white'>

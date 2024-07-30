@@ -6,6 +6,7 @@ import NumericKeyboard from '../../common/NumericKeyboardProps'
 import { useSelector, useDispatch } from 'react-redux'
 import ModalAlert from '../../../../common/Generics/Modal/ModalAlert'
 import { addCart } from '../../../../slices/Cart/cartSlice'
+import CardHeaderModal from '../../../../common/CardHeaderModal'
 interface IrefInput {
     current: HTMLInputElement | null
 }
@@ -108,18 +109,19 @@ const ModalBuscar: FC<IProps> = ({ show, onCloseClick, producto }) => {
                     showCancelar={true}
                 />}
             <Modal isOpen={show} toggle={onCloseClick} fade={false}
+                backdrop='static'
                 style={{ maxWidth: '692px' }}
             >
-                <ModalHeader toggle={onCloseClick}>
-                    {'Buscar Producto'}
-                </ModalHeader>
-                <ModalBody className='page-bg'>
+                <CardHeaderModal
+                    onCloseClick={onCloseClick}
+                    text='Buscar Producto'
+                    classHeader='p-2'
+                />
+                <ModalBody className=''>
 
-                    <Row>
-                        <Label className='text-light'>Producto :
-                            <span className='text-uppercase text-white'> {selectItemRow?.nombre || ''}</span>
-                        </Label>
-                    </Row>
+                    <Label className='mb-3 bg-dark w-100 py-2 text-white px-2 border-danger rounded border'>Producto :
+                        <span className='text-uppercase'> {selectItemRow?.nombre || ''}</span>
+                    </Label>
                     <Row className='mb-3 '  >
                         <Col lg='8' className='d-flex'>
                             <Input
@@ -147,7 +149,9 @@ const ModalBuscar: FC<IProps> = ({ show, onCloseClick, producto }) => {
                             <Button
                                 className=' d-flex align-items-center justify-content-around'
                                 block
-                                color='light'
+                                size='lg'
+                                outline
+                                color='success'
                                 onClick={() => setShowKeyboard(!showKeyboard)}
                             >
                                 <AlignCenter size={15} />
@@ -161,7 +165,8 @@ const ModalBuscar: FC<IProps> = ({ show, onCloseClick, producto }) => {
                             <Button
                                 onClick={() => handleAddCart()}
                                 block
-                                color='light'
+                                size='lg'
+                                color='primary'
                                 className=' d-flex align-items-center justify-content-around'
 
                             >
@@ -183,10 +188,11 @@ const ModalBuscar: FC<IProps> = ({ show, onCloseClick, producto }) => {
                             showFooter={false}
                             showInputExt={true}
                             valueSearch={inputValues[0]}
-                            divClass='table-responsive text-black'
+                            divClass='table-responsive text-black border'
                             tableClass='w-100 fs-11  table-sm cursor-pointer'
                             theadClass='position-sticky top-0 bg-table '
-                            thClass='fs-11 fw-light border-bottom '
+                            thClass='fs-11 border'
+                            tdClass='border'
                             tbodyClass='bg-light'
                             customPageSize={10}
                             styleHeight='150px'

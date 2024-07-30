@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Modal, ModalBody } from 'reactstrap'
-import { AlertTriangle, BellOff, Book, BookOpen, Box, Code, DivideSquare, Eye, LogOut, Monitor, Power, Tablet, User, Users } from 'react-feather'
+import { AlertTriangle, BellOff, Book, BookOpen, Box, Code, DivideSquare, LogOut, Monitor, Power, Tablet, User, Users } from 'react-feather'
 import ModalDocCobrar from '../CompModalFunciones/ModalDocCobrar'
 import ModalAnulacion from '../CompModalFunciones/ModalAnulacionCuenta'
 import ModalCargoHabi from '../CompModalFunciones/ModalCargoHabi'
@@ -12,7 +12,6 @@ import ModalDividir from '../CompModalFunciones/ModalDividir'
 import ModalGastosCaja from '../CompModalFunciones/ModalGastosCaja'
 import ModalCarta from '../CompModalFunciones/ModalCarta'
 import { SwalInfo } from '../../../../Components/Common/Swals/SwalsApi'
-import ModalObsComd from '../CompModalFunciones/ModalVentas/ModalObsComd'
 import axios from 'axios'
 interface IProps {
     show: boolean,
@@ -35,7 +34,6 @@ const ModalFunciones: React.FC<IProps> = ({ show, onCloseClick }) => {
     const [showModalDividir, setShowModalDividir] = useState(false)
     const [showModalGastosCaja, setShowModalGastosCaja] = useState(false)
     const [showModalCarta, setShowModalCarta] = useState(false)
-    const [showModalObs, setshowModalObs] = useState(false)
     //cart cartSlice
     const cart = useSelector((state: any) => state.cartSlice.cart)
 
@@ -57,7 +55,7 @@ const ModalFunciones: React.FC<IProps> = ({ show, onCloseClick }) => {
         //  { name: 'Carta', icon: Table, function: () => setShowModalCarta(true) },
         { name: 'Comprobantes electronicos', icon: Tablet },
         { name: 'App', icon: Code, color: "#249543" },
-        { name: 'Observaciones', icon: Eye, color: "#61afef", function: () => cart.length > 0 ? setshowModalObs(true) : SwalInfo({ title: 'Selecione Una Cuenta' }) },
+        //  { name: 'Observaciones', icon: Eye, color: "#61afef", function: () => cart.length > 0 ? setshowModalObs(true) : SwalInfo({ title: 'Selecione Una Cuenta' }) },
         { name: 'Salir', icon: LogOut, color: "#ff0000", function: () => onCloseClick() },
     ]
 
@@ -142,15 +140,7 @@ const ModalFunciones: React.FC<IProps> = ({ show, onCloseClick }) => {
                     onCloseClick={() => setShowModalCarta(false)}
                 />
             }
-            {
-                showModalObs &&
-                < ModalObsComd
-                    show={showModalObs}
-                    onCloseClick={() => setshowModalObs(false)}
-                />
 
-
-            }
 
 
             <Modal isOpen={show} toggle={onCloseClick} size='xl' fullscreen style={{ maxHeight: '29vh' }} fade={false}>

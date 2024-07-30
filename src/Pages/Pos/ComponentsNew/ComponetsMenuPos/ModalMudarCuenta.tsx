@@ -6,6 +6,7 @@ import { getAllMesas } from '../../Helpers/GetMesas'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMesa } from '../../../../slices/Facturacion/Mesa/mesaSlice'
 import BtnPosModal from '../../../../Components/Common/Buttons/BtnPosModal'
+import CardHeaderModal from '../../../../common/CardHeaderModal'
 interface IModalMudarCuenta {
     show: boolean,
     onCloseClick: () => void,
@@ -47,11 +48,14 @@ const ModalMudarCuenta: React.FC<IModalMudarCuenta> = ({ show, onCloseClick }) =
         }
     }
     return (
-        <Modal isOpen={show} toggle={onCloseClick} size='lg' fade={false}>
-            <ModalHeader>
-                {'Mover Cuenta'}
-            </ModalHeader>
-            <ModalBody style={{ background: '#23486b' }}>
+        <Modal isOpen={show} backdrop='static' size='lg' fade={false}>
+
+            <CardHeaderModal
+                onCloseClick={onCloseClick}
+                text='Mover Cuenta'
+                classHeader='p-2'
+            />
+            <ModalBody style={{ background: '#023047' }}>
                 <Card style={{ background: "#3a5e80" }}>
                     <CardBody>
                         <Row className='text-white'>
@@ -74,7 +78,7 @@ const ModalMudarCuenta: React.FC<IModalMudarCuenta> = ({ show, onCloseClick }) =
                             <span key={key}
                                 className={" rounded d-flex flex-column align-items-center  spanMesa border border-light shadow text-center  " +
                                     (item.status ? 'backgroundSuccess fw-bold' : 'bg-white text-black fw-medium')}
-                                style={{ width: '40px', height: '40px' }}
+                                style={{ width: '50px', height: '50px' }}
                                 onClick={item.status ? () => handleCuentaActual(item) : () => setCuentaNueva(item.id_mesa)}
                             >
                                 <span >{item.nombre_mesa}</span>
@@ -82,16 +86,12 @@ const ModalMudarCuenta: React.FC<IModalMudarCuenta> = ({ show, onCloseClick }) =
                         ))
                     }
                 </div>
+                <BtnPosModal
+                    onAceptarClick={MoveCuenta}
+                    onCloseClick={onCloseClick}
+                />
             </ModalBody>
-            {/*        <ModalFooter>
-                <Button block color='primary' size='lg' onClick={MoveCuenta}>Guardar</Button>
-                <Button block color='light' onClick={onCloseClick}>Cancelar</Button>
 
-            </ModalFooter> */}
-            <BtnPosModal
-                onAceptarClick={MoveCuenta}
-                onCloseClick={onCloseClick}
-            />
         </Modal>
     )
 }

@@ -9,7 +9,7 @@ import ModalReferencia from '../../ComponentsNew/ComponetsMenuPos/ModalReferenci
 import ModalAnulacionItem from '../../ComponentsNew/Modals/ModalAnulacionItem'
 import ModalDescuento from '../ModalDescuento'
 import ModalDetailsItem from './Modales/ModalDetailsItem'
-import ModalAnulacion from '../../ComponentsNew/Modals/ModalAnulacion'
+import ModalAnulacion from '../../ComponentsNew/Modals/ModalEliminarItem'
 interface IProps {
     setItemUniCartMenu: any
 }

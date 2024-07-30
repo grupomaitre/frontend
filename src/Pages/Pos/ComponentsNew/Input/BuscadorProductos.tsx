@@ -6,6 +6,8 @@ import InputKeyBoard from '../Cards/CardOrders/InputKeyBoard'
 import ModalReferencia from '../ComponetsMenuPos/ModalReferencia'
 import ModalProductEditable from '../Modals/Modal/ModalProductEditable'
 import ModalAlert from '../../../../common/Generics/Modal/ModalAlert'
+import { Button } from 'reactstrap'
+import ModalBuscar from '../Modals/ModalBuscar'
 interface IProps {
     //final teclado v2
     inputRef: null | any
@@ -40,15 +42,14 @@ const BuscadorProductos: FC<IProps> = memo(({
     const id_user = useSelector((state: any) => state.cartSlice.id_user)
     const onModal = useSelector((state: any) => state.tecladoSlice.onModal)
     const [selectOp, setSelectOp] = useState<any>([])
-    const productSliceList = useSelector((state: { productSlice: { productSliceList: any } }) => state.productSlice.productSliceList)
-    const [selectedOption, setSelectedOption] = useState(null)
+    const [showModalBuscar, setShowModalBuscar] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [showModalPrefe, setShowModalPrefe] = useState(false)
     const [showModalEdit, setShowModalEdit] = useState(false)
     const [itemProd, setItemPro] = useState<any>()
     useEffect(() => {
         setSelectOp((products || []).map((item: any) => ({
-            cantidad: item.cantidad,
+            cantidad: parseFloat(item.cantidad),
             descuento: item.descuento,
             id_bodega: item.id_bodega,
             id_product: item.id_product,
@@ -70,7 +71,9 @@ const BuscadorProductos: FC<IProps> = memo(({
             editable: item.editable,
             editable_precio: item.editable_precio,
             editable_nombre: item.editable_nombre,
-            preferencias: item?.preferencias
+            preferencias: item?.preferencias,
+            impresora: item?.impresora,
+            sitio: item?.sitio,
         })))
     }, [products])
 
@@ -127,13 +130,6 @@ const BuscadorProductos: FC<IProps> = memo(({
             inputRef.current[2].current?.focus();
             handleInvInputValues(2)
         }
-        /*        if (idMesa != 0 && id_user != 0) {
-                   inputRef.current[2].current?.focus()
-                   dispatch(addCart(e))
-                   setSelectedOption(null)
-                   handleInvInputValues(2)
-       
-               } */
 
     }
 
@@ -144,7 +140,7 @@ const BuscadorProductos: FC<IProps> = memo(({
     }
     const formatOptionLabel: FC<IMenu> = ({ label, customAbbreviation, precio }) => (
         <div style={{ display: "flex", flexDirection: 'row-reverse', justifyContent: 'space-between' }} className='fs-11 text-black'>
-            <div >${precio}</div>
+            <div >$ {precio}</div>
             <div  >{label}</div>
             <div >
                 {customAbbreviation}
@@ -179,6 +175,15 @@ const BuscadorProductos: FC<IProps> = memo(({
                     showAceptar={true}
                     showCancelar={true}
                 />}
+            {
+                showModalBuscar &&
+                <ModalBuscar
+                    show={showModalBuscar}
+                    onCloseClick={() => setShowModalBuscar(false)}
+                    producto={products}
+                />
+
+            }
             <div className='d-flex gap-1'>
                 <div style={{ width: '20%' }}>
 
@@ -200,7 +205,7 @@ const BuscadorProductos: FC<IProps> = memo(({
                 <div className='w-100'>
 
                     <Select
-                        value={selectedOption}
+                        value={null}
                         isClearable={true}
                         placeholder={'Buscar Producto'}
                         ref={inputRef.current[3]}
@@ -228,6 +233,15 @@ const BuscadorProductos: FC<IProps> = memo(({
 
 
 
+                </div>
+                <div>
+                    <Button
+                        disabled={idMesa > 0 && id_user > 0 ? false : true}
+                        color='primary'
+                        size='sm'
+                        style={{ height: '34px' }}
+                        onClick={() => setShowModalBuscar(true)}
+                    >Buscar</Button>
                 </div>
             </div>
         </>

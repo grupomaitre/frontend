@@ -31,7 +31,7 @@ interface IModalAnulacion {
 }
 
 
-const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
+const ModalEliminarItem: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
     const dispatch = useDispatch()
     const id_mesa = useSelector((state: any) => state.cartSlice.idMesa)
     const vendedor = useSelector((state: any) => state.cartSlice.vendedor)
@@ -57,22 +57,6 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
         { name: 'Ingreso de item equivocado' },
         { name: 'No hay stock de item' },
     ]
-
-    useEffect(() => {
-        if (show) {
-            dispatch(setOnModal(true))
-            inputRefs.current[0].current?.focus()
-        }
-
-
-    }, [selectedProduct, show])
-
-
-    useEffect(() => {
-        inputRefs.current[0].current?.select()
-    }, [inputValues[0]])
-
-
 
     const handleUpdateQuantity = async () => {
         const terminal = (localStorage.getItem('terminal') || '0')
@@ -140,11 +124,12 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
     const handleInputClick = (index: number) => {
         setActiveInputIndex(index);
     }
-    /*  const handleInputFocus = (index: number) => {
-         setActiveInputIndex(index);
-     } */
+    const handleInputFocus = (index: number) => {
+        setActiveInputIndex(index);
+    }
     const handleDelete = () => {
         setInputValues([''])
+        inputRefs.current[0].current?.focus()
         return
         const newInputValues = [...inputValues];
         newInputValues[activeInputIndex] = newInputValues[activeInputIndex].slice(-1);
@@ -156,10 +141,16 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
         dispatch(setOnModal(true))
 
     }
+    useEffect(() => {
+        setTimeout(() => {
+            inputRefs.current[0].current?.focus()
+        }, 100);
+    }, [show])
+
     return (
         <>
             <ModalConfirm show={modalConfirm} onCloseClick={() => setModalConfirm(false)} />
-            <Modal isOpen={show} size='md' toggle={onCloseClick} className='mt-2 ' innerRef={modalInputRef} fade={false}>
+            <Modal isOpen={show} size='md' backdrop='static' className='mt-2 ' innerRef={modalInputRef} fade={false}>
 
                 <ModalBody style={{ background: '#23486b' }} className='rounded p-0 p-1' >
                     <CardHeaderModal
@@ -194,15 +185,12 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
                                 value={inputValues[0]}
                                 onChange={(event) => handleInputChange(event, 0)}
                                 handleInputClick={() => handleInputClick(0)}
-                                //handleKeydown={handleKeydown}
-                                classInput='text-center  rounded-0 fs-15'
-                                styleInput={{ fontSize: '1.7rem' }}
-                                type='number'
-                                // handleInputFocus={() => handleInputFocus(0)}
+                                classInput='text-center border-sistema shadow text-uppercase'
                                 bsSize='sm'
-
+                                styleInput={{ fontSize: '1.2rem' }}
+                                type='text'
+                                handleInputFocus={() => handleInputFocus(0)}
                             />
-
                         </Col>
 
                     </Row>
@@ -226,10 +214,11 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
                             />
                         </Col>
                         <BtnPosModal
+                            btnDisabled={inputValues[0].length > 0 ? false : true}
                             divClass='mt-2'
                             onAceptarClick={handleUpdateQuantity}
                             onCloseClick={handleClose}
-                            showCancelar={true}
+                            textCancelar='Salir'
                         />
                     </Row>
                 </ModalBody>
@@ -239,4 +228,4 @@ const ModalAnulacion: FC<IModalAnulacion> = ({ show, onCloseClick }) => {
     )
 }
 
-export default ModalAnulacion
+export default ModalEliminarItem

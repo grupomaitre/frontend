@@ -22,11 +22,12 @@ const ModalMensajes: React.FC<IProps> = ({ show, onCloseClick }) => {
     const [mensaje, setMensaje] = useState('')
     const nombreMesa = useSelector((state: any) => state.cartSlice.mesacart)
     const query = useSitioImpresion()
+
     useEffect(() => {
-        if (!query.isFetching) {
+        if (query.data) {
             setSitios(query.data)
         }
-    }, [])
+    }, [query])
 
     const msmDefecto = [
         { name: 'Mensaje 1' },
@@ -110,8 +111,8 @@ const ModalMensajes: React.FC<IProps> = ({ show, onCloseClick }) => {
         ]
     }
     return (
-        <Modal isOpen={show} toggle={onCloseClick} size='md' className='' fade={false}>
-            <ModalHeader toggle={onCloseClick} >
+        <Modal isOpen={show}  size='md' className='' fade={false} backdrop='static'>
+            <ModalHeader toggle={onCloseClick}>
                 {'Sitio de Impreción  '}
             </ModalHeader>
             <ModalBody className='bg-gray'>

@@ -65,7 +65,7 @@ const ModalComandas: FC<IProps> = ({ show, onCloseClick }) => {
         getCartProducts()
     }, [])
     return (
-        <Modal isOpen={show} toggle={onCloseClick} size='lg'>
+        <Modal isOpen={show} backdrop='static' size='lg'>
             <CardHeaderModal
                 onCloseClick={onCloseClick}
                 text='Lista Comandas'

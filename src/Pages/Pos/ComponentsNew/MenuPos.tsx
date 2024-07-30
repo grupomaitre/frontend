@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ModalPersonal from './ComponetsMenuPos/ModalPersonal'
 import ModalMudarCuenta from './ComponetsMenuPos/ModalMudarCuenta'
 import ModalFunciones from './ComponetsMenuPos/ModalFunciones'
-import SpinnerLoad from '../../../Components/Common/Spinner/SpinnerLoad'
 import ModalMudarItem from './ComponetsMenuPos/ModalMudarItem'
-import ModalAnulacion from './Modals/ModalAnulacion'
 import ModalReservas from './ComponetsMenuPos/ModalReservas'
 import ModalTimbrar from './ComponetsMenuPos/ModalTimbrar'
 import { clearCart, clearIDMesa, clearIDUser, clearMesa, clearPax, removeCartItem, setVendedorSlice } from '../../../slices/Cart/cartSlice'
@@ -26,6 +24,7 @@ import ModalComandas from './CompModalFunciones/ModalComandas'
 import { Button } from 'reactstrap'
 import CargeSpinner from '../../../common/Loading/CargeSpinner'
 import { ToastContainer } from 'react-toastify'
+import ModalEliminarItem from './Modals/ModalEliminarItem'
 interface IProps {
     mesas: Array<any>
     item: any
@@ -158,7 +157,7 @@ const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemU
                 />}
             {/* Modal Anulacion */}
             {showModalAnulacion &&
-                <ModalAnulacion
+                <ModalEliminarItem
                     show={showModalAnulacion}
                     onCloseClick={() => setShowModalAnulacion(false)}
                     item={item}
@@ -195,12 +194,11 @@ const MenuPos: React.FC<IProps> = ({ item, addCart, minusCart, getMesa, setItemU
             />}
             {/* Modal Mensajes */}
             {setShowModalMensaje &&
-                <Suspense fallback={<SpinnerLoad />}>
-                    <ModalMensajes
-                        show={showModalMensaje}
-                        onCloseClick={() => setShowModalMensaje(false)}
-                    />
-                </Suspense>}
+                <ModalMensajes
+                    show={showModalMensaje}
+                    onCloseClick={() => setShowModalMensaje(false)}
+                />
+            }
             {/* Reservas */}
             {showModalReservas && <ModalReservas
                 show={showModalReservas}

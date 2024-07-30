@@ -121,7 +121,7 @@ const ModalReservas: FC<IProps> = ({ show, onCloseClick }) => {
         setData(newData)
     }
     return (
-        <Modal isOpen={show} toggle={onCloseClick} size='xl' fade={false}>
+        <Modal isOpen={show} backdrop='static' size='xl' fade={false}>
             <ModalHeader toggle={onCloseClick}>
                 {'Reservas'}
             </ModalHeader>
@@ -187,7 +187,7 @@ const ModalReservas: FC<IProps> = ({ show, onCloseClick }) => {
                     </Col>
                 </Row>
                 <Row>
-             {/*        <GoblaTable
+                    {/*        <GoblaTable
                         columns={columns || []}
                         data={data || []}
                         tableClass={'table table-sm table-striped table-hover table-bordered border-light mb-0 d-table-fixed fs-13'}
