@@ -8,8 +8,9 @@ interface Props {
     inputDeposito: number
     setDisabledCobrar: any
     setTestVuelto: any
+    propina: any
 }
-const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarjeta, inputDeposito, total2, setDisabledCobrar, setTestVuelto }) => {
+const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarjeta, inputDeposito, total2, setDisabledCobrar, setTestVuelto, propina }) => {
     const [totalPagar, setTotalPagar] = useState<number>(0)
     const [totalVuelto2, setTotalVuelto] = useState(0)
 
@@ -31,7 +32,6 @@ const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarje
 
     }, [totalPagar, total2])
 
-
     return (
         <>
             <Row className='' >
@@ -39,9 +39,17 @@ const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarje
                     <Label className='text-black fs-15'>TOTAL PAGO</Label>
                 </Col>
                 <Col className='bg-black border-success border-bottom' lg='4'>
-                    <Label className='text-center py-1' style={{ color: '#33ff00' }}>{(totalPagar).toFixed(2) || '0.00'}</Label>
+                    <Label className='text-center py-1' style={{ color: '#33ff00' }}>{(totalPagar + propina).toFixed(2) || '0.00'}</Label>
                 </Col>
 
+            </Row>
+            <Row>
+                <Col lg='5'>
+                    <Label className='text-black fs-12'>Propina</Label>
+                </Col>
+                <Col className='bg-black border-success border-bottom' lg='4'>
+                    <Label className='text-center ' style={{ color: '#33ff00' }}>{propina || 0.00}</Label>
+                </Col>
             </Row>
             <Row>
                 <Col className='bg-black' lg='5'>
@@ -51,6 +59,7 @@ const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarje
                     <Label className='text-center  py-1 fs-4' style={{ color: '#33ff00' }}>$ {(totalVuelto2).toFixed(2)}</Label>
                 </Col>
             </Row>
+
             <Row>
                 <Col lg='5'>
                     <Label className='text-black fs-12'>Total de retencion</Label>

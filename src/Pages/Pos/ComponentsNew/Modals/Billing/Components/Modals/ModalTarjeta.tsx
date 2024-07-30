@@ -12,6 +12,7 @@ interface Props {
     setInputTarjeta?: any
     inputValues?: any
     testVuelto: any
+    setPropina: any
 }
 
 interface IrefInput {
@@ -19,12 +20,11 @@ interface IrefInput {
 }
 
 
-const ModalTarjeta: FC<Props> = ({ show, onCloseClick, total, setInputTarjeta, testVuelto }) => {
+const ModalTarjeta: FC<Props> = ({ show, onCloseClick, total, setInputTarjeta, testVuelto, setPropina }) => {
     const dispatch = useDispatch()
     const [newData, setNewData] = React.useState<any>([])
     const [items, setItems] = React.useState<any>([])
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
-
     const getCards = async () => {
         const res: any = await getTarjetas(id_order)
         if (res.status === "success") {
@@ -47,7 +47,6 @@ const ModalTarjeta: FC<Props> = ({ show, onCloseClick, total, setInputTarjeta, t
 
         try {
             const result = await axios.post('api/add-factura-tarjeta', { items: data })
-            console.log(result)
             if (result.status) {
                 dispatch(setIDTarjeta(result.data.id_factura_tarjeta))
                 getCards()
@@ -108,6 +107,8 @@ const ModalTarjeta: FC<Props> = ({ show, onCloseClick, total, setInputTarjeta, t
     useEffect(() => {
         if (items.length > 0) {
             const totalTarjeta = items.reduce((acc: number, el: any) => acc + parseFloat(el.monto), 0)
+            const totalPropina = items.reduce((acc: number, el: any) => acc + parseFloat(el.propina), 0)
+            setPropina(totalPropina)
             setInputTarjeta(totalTarjeta)
             setInputValues([items.length > 0 || testVuelto > 0 ? testVuelto : 0, '', '', ''])
             setTimeout(() => {

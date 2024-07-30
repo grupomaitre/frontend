@@ -20,6 +20,7 @@ interface Props {
     inputTarjeta: number
     setInputValues: (value: Array<number | string>) => void
     testVuelto: any
+    setPropina: any
 }
 const ModalsTabs: FC<Props> = ({
     showCheque,
@@ -33,6 +34,7 @@ const ModalsTabs: FC<Props> = ({
     setInputTarjeta,
     setInputDeposito,
     testVuelto,
+    setPropina
 
 }) => {
     return (
@@ -56,6 +58,7 @@ const ModalsTabs: FC<Props> = ({
                     total={total2}
                     testVuelto={testVuelto}
                     setInputTarjeta={setInputTarjeta}
+                    setPropina={setPropina}
                 />
             }
             {

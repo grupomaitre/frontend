@@ -23,6 +23,7 @@ export interface IPropNav {
     formaPago: string
     setFormaPago: any
     testVuelto: any
+    setPropina: any
 
 }
 export interface ObjectNavItem {

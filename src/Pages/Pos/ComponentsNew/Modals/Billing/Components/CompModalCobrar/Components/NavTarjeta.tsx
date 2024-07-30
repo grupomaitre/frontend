@@ -27,7 +27,8 @@ const NavTarjeta: FC<IPropNav> = ({
     setInputDeposito,
     setFormaPago,
     handleKeydown,
-    testVuelto
+    testVuelto,
+    setPropina
 
 }) => {
     const [showCheque, setShowCheque] = useState<boolean>(false)
@@ -194,6 +195,8 @@ const NavTarjeta: FC<IPropNav> = ({
                 setInputValues={setInputValues}
                 //testVuelto
                 testVuelto={testVuelto}
+                //propina
+                setPropina={setPropina}
             />
 
             <div style={{ maxHeight: "195px", overflowY: 'scroll', scrollMargin: '20px', maxWidth: '100%' }} className="simplebar-track-warning m-0 p-0 ">

@@ -7,6 +7,7 @@ import CompContentDocs from '../CompModalCobrar/CompContentDocs'
 import BtnCobrar from '../CompModalCobrar/Components/BtnsCobrarCuenta'
 import { totalCart } from '../../../../../Func/FuncCart'
 import { getOrderByCart } from '../CompModalCobrar/Api/ApiOrder'
+import { useQuery } from 'react-query'
 
 interface Props {
     show: boolean
@@ -33,6 +34,7 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
     const [disabledCobrar, setDisabledCobrar] = useState(true)
     const innerBtnCobrar = createRef<HTMLInputElement>();
     const [testVuelto, setTestVuelto] = useState(0)
+    const [propina, setPropina] = useState(0)
     const getDataOrden = async () => {
 
         const res: any = await getOrderByCart(idCart)
@@ -111,76 +113,94 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
         setInputValues([totalRedondeado || '0', '0', '0', '0'])
         dispatch(setValueEfectivo(totalRedondeado))
     }, [totalRedondeado])
+    const { isLoading, data: ordenes } = useQuery(['dataOrden', idCart], () => getOrderByCart(idCart));
+    const mesacart = useSelector((state: any) => state.cartSlice.mesacart)
 
     return (
         <>
-            <Modal isOpen={show} backdrop={true} fade={false} size='lg'>
-                <ModalHeader style={{ maxHeight: '50%', height: '35px' }} className='m-0 p-0 px-2'>
-                    <span className='fs-12 p-1'>Caja Cobro</span>
-                </ModalHeader>
-                <ModalBody className='bg-gray'>
+            {!isLoading &&
+                <Modal isOpen={show} backdrop={'static'} fade={false} size='lg'>
+                    <ModalHeader style={{ maxHeight: '50%', height: '35px' }} className='m-0 p-0 px-2'>
+                        <span className='fs-12 p-1'>Caja Cobro</span>
+                    </ModalHeader>
+                    <ModalBody className='bg-gray'>
 
 
-                    <div className='d-flex  '>
-                        <div style={{ width: '60%' }} >
-                            <CompDetails
-                                closeModals={closeModals}
-                                activeTabItem={activeTabItem}
-                                setactiveTab={setactiveTab}
-                                show={show}
-                                //keyboard
-                                inputValues={inputValues}
-                                inputRefs={inputRefs}
-                                setInputValues={setInputValues}
-                                handleInputChange={handleInputChange}
-                                handleInputClick={handleInputClick}
-                                handleKeydown={handleKeydown}
-                                handleInputFocus={handleInputFocus}
-                                totalCart={totalRedondeado}
-                                setDisabledCobrar={setDisabledCobrar}
-                                //data
-                                documento={documento}
-                                razon_social={razon_social}
-                                n_factura={n_factura}
-                                //setTestVuelto
-                                setTestVuelto={setTestVuelto}
-                                testVuelto={testVuelto}
-                            />
+                        <div className='d-flex  '>
+                            <div style={{ width: '60%' }} >
+                                <CompDetails
+                                    closeModals={closeModals}
+                                    activeTabItem={activeTabItem}
+                                    setactiveTab={setactiveTab}
+                                    show={show}
+                                    //keyboard
+                                    inputValues={inputValues}
+                                    inputRefs={inputRefs}
+                                    setInputValues={setInputValues}
+                                    handleInputChange={handleInputChange}
+                                    handleInputClick={handleInputClick}
+                                    handleKeydown={handleKeydown}
+                                    handleInputFocus={handleInputFocus}
+                                    totalCart={totalRedondeado}
+                                    setDisabledCobrar={setDisabledCobrar}
+                                    //data
+                                    documento={documento}
+                                    razon_social={razon_social}
+                                    n_factura={n_factura}
+                                    //setTestVuelto
+                                    setTestVuelto={setTestVuelto}
+                                    testVuelto={testVuelto}
+                                    //propina
+                                    setPropina={setPropina}
+                                    propina={propina}
+                                />
+                            </div>
+                            <div className='' style={{ width: '50%' }}>
+                                <Card className='mb-1 border-primary rounded-start-0' >
+                                    <CardHeader className='text-center d-flex flex-row gap-2 justify-content-around page-bg text-white rounded-end-0'
+                                        style={{ fontSize: '0.68rem', padding: '11px 13px 12px 13px' }}>
+                                        <div> Cuenta N°:<br />
+                                            <span className='fw-bold'> {mesacart}</span>
+
+                                        </div>
+                                        <div> N°:<br /> <span style={{ fontWeight: '700' }}> {!isLoading ? ordenes?.data?.id_order : "001"}</span>
+                                        </div>
+                                        <div> Documento: <br />
+                                            <span style={{ fontWeight: '700' }} className='text-capitalize'>
+                                                {' ' + !isLoading ? ordenes?.data?.documento : "documento"}
+                                            </span>
+                                        </div>
+                                        <div> Cliente:<br /> <span style={{ fontWeight: '500' }} >{!isLoading ? ordenes?.data?.cliente.razon_social : "empresa"}</span> </div>
+                                    </CardHeader>
+                                    <CardBody>
+
+                                        <Row className='d-flex  justify-content-center align-items-center'>
+                                            <Col lg='9'>
+                                                <CompContentDocs
+                                                    activeTab='1'
+                                                    onKeyPress={onKeyPress}
+                                                    handleDelete={() => handleDelete()}
+                                                />
+                                            </Col>
+                                        </Row>
+
+                                    </CardBody>
+                                    <CardFooter>
+                                        <BtnCobrar
+                                            error={disabledCobrar}
+                                            total2={0}
+                                            closeModals={closeModals}
+                                            innerBtnCobrar={innerBtnCobrar}
+                                        />
+                                    </CardFooter>
+                                </Card>
+
+
+                            </div>
+
                         </div>
-                        <div className='' style={{ width: '50%' }}>
-                            <Card className='mb-1 border-primary rounded-start-0' >
-                                <CardHeader className='page-bg text-white fs-6 py-3 text-center  rounded-start-0'>
-                                    Total:  {totalRedondeado && totalRedondeado}
-                                </CardHeader>
-                                <CardBody>
-
-                                    <Row className='d-flex  justify-content-center align-items-center'>
-                                        <Col lg='9'>
-                                            <CompContentDocs
-                                                activeTab='1'
-                                                onKeyPress={onKeyPress}
-                                                handleDelete={() => handleDelete()}
-                                            />
-                                        </Col>
-                                    </Row>
-
-                                </CardBody>
-                                <CardFooter>
-                                    <BtnCobrar
-                                        error={disabledCobrar}
-                                        total2={0}
-                                        closeModals={closeModals}
-                                        innerBtnCobrar={innerBtnCobrar}
-                                    />
-                                </CardFooter>
-                            </Card>
-
-
-                        </div>
-
-                    </div>
-                </ModalBody>
-            </Modal>
+                    </ModalBody>
+                </Modal>}
         </>
     )
 }

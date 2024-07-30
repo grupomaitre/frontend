@@ -223,8 +223,7 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
                         <CardHeader className='m-0 p-0 py-1 px-1'>
                             <Row className='d-flex align-items-center justify-content-between'>
                                 <Col lg='' className=' me-1 d-flex flex-column text-center'>
-                                    <Label>Adquiriente</Label>
-                                    <Label className='bg-dark rounded text-white p-1 text-uppercase'> {
+                                    <Label className='bg-dark rounded text-white p-1 text-uppercase fs-4'> {
                                         tarjeta || 'Tarjeta'
                                     }</Label>
                                 </Col>
@@ -262,7 +261,7 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
                             {errorTarjeta && <Row>
                                 <Col lg='12' className=' text-center'>
 
-                                    <div className='text-white fs-15 fw-bold bg-danger'>
+                                    <div className='text-white fs-15 fw-bold bg-danger py-2'>
                                         Selecione una Tarjeta
                                     </div>
 
@@ -290,18 +289,19 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
                                 innerRef={btnAgregarRef}
                                 color='primary'
                                 type='submit'
-                                disabled={loading}
+                                //    disabled={loading}
+                                disabled={inputValues[0] === 0 || loading ? true : false}
                                 onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
                             //  disabled={btnDisabled}
 
                             /*     */
                             /*       onKeyDown={
-                                      (e) => {
-                                          if (e.key === 'Enter') {
-                                              handlePushData
-                                          }
-                                      }
-                                  } */
+                                (e) => {
+                                    if (e.key === 'Enter') {
+                                        handlePushData
+                                    }
+                                }
+                            } */
                             >{!!isEdit ? 'Actualizar' : 'Agregar'}   </Button>
                             <Button className=' fs-14'
                                 color='danger'

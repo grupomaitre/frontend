@@ -191,7 +191,8 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
                         <div className='d-flex my-2 gap-5 justify-content-between'>
 
                             <Button
-                                disabled={isLoading}
+                                disabled={inputValues[0] === 0 || isLoading ? true : false}
+
                                 block
                                 className=' ms-1 fs-12 '
                                 // innerRef={btnAgregarRef}

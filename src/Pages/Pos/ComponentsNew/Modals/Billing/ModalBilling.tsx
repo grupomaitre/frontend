@@ -78,7 +78,6 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = event.target.value
         const inputName = event.target.id
-
         setInputs({
             ...inputs,
             [inputName]: inputVal,

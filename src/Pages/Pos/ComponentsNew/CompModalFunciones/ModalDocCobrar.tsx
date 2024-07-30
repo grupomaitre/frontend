@@ -21,6 +21,7 @@ interface DocCobrarProps {
 }
 
 const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
+
     const [data, setData] = React.useState<any>()
     const [selectItemRow, setSelectItemRow] = React.useState<any>()
     //modals
@@ -33,6 +34,10 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
     const [showModalCobra, setShowModalCobra] = useState(false)
     const [showModalAbono, setShowModalAbono] = useState(false)
     const [showModalCliente, setShowModalCliente] = useState(false)
+
+    const [totalServicio, setTotalServicio] = useState(0)
+    const [totalIva, setTotalIva] = useState(0)
+    const [totalVentas, setTotalVentas] = useState(0)
     const columns = React.useMemo(
         () => [
 
@@ -58,7 +63,7 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
             },
             {
                 Header: 'Serv 10%',
-                accessor: 'serv',
+                accessor: 'servicio',
             },
             {
                 Header: 'Total',
@@ -68,10 +73,6 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 Header: 'Saldo',
                 accessor: 'saldo',
             },
-         /*    {
-                Header: 'forma_pago',
-                accessor: 'forma_pago',
-            }, */
 
             {
                 Header: 'Efectivo',
@@ -139,7 +140,26 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 Header: 'Referencia',
                 accessor: 'referencia',
             },
-
+            {
+                Header: 'Visa',
+                accessor: 'visa',
+            },
+            {
+                Header: 'mastercard',
+                accessor: 'mastercard',
+            },
+            {
+                Header: 'diners',
+                accessor: 'diners',
+            },
+            {
+                Header: 'american',
+                accessor: 'american',
+            },
+            {
+                Header: 'discover',
+                accessor: 'discover',
+            },
 
         ],
         []
@@ -148,6 +168,12 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
         try {
             const res = await axios.get('/api/v1/reporte-ventas-caja')
             setData(res.data || [])
+            const totalServicio = data.reduce((acc: number, el: any) => acc + parseFloat(el.servicio) || 0, 0)
+            const totalIva = data.reduce((acc: number, el: any) => acc + parseFloat(el.iva) || 0, 0)
+            const totalVentas = data.reduce((acc: number, el: any) => acc + parseFloat(el.total) || 0, 0)
+            setTotalServicio(totalServicio)
+            setTotalIva(totalIva)
+            setTotalVentas(totalVentas)
         } catch (error) {
             console.log(error)
         }
@@ -155,6 +181,8 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
     React.useEffect(() => {
         getData()
     }, [])
+    //TOTALES
+
 
     const itemTools = [
         {
@@ -233,8 +261,8 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 <ModalCliente
                     show={showModalCliente}
                     onCloseClick={() => setShowModalCliente(false)}
-                 /*    cliente={selectItemRow ? selectItemRow : {}}
-                    getData={getData} */
+                /*    cliente={selectItemRow ? selectItemRow : {}}
+                   getData={getData} */
                 />
             }
             {
@@ -345,23 +373,23 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                                 </Col>
                                 <Col lg='6' className=' fs-15' style={{ background: 'rgba(0,0,0,0.8)', color: '#0bef01' }}>
                                     <Row>
-                                        <Col>BI 12</Col>
-                                        <Col className='text-white'>1000</Col>
+                                        <Col>BI 15</Col>
+                                        <Col className='text-white'>{totalIva.toFixed(2)}</Col>
                                         <Col>Servicio</Col>
-                                        <Col className='text-white'>10</Col>
+                                        <Col className='text-white'>{totalServicio.toFixed(2)}</Col>
                                     </Row>
                                     <Row>
                                         <Col>BI 0</Col>
-                                        <Col className='text-white'>37.75</Col>
+                                        <Col className='text-white'>0.00</Col>
                                         <Col>Transporte</Col>
                                         <Col className='text-white'>0.00</Col>
                                     </Row>
                                     <Row>
 
                                         <Col>IVA</Col>
-                                        <Col className='text-white'>3.82</Col>
+                                        <Col className='text-white'>{totalIva.toFixed(2)}</Col>
                                         <Col>Total</Col>
-                                        <Col className='text-white'>69.96</Col>
+                                        <Col className='text-white'>{totalVentas.toFixed(2)}</Col>
                                     </Row>
                                 </Col>
                             </Row>

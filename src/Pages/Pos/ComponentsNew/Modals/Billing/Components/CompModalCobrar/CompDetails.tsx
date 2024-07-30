@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import DetalleCuentaTotals from './Components/DetalleCuentaTotals'
 import NavTarjeta from './Components/NavTarjeta'
 import { setValueEfectivo } from '../../../../../../../slices/Orders/OrdersSlice'
-import { useQuery } from 'react-query'
-import { getOrderByCart } from './Api/ApiOrder'
 
 interface ComponenteProps {
     closeModals: () => void
@@ -26,6 +24,8 @@ interface ComponenteProps {
     handleKeydown: () => void
     setTestVuelto: any
     testVuelto: any
+    setPropina: any
+    propina: any
 
 }
 const CompDetails: FC<ComponenteProps> = ({
@@ -41,18 +41,16 @@ const CompDetails: FC<ComponenteProps> = ({
     totalCart,
     setDisabledCobrar,
     setTestVuelto,
-    testVuelto
+    testVuelto,
+    setPropina,
+    propina
 }) => {
     // const dispatch = useDispatch()
 
-    const mesacart = useSelector((state: any) => state.cartSlice.mesacart)
     const cart = useSelector((state: any) => state.cartSlice.cart)
     const idCart = useSelector((state: any) => state.cartSlice.idCart)
 
     const dispatch = useDispatch()
-
-    const { isLoading, data: ordenes } = useQuery(['dataOrden', idCart], () => getOrderByCart(idCart));
-
 
     //inputs 
     const [inputEfectivo, setInputEfectivo] = useState<number>(0)
@@ -99,20 +97,8 @@ const CompDetails: FC<ComponenteProps> = ({
     return (
         <>
             <Card className='border-primary rounded-end-0 border-end-0 '>
-                <CardHeader className='text-center d-flex flex-row gap-2 justify-content-around page-bg text-white rounded-end-0'
-                    style={{ fontSize: '0.68rem', padding: '11px 13px 12px 13px' }}>
-                    <div> Cuenta N°:<br />
-                        <span className='fw-bold'> {mesacart}</span>
-
-                    </div>
-                    <div> N°:<br /> <span style={{ fontWeight: '700' }}> {!isLoading ? ordenes?.data?.id_order : "001"}</span>
-                    </div>
-                    <div> Documento: <br />
-                        <span style={{ fontWeight: '700' }} className='text-capitalize'>
-                            {' ' + !isLoading ? ordenes?.data?.documento : "documento"}
-                        </span>
-                    </div>
-                    <div> Cliente:<br /> <span style={{ fontWeight: '500' }} >{!isLoading ? ordenes?.data?.cliente.razon_social : "empresa"}</span> </div>
+                <CardHeader className='page-bg text-white fs-2 text-center  rounded-start-0'>
+                    Total:  {totalCart && totalCart}
                 </CardHeader>
                 <CardBody className='bg-white' >
 
@@ -143,6 +129,7 @@ const CompDetails: FC<ComponenteProps> = ({
                         setFormaPago={setFormaPago}
                         //testVuelto
                         testVuelto={testVuelto}
+                        setPropina={setPropina}
                     />
                     <div className='my-1 '>
 
@@ -160,6 +147,7 @@ const CompDetails: FC<ComponenteProps> = ({
                             inputDeposito={inputDeposito}
                             setDisabledCobrar={setDisabledCobrar}
                             setTestVuelto={setTestVuelto}
+                            propina={propina}
                         />
                     </div>
 

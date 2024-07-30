@@ -263,7 +263,8 @@ const TabPaneCheque: FC<Props> = ({ items, total,
                                         innerRef={btnAgregarRef}
                                         color='primary'
                                         onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
-                                        disabled={isLoading}
+                                        disabled={inputValues[0] === 0 || isLoading ? true : false}
+
                                         onKeyDown={
                                             (e) => {
                                                 if (e.key === 'Enter') {

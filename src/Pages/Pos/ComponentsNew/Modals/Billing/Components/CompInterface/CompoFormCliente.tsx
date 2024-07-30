@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useState } from 'react'
-import { Button, Col, Input, Label, Row } from 'reactstrap'
+import { Button, ButtonGroup, Col, Input, Label, Row } from 'reactstrap'
 import { verificarRuc } from '../../../../../../../Func/VerificarCedula'
 
 interface FormClienteItem {
@@ -13,6 +13,8 @@ interface FormClienteItem {
     ref?: any
     btn?: any
     error?: string | null
+    extras?: boolean
+    extrasCompo?: any
 }
 interface Props {
     cliente: any
@@ -101,23 +103,23 @@ const CompoFormCliente: FC<Props> = ({ cliente, onChangeInput, getInputValue, se
             value: cliente.direccion || ''
         },
         {
-            id: 5, ref: inputRefCorreo,
+            id: 5,
+            ref: inputRefCorreo,
             onChange: onChangeInput,
             inputName: "email",
             get: getInputValue('email'),
             label: 'Correo',
             type: 'text',
             value: cliente.email || '',
-            btn: <Button
-                style={{ width: '40px' }}
-                color='primary'
-                className='fs-10 text-white ms-2'
-                onClick={() => console.log()}
-            >
-
-                @
-            </Button>
+            extras: true,
+            extrasCompo:
+                <ButtonGroup className='mt-1' >
+                    <Button outline size='sm' className='border-0 fs-11 border-0 rounded-0 shadow-none' onClick={() => console.log('@')}>@</Button>
+                    <Button outline size='sm' className='border-0 fs-11 border-0 rounded-0 shadow-none' onClick={() => console.log('@hotmail.com')}>@hotmail.com</Button>
+                    <Button outline size='sm' className='border-0 fs-11 border-0 rounded-0 shadow-none' onClick={() => console.log('@gmail.com')}>@gmail.com</Button>
+                </ButtonGroup>
         },
+
         {
             id: 6, ref: inputRefObservaciones,
             onChange: onChangeInput,
@@ -215,7 +217,9 @@ const CompoFormCliente: FC<Props> = ({ cliente, onChangeInput, getInputValue, se
                             <span className='text-danger fs-11'>
                                 {item?.error ? error : null}
                             </span>
-
+                            {
+                                item?.extras ? item.extrasCompo : null
+                            }
 
                         </Col>
                         <Col lg='1'>
@@ -225,6 +229,8 @@ const CompoFormCliente: FC<Props> = ({ cliente, onChangeInput, getInputValue, se
                             }
                         </Col>
                     </Row>
+
+
                 </Fragment>
             ))}
         </>

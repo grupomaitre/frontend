@@ -69,7 +69,7 @@ const FooterTable: FC<IProps> = ({ orden }) => {
                     <Col lg='6' className='border-end'>
                         {totalAnulado ? <span className='badge bg-danger fs-10'>Anulados:{totalAnulado || 55}</span> : ''}
                     </Col>
-                    <Col lg='6' className='d-flex flex-column align-items-center justify-content-around'>
+                    <Col lg='6' className='d-flex flex-column align-items-start justify-content-around'>
                         <span className='' >Orden: {idCart || 0}</span>
                         <span className='' >Factura 001-002: {orden}</span>
                         <span className='' >Consumo Personal: {orden}</span>
