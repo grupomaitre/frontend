@@ -29,3 +29,5 @@ en deposito campo obligatorio**depisito ver al agregar
 //ver dividir cuentas ✓
 modal observacion  ✓
 cambiar buscar por observacion✓
+
+Connection: mysql, SQL: insert into `cart_products` (`status`, `status_preference`, `cantidad`, `cantidad_original`, `nombre`, `iva`, `servicio`, `total`, `descuento`, `precio_final`, `precio`, `impresora`, `sitio`, `uuid_detalle`, `id_cart`, `id_product`, `updated_at`, `created_at`) values (1, 0, 4, 4, PECHUGA AL GRILL, 11, 0, 0, 0, 11, 11.13, ?, 0, b41447e1-4f3b-4d71-aac3-9399f559608e, 2806, 715, 2024-07-31 17:28:17, 2024-07-31 17:28:17)
