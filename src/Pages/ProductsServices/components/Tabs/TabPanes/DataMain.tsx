@@ -77,7 +77,7 @@ const DataMain: FC<Props> = ({ tabId, validation }) => {
             }
 
         }
-    }, [grupos, validation.values.id_rubro])
+    }, [grupos])
 
 
     const [optionsMarca, setOptionsMarca] = useState<any>([])
