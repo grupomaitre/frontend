@@ -14,6 +14,7 @@ interface IProps {
     textFs?: string
     showAceptar: boolean
     showCancelar: boolean
+    textHeader?: string
 
 }
 const ModalAlert: FC<IProps> = ({
@@ -28,7 +29,8 @@ const ModalAlert: FC<IProps> = ({
     text,
     textFs,
     showAceptar,
-    showCancelar
+    showCancelar,
+    textHeader
 }) => {
     return (
         <Modal isOpen={show} toggle={() => onCloseClick()} backdrop={backdrop || false} centered={centered || true} fade={fade || false}
@@ -36,7 +38,7 @@ const ModalAlert: FC<IProps> = ({
         >
             <ModalHeader toggle={() => onCloseClick()} className='m-0 p-0 px-2 py-1'>
                 <span className='fs-14'>
-                    {'Mensaje'}
+                    {'Mensaje' + textHeader}
                 </span>
             </ModalHeader>
             <ModalBody className='shadow-modal rounded'

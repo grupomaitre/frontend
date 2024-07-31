@@ -18,7 +18,7 @@ const ItemsServicios = () => {
     //    const id_tipo_rubro = 9
     const id_tipo_rubro = JSON.parse(localStorage.getItem('IdTipoRubro') || '0')
     const id_rubro = JSON.parse(sessionStorage.getItem('id_rubro') || '0')
-    const id_sub_rubro = JSON.parse(sessionStorage.getItem('id_sub_rubro') || '0')
+    const id_sub_rubro =  JSON.parse(sessionStorage.getItem('id_sub_rubro') || '0')
     const [showModal, setShowModal] = useState(false)
     const [products, setProducts] = useState([])
     const [productsItem, setProductsitem] = useState({})
@@ -245,8 +245,8 @@ const ItemsServicios = () => {
                     editable_precio: values.editable_precio,
                     editable_nombre: values.editable_nombre,
                     nota: values.nota,
-                    id_sub_rubro: id_sub_rubro || values.id_sub_rubro,
-                    id_rubro: id_rubro || values.id_rubro,
+                    id_rubro: parseInt(id_rubro),
+                    id_sub_rubro: (id_sub_rubro),
                     id_bodega: values.id_bodega,
                     id_marca: values.id_marca,
                     id_medida: values.id_medida,
@@ -254,6 +254,8 @@ const ItemsServicios = () => {
                     id_sitio_impresora_item: values.id_sitio_impresora_item
 
                 }
+          /*       console.log(updateProduct.id_rubro)
+                return */
                 editProduct(isEditProduct?.id_product, updateProduct).then((data: any) => {
                     if (data.status) {
                         handleClear()

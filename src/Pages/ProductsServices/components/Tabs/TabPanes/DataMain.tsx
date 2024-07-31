@@ -71,13 +71,13 @@ const DataMain: FC<Props> = ({ tabId, validation }) => {
             } else {
                 const filterRubro = grupos.filter((item: any) => item?.id_rubro === parseFloat(validation.values.id_rubro))
                 const mapSubCategories = (filterRubro[0]?.sub_rubros || []).map((item: any) => ({ value: item?.id_sub_rubro || '', label: item?.name_sub_rubro || '' })) || []
-                validation.setFieldValue('id_sub_rubro', mapSubCategories[0].value)
+                validation.setFieldValue('id_sub_rubro', mapSubCategories[0]?.value)
                 setOpSetSubGrupo(mapSubCategories)
 
             }
 
         }
-    }, [grupos])
+    }, [grupos, validation.values.id_rubro])
 
 
     const [optionsMarca, setOptionsMarca] = useState<any>([])
@@ -109,18 +109,18 @@ const DataMain: FC<Props> = ({ tabId, validation }) => {
     }, [showModalMedida])
 
     useEffect(() => {
-        localStorage.setItem("id_rubro", JSON.stringify(validation.values.id_rubro));
+        sessionStorage.setItem("id_rubro", JSON.stringify(validation.values.id_rubro));
 
     }, [validation.values.id_rubro])
 
     useEffect(() => {
-        localStorage.setItem("id_sub_rubro", JSON.stringify(validation.values.id_sub_rubro));
+        sessionStorage.setItem("id_sub_rubro", (validation.values.id_sub_rubro || 0));
 
     }, [validation.values.id_sub_rubro])
 
     useEffect(() => {
         validation.setFieldValue('id_medida', selectedMedida?.value)
-        localStorage.setItem("id_medida", JSON.stringify(selectedMedida?.value));
+        sessionStorage.setItem("id_medida", JSON.stringify(selectedMedida?.value));
 
     }, [selectedMedida])
 

@@ -174,7 +174,7 @@ const ModalBilling: FC<ModalBillingProps> = ({ show, onCloseClick }) => {
                         onAceptarClick={() => setShowKeyBoard(!showKeyBoard)}
                         onCloseClick={handleClose}
                         text='Teclado'
-                        textCancelar='Cerrar'
+                        textCancelar='Regresar'
                         btnClassAceptar={'border-success'}
 
                     />

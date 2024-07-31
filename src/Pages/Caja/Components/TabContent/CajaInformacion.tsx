@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Button, Col, Label, Row } from 'reactstrap'
+import { Button, Col, Row } from 'reactstrap'
 import img1 from '../../../../assets/images/macsi/CAJAS.png'
 import img2 from '../../../../assets/images/macsi/PRODUCTOS.png'
 interface Props { openModal: () => void }

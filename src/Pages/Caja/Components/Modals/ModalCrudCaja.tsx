@@ -50,8 +50,8 @@ const ModalCrud: FC<Props> = ({ onCloseClick, show, isEdit }) => {
             SwalSuccess({ title: 'Caja Abierta' })
             onCloseClick()
             navigate('/dashboard')
+            return res
         }
-
     }
     //keyboard
     const onKeyPress = (value: number | string) => {
@@ -85,16 +85,7 @@ const ModalCrud: FC<Props> = ({ onCloseClick, show, isEdit }) => {
                     inputRefs.current[1].current?.focus();
                     break;
                 case 1:
-                    const res: any = await BuscarUser(inputValues[1])
-                    if (res === 'No existe Vendedor') {
-                        setError(res)
-                        console.log('clear')
-                        setInputValues([inputValues[0], ''])
-                    } else {
-                        setUserPrint(res?.persona.name + '-' + res.persona.last_name)
-                        setShowConfirm(true)
-                        setError('')
-                    }
+                    handleEnterTest()
                     break;
                 default:
                     console.log('Opción no reconocida');
@@ -104,13 +95,14 @@ const ModalCrud: FC<Props> = ({ onCloseClick, show, isEdit }) => {
     }
     const handleAcept = async () => {
         const maquina = (localStorage.getItem('terminal') || '')
-        handleSaveCaja()
-        onCloseClick()
+        const caja = await handleSaveCaja()
         await axios.post('api/imprimir/saldo/inicial', {
             saldo: inputValues[0] || 0,
             usuario: userPrint || null,
-            maquina: maquina
+            maquina: maquina,
+            caja: caja.data.id_caja_diaria
         })
+        onCloseClick()
     }
 
     const handleClose = () => {
@@ -120,7 +112,18 @@ const ModalCrud: FC<Props> = ({ onCloseClick, show, isEdit }) => {
         handleSaveCaja()
 
     }
-
+    const handleEnterTest = async () => {
+        const res: any = await BuscarUser(inputValues[1])
+        if (res === 'No existe Vendedor') {
+            setError(res)
+            setInputValues([inputValues[0], ''])
+            inputRefs.current[1].current?.focus()
+        } else {
+            setUserPrint(res?.persona.name + '-' + res.persona.last_name)
+            setShowConfirm(true)
+            setError('')
+        }
+    }
     return (
         <>
             {showConfirm &&
@@ -130,6 +133,7 @@ const ModalCrud: FC<Props> = ({ onCloseClick, show, isEdit }) => {
                     onCancelar={() => handleClose()}
                     onCloseClick={() => handleClose()}
                     text='Desea Imprimir'
+                    textHeader={userPrint || ''}
                     showAceptar={true}
                     showCancelar={true}
                     backdrop={true}
@@ -176,7 +180,7 @@ const ModalCrud: FC<Props> = ({ onCloseClick, show, isEdit }) => {
                         </CardBody>
                         <CardFooter style={{ background: '#cecece' }}>
                             <BtnPosModal
-                                onAceptarClick={() => handleSaveCaja()}
+                                onAceptarClick={() => handleEnterTest()}
                                 onCloseClick={onCloseClick}
                                 vertical={false}
                             />

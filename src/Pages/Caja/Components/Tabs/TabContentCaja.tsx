@@ -15,7 +15,7 @@ const TabContentCaja: FC<Props> = ({ activeTab, openModal, setOntabs }) => {
     const TabPaneItems = [
         { tabId: "3", componetent: <HistorialCaja /> },
         {
-            tabId: "2", componetent: < DetalleCaja setOntabs={setOntabs} />
+            tabId: "2", componetent: <DetalleCaja setOntabs={setOntabs} />
         },
         { tabId: "1", componetent: <CajaInformacion openModal={openModal} /> },
     ]

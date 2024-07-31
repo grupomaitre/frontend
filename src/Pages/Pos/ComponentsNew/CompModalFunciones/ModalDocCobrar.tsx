@@ -15,12 +15,14 @@ import ModalAbono from './ModalVentas/ModalAbono'
 import { toastError } from '../../../../Components/Common/Swals/SwalsApi'
 import ModalCliente from './ModalVentas/ModalCliente'
 import ModalCobrar from '../Modals/Billing/Components/Modals/ModalCobrar'
+import CardHeaderModal from '../../../../common/CardHeaderModal'
 interface DocCobrarProps {
     show: boolean
     onCloseClick: () => void
 }
 
 const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
+    const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
 
     const [data, setData] = React.useState<any>()
     const [selectItemRow, setSelectItemRow] = React.useState<any>()
@@ -82,8 +84,19 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                         <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original)}>
                             {/* status color */}
                             <span
-                                className={row.original.forma_pago === 'Efectivo' ? 'badge bg-success' : 'badge bg-danger '}
                             >{row.original.forma_pago === 'Efectivo' ? 'SI' : null}</span>
+                        </div>
+                    )
+                }
+            },
+            {
+                Header: 'Cheque',
+                accessor: 'cheque',
+                Cell: ({ row }: any) => {
+                    return (
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original)}>
+                            <span
+                            >{row.original.cheque?.id_factura_cheque > 0 ? 'SI' : null}</span>
                         </div>
                     )
                 }
@@ -96,8 +109,7 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                         <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original)}>
                             {/* status color */}
                             <span
-                                className={row.original.forma_pago === 'Efectivo' ? 'badge bg-success' : 'badge bg-danger '}
-                            >{row.original.forma_pago === 'Efectivo' ? 'SI' : null}</span>
+                            >{row.original.deposito?.id_factura_deposito > 0 ? 'SI' : null}</span>
                         </div>
                     )
                 }
@@ -110,8 +122,7 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                         <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original)}>
                             {/* status color */}
                             <span
-                                className={row.original.forma_pago === 'Tarjeta' ? 'badge bg-success' : 'badge bg-danger '}
-                            >{row.original.forma_pago === 'Tarjeta' ? 'SI' : null}</span>
+                            >{row.original.tarjeta.length > 0 ? 'SI' : null}</span>
                         </div>
                     )
                 }
@@ -119,22 +130,19 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
             {
                 Header: 'Propina Tarjeta',
                 accessor: 'propina',
-            },
-            {
-                Header: 'Cheque',
-                accessor: 'cheque',
                 Cell: ({ row }: any) => {
+                    const filter = row.original.tarjeta.reduce((acc: number, el: any) => acc + parseFloat(el.propinas || 0), 0)
+
                     return (
-                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original)}>
-                            {/* status color */}
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(filter?.monto.toFixed(2) || null)}>
                             <span
-                                className={row.original.forma_pago === 'Cheque' ? 'badge bg-success' : 'badge bg-danger '}
-                            >{row.original.forma_pago === 'Cheque' ? 'SI' : null}</span>
+                            >{filter || null}</span>
                         </div>
+
                     )
                 }
-            },
 
+            },
 
             {
                 Header: 'Referencia',
@@ -142,23 +150,69 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
             },
             {
                 Header: 'Visa',
-                accessor: 'visa',
+                Cell: ({ row }: any) => {
+                    const filter = row.original.tarjeta.find((item: any) => item.nombre === 'visa')
+                    return (
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(filter?.monto || null)}>
+                            <span
+                            >{filter?.monto || null}</span>
+                        </div>
+
+                    )
+                }
             },
             {
                 Header: 'mastercard',
-                accessor: 'mastercard',
+                Cell: ({ row }: any) => {
+                    const filter = row.original.tarjeta.find((item: any) => item.nombre === 'mastercard')
+                    return (
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(filter?.monto || null)}>
+                            <span
+                            >{filter?.monto || null}</span>
+                        </div>
+
+                    )
+                }
             },
             {
                 Header: 'diners',
-                accessor: 'diners',
+                Cell: ({ row }: any) => {
+                    const filter = row.original.tarjeta.find((item: any) => item.nombre === 'diners')
+                    return (
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(filter?.monto || null)}>
+                            <span
+                            >{filter?.monto || null}</span>
+                        </div>
+
+                    )
+                }
             },
+
             {
                 Header: 'american',
-                accessor: 'american',
+                Cell: ({ row }: any) => {
+                    const filter = row.original.tarjeta.find((item: any) => item.nombre === 'american')
+                    return (
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(filter?.monto || null)}>
+                            <span
+                            >{filter?.monto || null}</span>
+                        </div>
+
+                    )
+                }
             },
             {
                 Header: 'discover',
-                accessor: 'discover',
+                Cell: ({ row }: any) => {
+                    const filter = row.original.tarjeta.find((item: any) => item.nombre === 'discover')
+                    return (
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(filter?.monto || null)}>
+                            <span
+                            >{filter?.monto || null}</span>
+                        </div>
+
+                    )
+                }
             },
 
         ],
@@ -166,11 +220,14 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
     )
     const getData = async () => {
         try {
-            const res = await axios.get('/api/v1/reporte-ventas-caja')
+            const res = await axios.get('/api/v1/reporte-ventas-caja', {
+                params: { id_caja_diaria: idCajaLocal }
+            })
+
             setData(res.data || [])
-            const totalServicio = data.reduce((acc: number, el: any) => acc + parseFloat(el.servicio) || 0, 0)
-            const totalIva = data.reduce((acc: number, el: any) => acc + parseFloat(el.iva) || 0, 0)
-            const totalVentas = data.reduce((acc: number, el: any) => acc + parseFloat(el.total) || 0, 0)
+            const totalServicio = data.reduce((acc: number, el: any) => acc + parseFloat(el.servicio || 0), 0)
+            const totalIva = data.reduce((acc: number, el: any) => acc + parseFloat(el.iva || 0), 0)
+            const totalVentas = data.reduce((acc: number, el: any) => acc + parseFloat(el.total || 0), 0)
             setTotalServicio(totalServicio)
             setTotalIva(totalIva)
             setTotalVentas(totalVentas)
@@ -178,9 +235,8 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
             console.log(error)
         }
     }
-    React.useEffect(() => {
-        getData()
-    }, [])
+
+    React.useEffect(() => { getData() }, [])
     //TOTALES
 
 
@@ -244,9 +300,6 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
         }
 
     }
-
-    const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
-
 
     return (
         <>
@@ -329,9 +382,11 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 />
             }
             <Modal isOpen={show} backdrop={'static'} size='xl' >
-                <ModalHeader toggle={onCloseClick} className='' >
-                    <Label className='fs-11 fw-bold'>{'Caja N° ' + idCajaLocal || ''}</Label>
-                </ModalHeader>
+                <CardHeaderModal
+                    onCloseClick={onCloseClick}
+                    text={'Caja N° ' + idCajaLocal || ''}
+                    classHeader='py-2 px-2'
+                />
                 <ModalBody style={{ background: 'rgb(251, 133, 0,20%)' }} className='text-white fs-11'>
 
                     <div className='card mb-2'>
@@ -360,6 +415,7 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                                 tableClass='cursor-pointer w-100 '
                                 theadClass='position-sticky top-0 fw-bold page-bg text-white fs-15 '
                                 thClass='fs-11 fw-light border'
+                                tdClass={'border bg-white'}
                                 tbodyClass='bg-table'
                                 styleHeight='230px'
                                 overflowY='scroll'

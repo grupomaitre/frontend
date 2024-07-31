@@ -91,7 +91,7 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
             accessor: 'propina'
         },
         {
-            Header: 'Boucher',
+            Header: 'Referencia',
             accessor: 'numero_boucher'
         },
         {
