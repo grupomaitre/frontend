@@ -14,7 +14,7 @@ import * as Yup from "yup"; interface IProps {
     fetchDataProduct?: any
     handleClear: () => void
 }
-const FormPriceModal: FC<IProps> = ({ onCloseClick, item, isEditProduct, fetchDataProduct, handleClear }) => {
+const FormPriceModal: FC<IProps> = ({ onCloseClick, item, isEditProduct, fetchDataProduct }) => {
     const [iva, setIva] = useState<number>(1)
     const [iva2, setIva2] = useState<number>(1.15)
     const [iva3, setIva3] = useState<number>(1.15)
@@ -133,7 +133,7 @@ const FormPriceModal: FC<IProps> = ({ onCloseClick, item, isEditProduct, fetchDa
                 setIva6={setIva6}
             />
 
-            <Row className='text-white fs-11 mt-4'>
+            <Row className='fs-11 mt-4'>
                 <Col>
                     <Input
                         type='checkbox'
@@ -146,7 +146,7 @@ const FormPriceModal: FC<IProps> = ({ onCloseClick, item, isEditProduct, fetchDa
                 </Col>
             </Row>
 
-            <Row className='fs-11 text-white'>
+            <Row className='fs-11'>
                 <Col lg='2'>
                     <Label>
                         Tipo de ICE

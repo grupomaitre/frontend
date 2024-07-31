@@ -22,26 +22,27 @@ interface ObjectTabPane {
 }
 
 const Lists = (props: any) => {
-    const { opSubCategorias, setDataSend, dataSend, isEditProduct, validation, isIDRubro, setIsIDRubro, isID, setIsID, fetchDataProduct, showModal, setShowModal, setProducts } = props
+    const { opSubCategorias, setDataSend, dataSend, isEditProduct, validation, isIDRubro, setIsIDRubro, isID, setIsID, fetchDataProduct, showModal, setShowModal } = props
     const listTabPane: ObjectTabPane[] = [
         {
             tabId: "1",
-            componetent: <DataMain
-                tabId='1'
-                opSubCategorias={opSubCategorias}
-                setDataSend={setDataSend}
-                dataSend={dataSend}
-                isEditProduct={isEditProduct}
-                validation={validation}
-                isIDRubro={isIDRubro}
-                setIsIDRubro={setIsIDRubro}
-                isID={isID}
-                setIsID={setIsID}
-                setProducts={setProducts}
-            />
+            componetent:
+                <DataMain
+                    tabId='1'
+                    opSubCategorias={opSubCategorias}
+                    setDataSend={setDataSend}
+                    dataSend={dataSend}
+                    isEditProduct={isEditProduct}
+                    validation={validation}
+                    isIDRubro={isIDRubro}
+                    setIsIDRubro={setIsIDRubro}
+                    isID={isID}
+                    setIsID={setIsID}
+                />
         },
         {
-            tabId: "2", componetent:
+            tabId: "2",
+            componetent:
                 <Prices
                     showModal={showModal}
                     setShowModal={setShowModal}
@@ -66,7 +67,8 @@ const Lists = (props: any) => {
                 />
         },
         {
-            tabId: "4", componetent:
+            tabId: "4",
+            componetent:
                 <Preferences tabId='4'
                     isEditProduct={isEditProduct}
                     fetchDataProduct={fetchDataProduct}

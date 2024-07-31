@@ -8,11 +8,9 @@ import { addProduct, editProduct, getProductsInv } from "./Api/ApiProducts"
 import Header from "../../Layouts/Header"
 import { socketTest } from "../Pos/Socket/ConctSocket"
 import TableGeneric from "../../common/Generics/Table/TableGeneric"
-import { InterfacesProduct } from "./components/Tabs/TabPanes/Interfaces/InterfacesProduct";
 import axios from "axios";
 import ModalPrices from "./components/Modal/ModalPrices";
 import { toastError, toastSuccess } from "../../Components/Common/Swals/SwalsApi";
-import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { useDispatch } from "react-redux";
 import { setIDTipoRubro } from "../../slices/rubros/reducer";
 import { ToastContainer } from "react-toastify";
@@ -361,17 +359,14 @@ const ItemsServicios = () => {
 
             <div className='' style={{ background: '#ecf0f1' }}>
                 <Header link="/dashboard" handleSalir={handleSalir} />
-                <Row className="mb-1">
-                    <Col className="mx-3">
-                        <BreadCrumb
-                            pageTitle="Items/Servicios"
-                            title="Item"
-                            itemInfo={products?.length === 0 ? null : isEditProduct?.nombre || null}
-                        />
+                <Row className="m-0">
+                    <Col className="mx-2">
+                        <Card body className=" my-2 py-1 page-bg text-white">
+                            Item: {products?.length === 0 ? null : isEditProduct?.nombre || null}
+                        </Card>
                     </Col>
+
                 </Row>
-
-
                 <Row className="m-0">
                     <Col lg='' className="mx-2" >
                         <TabsProducts

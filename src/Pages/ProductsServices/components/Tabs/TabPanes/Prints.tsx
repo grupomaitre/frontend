@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react'
 import { Button, Col, Label, Row, TabPane } from "reactstrap"
-import Select from 'react-select'
 import { getSitePrinter } from '../../../Api/ApiSitePrinter'
 import TableGeneric from '../../../../../common/Generics/Table/TableGeneric'
 import { deleteImpresorasProduct, listPrintsfProduct, saveImpresoraProduct } from '../../../Api/ApiPrintsProducts'
+import SelectCommon from '../../../../Pos/common/SelectCommon'
 interface Props {
     tabId: string
     setDataSend?: any
@@ -17,6 +17,7 @@ const Prints: FC<Props> = ({ tabId, dataSend, isEditProduct, fetchDataProduct })
     const [selectItemRow, setSelectItemRow] = useState<any>()
     const [data, setData] = useState<any>([])
     const [opData, setOpData] = useState<any>()
+
     const getPrinters = async () => {
         try {
             const res: any = await getSitePrinter()
@@ -48,9 +49,6 @@ const Prints: FC<Props> = ({ tabId, dataSend, isEditProduct, fetchDataProduct })
         }
     ]
 
-    const handleToggleField = (e: any) => {
-        setOpData({ value: e.value, label: e.label });
-    }
     const handleAdd = async () => {
         const saveRef: any = await saveImpresoraProduct(isEditProduct?.id_product, opData?.value)
         console.log(saveRef)
@@ -69,7 +67,6 @@ const Prints: FC<Props> = ({ tabId, dataSend, isEditProduct, fetchDataProduct })
         return null
     }
 
-
     return (
         <TabPane tabId={tabId} id="prints" style={{ fontSize: '10px' }} className='bg-white p-2'>
             <Row className='mb-2'>
@@ -77,11 +74,13 @@ const Prints: FC<Props> = ({ tabId, dataSend, isEditProduct, fetchDataProduct })
                     <Label className='text-uppercase fs-12'>Sitio de Impresion :{dataSend?.nombre}</Label>
                 </Col>
                 <Col lg='2'>
-                    <Select
+
+                    <SelectCommon
+                        value={opData}
+                        setSelectedOption={setOpData}
                         options={listPrinters}
-                        className='text-black fs-13 border-sistema'
-                        onChange={(e) => handleToggleField(e)}
-                        placeholder=''
+                        isClearable={true}
+
                     />
                 </Col>
                 <Col lg='2'>
@@ -91,7 +90,7 @@ const Prints: FC<Props> = ({ tabId, dataSend, isEditProduct, fetchDataProduct })
                 </Col>
 
                 <Col lg='2'>
-                    <Button size='' outline block color='danger' 
+                    <Button size='' outline block color='danger'
                         onClick={handleRemove}
                     >Eliminar</Button>
                 </Col>

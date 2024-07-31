@@ -29,7 +29,7 @@ const SelectCommon: FC<IProps> = ({
                 value={value}
                 onChange={(value) => setSelectedOption(value)}
                 options={options}
-                className='text-black'
+                className='text-black text-uppercase'
                 isClearable={isClearable}
                 placeholder={''}
                 styles={

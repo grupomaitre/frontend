@@ -119,10 +119,10 @@ const Prices: FC<Props> = ({ tabId, setDataSend, dataSend, validation, setShowMo
                 setItmesFormPrices={setItmesFormPrices}
                 fetchDataProduct={fetchDataProduct}
             />} */}
-            <TabPane tabId={tabId} id={tabId} style={{ fontSize: '10px' }} className='fondo-sistema'>
+            <TabPane tabId={tabId} id={tabId} style={{ fontSize: '10px' }} className=''>
 
 
-                <Row className='text-white'>
+                <Row className=''>
                     <Col lg='6'>
 
                         <FormPrices
@@ -138,19 +138,19 @@ const Prices: FC<Props> = ({ tabId, setDataSend, dataSend, validation, setShowMo
                                     onClick={setShowModal}
                                     block
                                     size='sm'
-                                    color='info'
-                                    className='rounded-0 border border-secondary border-2' >
+                                    color='primary'
+                                >
                                     {'Edición de precios'}
                                 </Button>
 
                             </Col>
                         </Row>}
-                        <Row className='mt-1 mb-2'>
+                        <Row className='my-2 d-flex align-items-center '>
                             <Col lg='8'>
-                                <Label className='bg-black w-100 text-center py-1'>Últimos Cosoto / Descuento por proveedor</Label>
+                                <div className='bg-black w-100 text-center py-2 text-white'>Últimos Cosoto / Descuento por proveedor</div>
                             </Col>
                             <Col lg='4'>
-                                <Button block size='sm' color='light'>Ver más</Button>
+                                <Button block color='primary' size='sm' outline>Ver más</Button>
                             </Col>
                         </Row>
                         <Row>
@@ -165,10 +165,11 @@ const Prices: FC<Props> = ({ tabId, setDataSend, dataSend, validation, setShowMo
                             columns={columns2 || []}
                             data={data || []}
                             selectItemRow={setSelectItemRow}
-                            divClass='table-responsive text-black bg-table'
+                            divClass='table-responsive text-black border bg-table'
                             tableClass='cursor-pointer w-100'
                             theadClass='position-sticky top-0 bg-table '
                             thClass='fs-11 fw-light border'
+                            tdClass='border'
                             tbodyClass='bg-light'
                             styleHeight='130px'
                             overflowY='scroll'
