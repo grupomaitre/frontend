@@ -8,7 +8,6 @@ interface Props {
     setDataSend?: any
     dataSend?: any
     validation: any
-    fetchDataProduct: any
     showModal: boolean
     setShowModal: any
 

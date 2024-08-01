@@ -12,18 +12,32 @@ interface Props {
     isDelete: boolean
     handleClear: any
     handleDetele: any
-    fetchDataProduct: any
     showModal: boolean
     setShowModal: any
+    listCartegorias: any[]
+    subRubrosOptions?: any
+    setIsEdit: () => void
 }
 const TabsProducts: FC<Props> = (props) => {
-    const { setProducts, isEditProduct, setIsEditProduct, validation, isEdit, handleClear, handleDetele, fetchDataProduct,
+
+    const {
+        setProducts,
+        isEditProduct,
+        setIsEditProduct,
+        validation,
+        isEdit,
+        listCartegorias,
+        handleDetele,
         showModal,
-        setShowModal } = props
+        setShowModal,
+        subRubrosOptions,
+        setIsEdit
+    } = props
+
     const [activeTab, setactiveTab] = useState("1")
     const handleRest = () => {
         validation.resetForm()
-        handleClear()
+        setIsEdit()
         setIsEditProduct(null)
     }
     const itemTools = [
@@ -68,6 +82,7 @@ const TabsProducts: FC<Props> = (props) => {
             ]
         },
     ];
+
     return (
         <Form
             className='text-white'
@@ -98,10 +113,11 @@ const TabsProducts: FC<Props> = (props) => {
                         setShowModal={setShowModal}
                         activeTab={activeTab}
                         setProducts={setProducts}
-                        fetchDataProduct={fetchDataProduct}
                         isEditProduct={isEditProduct}
                         validation={validation}
                         isEdit={isEdit}
+                        listCartegorias={listCartegorias}
+                        subRubrosOptions={subRubrosOptions}
                     />
 
                 </CardBody>

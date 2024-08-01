@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { SwalError, toastError, toastSuccess } from '../../../Components/Common/Swals/SwalsApi'
+import { useQuery } from 'react-query'
 export const getMarcas = async () => {
     try {
         const response = await axios.get('/api/list-marca', {
@@ -51,7 +52,7 @@ export const deleteMarcaById = async (data: any) => {
 }
 
 //get products
-export const getProductsInv = async (id: number) => {
+const getProductsInv = async (id: number) => {
     try {
         const response = await axios.get('/api/v1/list-product', {
             params: {
@@ -59,11 +60,21 @@ export const getProductsInv = async (id: number) => {
                 id_tipo_rubro: id
             }
         })
-        return response
+        if (response.status) {
+            return response.data
+        }
     }
     catch (error) {
         return toastError({ message: 'Error al obtener productos' })
     }
+}
+
+export const useAllProducts = (id_tipo_rubro: number) => {
+    const query = useQuery(['allProducts'], () => getProductsInv(id_tipo_rubro), {
+        refetchOnWindowFocus: false,
+
+    });
+    return query
 }
 export const addProduct = async (data: any) => {
     try {

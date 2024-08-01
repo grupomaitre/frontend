@@ -15,14 +15,30 @@ interface ObjectTabPane {
     setIsIDRubro?: any
     isID?: any
     setIsID?: any
-    fetchDataProduct?: any
     setProducts?: any
-
+    listCartegorias?: any
+    subRubrosOptions?: any
     //  componetent: any
 }
 
 const Lists = (props: any) => {
-    const { opSubCategorias, setDataSend, dataSend, isEditProduct, validation, isIDRubro, setIsIDRubro, isID, setIsID, fetchDataProduct, showModal, setShowModal } = props
+    const {
+        opSubCategorias,
+        setDataSend,
+        dataSend,
+        isEditProduct,
+        validation,
+        isIDRubro,
+        setIsIDRubro,
+        isID,
+        setIsID,
+        fetchDataProduct,
+        showModal,
+        setShowModal,
+        listCartegorias,
+        subRubrosOptions
+    } = props
+
     const listTabPane: ObjectTabPane[] = [
         {
             tabId: "1",
@@ -38,6 +54,8 @@ const Lists = (props: any) => {
                     setIsIDRubro={setIsIDRubro}
                     isID={isID}
                     setIsID={setIsID}
+                    listCartegorias={listCartegorias}
+                    subRubrosOptions={subRubrosOptions}
                 />
         },
         {
@@ -49,8 +67,6 @@ const Lists = (props: any) => {
                     setDataSend={setDataSend}
                     dataSend={dataSend}
                     validation={validation}
-                    fetchDataProduct={fetchDataProduct}
-
                     tabId='2' />
         },
         {

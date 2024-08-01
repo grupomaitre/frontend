@@ -11,12 +11,13 @@ interface Props {
     isEditProduct?: any
     validation: any
     isEdit: boolean
-    fetchDataProduct: any
     showModal: boolean
     setShowModal: any
+    listCartegorias: any[]
+    subRubrosOptions: any[]
 }
 
-const ItemsTabContent: FC<Props> = ({ activeTab, isEditProduct, validation, setProducts, fetchDataProduct, showModal, setShowModal }) => {
+const ItemsTabContent: FC<Props> = ({ activeTab, isEditProduct, validation, setProducts, showModal, setShowModal, listCartegorias, subRubrosOptions }) => {
     //const [item, setItem] = useState<any>()
     const [isID, setIsID] = useState({
         id_sub_rubro: 0,
@@ -88,12 +89,12 @@ const ItemsTabContent: FC<Props> = ({ activeTab, isEditProduct, validation, setP
             isID,
             setIsID,
             setProducts,
-            fetchDataProduct,
             showModal,
-            setShowModal
+            setShowModal,
+            listCartegorias, subRubrosOptions
         }),
-        [opSubCategorias, setNameProduct, nameProduct, dataSend, isEditProduct, validation, isIDRubro, setIsIDRubro, isID, setIsID, setProducts, fetchDataProduct,
-            showModal, setShowModal
+        [opSubCategorias, setNameProduct, nameProduct, dataSend, isEditProduct, validation, isIDRubro, setIsIDRubro, isID, setIsID, setProducts,
+            showModal, setShowModal, listCartegorias, subRubrosOptions
         ])
 
     return (

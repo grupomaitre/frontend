@@ -10,7 +10,6 @@ import * as Yup from "yup"; interface IProps {
     item: any
     isEditProduct: any
     validation: any
-    setProducts: any
     fetchDataProduct?: any
     handleClear: () => void
 }
@@ -71,7 +70,7 @@ const FormPriceModal: FC<IProps> = ({ onCloseClick, item, isEditProduct, fetchDa
             editPreciosProduct(itmesFormPrices['id_product'], updatePrices).then((res: any) => {
                 if (res?.status === 'success') {
                     onCloseClick()
-                    fetchDataProduct()
+                    //  fetchDataProduct()
                     setItmesFormPrices({
                         id_product: 0,
                         pCosto: 0,

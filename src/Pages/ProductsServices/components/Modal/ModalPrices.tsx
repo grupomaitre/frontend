@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Modal, ModalBody, ModalHeader } from 'reactstrap'
+import { Modal, ModalBody } from 'reactstrap'
 
 import FormPriceModal from '../Tabs/TabPanes/CompoPrecies/FormPriceModal'
 import CardHeaderModal from '../../../../common/CardHeaderModal'
@@ -15,7 +15,7 @@ interface IProps {
     fetchDataProduct?: any
     handleClear: () => void
 }
-const ModalPrices: FC<IProps> = ({ show, onCloseClick, item, validation, setProducts, fetchDataProduct, isEditProduct, handleClear }) => {
+const ModalPrices: FC<IProps> = ({ show, onCloseClick, item, validation, fetchDataProduct, isEditProduct, handleClear }) => {
     return (
         <Modal isOpen={show} toggle={onCloseClick} backdrop={'static'} style={{ maxWidth: '95%' }}>
             <CardHeaderModal
@@ -30,7 +30,6 @@ const ModalPrices: FC<IProps> = ({ show, onCloseClick, item, validation, setProd
                         item={item}
                         isEditProduct={isEditProduct}
                         validation={validation}
-                        setProducts={setProducts}
                         fetchDataProduct={fetchDataProduct}
                         handleClear={handleClear}
                     />
