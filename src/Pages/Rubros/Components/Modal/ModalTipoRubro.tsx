@@ -55,7 +55,7 @@ const ModalTipoRubro: FC<IProps> = ({ show, onCloseClick, handleOpenItems }) => 
 
     return (
         <>
-            <Modal isOpen={show} toggle={onCloseClick} size='md' centered>
+            <Modal isOpen={show} toggle={onCloseClick} size='md' centered fade={false}>
                 <ModalHeader toggle={onCloseClick}></ModalHeader>
                 <ModalBody style={{ background: "#f3f6f9" }} className='rounded'>
                     <Card>
