@@ -61,13 +61,44 @@ const PosNew = () => {
         refetch()
     }, [])
     const HandleSetSubGroup = (Items: IGroups) => {
-
         setDataSubGroup(Items?.sub_rubros || [])
         setProducts(Items.sub_rubros[0]?.products || [])
     }
 
     const setDataProducts = (Items: ISubGroups) => {
-        setProducts(Items?.products || [])
+        const prod = newProductsArray(Items?.products)
+        setProducts(prod || [])
+    }
+    const newProductsArray = (productos: any) => {
+        const newProductos = productos.map((item: any) => (
+            {
+                cantidad: item.cantidad,
+                id_bodega: item.id_bodega,
+                id_product: item.id_product,
+                id_sub_rubro: item.id_sub_rubro,
+                iva: item.iva,
+                nombre: item.nombre,
+                //    precio: item.iva === "1.0000" ? (parseFloat(item.precio) / 1.12).toFixed(2) : item.precio,
+                precio: item.iva === "1.0000" ? Math.round((parseFloat(item.precio) / 1.15) * 100) / 100 : item.precio,
+
+                precio_final: item.precio_final,
+                servicio: item.servicio,
+                status: item.status,
+                tipo_impuesto: item.tipo_impuesto,
+                tota_servicio: item.tota_servicio,
+                total: item.total,
+                total_iva: item.total_iva,
+                url_imagen: item.url_imagen,
+                editable: item.editable,
+                editable_precio: item.editable_precio,
+                editable_nombre: item.editable_nombre,
+                preferencias: item?.preferencias_prod,
+                impresora: item.impresora?.sitios?.asignacion?.direccion_impresora || null,
+                sitio: item.impresora?.sitios?.sitio_impresora || null,
+                copias: item?.impresora?.sitios?.asignacion?.copias || 1
+            }
+        ))
+        return newProductos
     }
     useEffect(() => {
         if (!isLoading) {
@@ -102,6 +133,8 @@ const PosNew = () => {
             setDataSubGroup(grupos[0]?.sub_rubros)
             //setProducts(grupos[0]?.sub_rubros[0]?.products)
             setProducts(newProductos)
+            dispatch(setProductList(newProductos))
+
         }
     }, [isLoading, refetch, grupos])
 
