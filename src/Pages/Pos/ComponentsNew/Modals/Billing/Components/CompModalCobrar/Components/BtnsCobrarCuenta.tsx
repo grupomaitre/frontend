@@ -10,13 +10,15 @@ interface Props {
     total2: number
     closeModals: () => void
     innerBtnCobrar: any
+    efectivoTest: any
 }
 
 
 const BtnCobrar: FC<Props> = ({
     error,
     closeModals,
-    innerBtnCobrar
+    innerBtnCobrar,
+    efectivoTest
 }) => {
     const dispatch = useDispatch()
     const idOrder = useSelector((state: any) => state.cartSlice.idOrder)
@@ -39,6 +41,7 @@ const BtnCobrar: FC<Props> = ({
                         closeModals={closeModals}
                         error={error}
                         innerBtnCobrar={innerBtnCobrar}
+                        efectivoTest={efectivoTest}
                     />
                     <BtnCredito />
                     <Button

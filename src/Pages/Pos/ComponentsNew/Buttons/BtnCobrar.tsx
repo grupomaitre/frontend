@@ -67,7 +67,7 @@ const BtnCobrar: FC<IProps> = ({
                 const resListCart: any = await verCarrro(resCart?.cart.id_mesa, idCart)
                 dispatch(setNewCart(resListCart?.data?.product || resListCart?.product))
                 socketTest.emit('actualizarMesas');
-                console.log(resListCart?.product)
+                //console.log(resListCart?.product)
             }
 
         }

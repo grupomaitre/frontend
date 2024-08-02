@@ -44,42 +44,42 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
         /*      console.log(item?.tipo_documento?.nombre)
              setShowModalFactur(true)
              return */
-        console.log(idCajaLocal)
         setBtnDisabled(true)
         try {
-            const addClienteResult = await addCliente(cliente);
-            if (addClienteResult) {
-                const updateMesaResult = await updateMesaStatus(idMesa);
-                if (updateMesaResult) {
-                    const saveOrderResult =
-                        await saveOrder(
-                            id_user,
-                            orden,
-                            subFinal1,
-                            totaldescuento1,
-                            subTotal,
-                            servicio,
-                            iva,
-                            totalPago,
-                            idCart,
-                            cliente.value || updateMesaResult.data,
-                            idCajaLocal || id_caja,
-                            item.nombre,
-                            item.id_documento
-                        );
 
-                    if (saveOrderResult) {
-                        localStorage.setItem('clienteCobro', JSON.stringify(cliente))
-                        setShowModalCobra(true);
-                        socketTest.emit('actualizarMesas');
-                        dispatch(setIdOrder(saveOrderResult.id_order));
-                        const getOrdensResult = await getOrdens();
-                        dispatch(addOrden(getOrdensResult.data));
-                        await handleAbrirCajon()
-                        setBtnDisabled(false)
-                    }
-                }
+
+            const saveOrderResult = await saveOrder(
+                id_user,
+                orden,
+                subFinal1,
+                totaldescuento1,
+                subTotal,
+                servicio,
+                iva,
+                totalPago,
+                idCart,
+                cliente.value, /* || updateMesaResult.data, */
+                idCajaLocal || id_caja,
+                item.nombre,
+                item.id_documento
+            );
+
+            if (saveOrderResult) {
+                await updateMesaStatus(idMesa);
+                await addCliente(cliente);
+                localStorage.setItem('clienteCobro', JSON.stringify(cliente))
+                socketTest.emit('actualizarMesas');
+                dispatch(setIdOrder(saveOrderResult.id_order));
+        /*         const getOrdensResult = await getOrdens();
+                console.log(getOrdensResult)
+                dispatch(addOrden(getOrdensResult.data)); */
+                // await handleAbrirCajon()
+                setBtnDisabled(false)
+                setShowModalCobra(true);
+
             }
+
+
         } catch (error) {
             console.error(error);
         }

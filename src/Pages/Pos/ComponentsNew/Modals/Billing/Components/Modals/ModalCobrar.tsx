@@ -35,6 +35,7 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
     const innerBtnCobrar = createRef<HTMLInputElement>();
     const [testVuelto, setTestVuelto] = useState(0)
     const [propina, setPropina] = useState(0)
+    const [efectivoTest, setEfectivoTest] = useState(0)
     const getDataOrden = async () => {
 
         const res: any = await getOrderByCart(idCart)
@@ -115,18 +116,17 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
     }, [totalRedondeado])
     const { isLoading, data: ordenes } = useQuery(['dataOrden', idCart], () => getOrderByCart(idCart));
     const mesacart = useSelector((state: any) => state.cartSlice.mesacart)
-
     return (
         <>
             {!isLoading &&
-                <Modal isOpen={show} backdrop={'static'} fade={false} size='lg'>
+                <Modal isOpen={show} backdrop={'static'} fade={false} size='xl'>
                     <ModalHeader style={{ maxHeight: '50%', height: '35px' }} className='m-0 p-0 px-2'>
                         <span className='fs-12 p-1'>Caja Cobro</span>
                     </ModalHeader>
                     <ModalBody className='bg-gray'>
 
 
-                        <div className='d-flex  '>
+                        <div className='d-flex'>
                             <div style={{ width: '60%' }} >
                                 <CompDetails
                                     closeModals={closeModals}
@@ -153,12 +153,14 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
                                     //propina
                                     setPropina={setPropina}
                                     propina={propina}
+                                    //efectivo
+                                    setEfectivoTest={setEfectivoTest}
                                 />
                             </div>
                             <div className='' style={{ width: '50%' }}>
-                                <Card className='mb-1 border-primary rounded-start-0' >
-                                    <CardHeader className='text-center d-flex flex-row gap-2 justify-content-around page-bg text-white rounded-end-0'
-                                        style={{ fontSize: '0.68rem', padding: '11px 13px 12px 13px' }}>
+                                <Card className='mb-1  rounded-start-0' >
+                                    <CardHeader className='text-center p-3 d-flex flex-row gap-2 justify-content-around page-bg text-white rounded-start-0'
+                                        style={{ fontSize: '0.68rem' }}>
                                         <div> Cuenta N°:<br />
                                             <span className='fw-bold'> {mesacart}</span>
 
@@ -191,6 +193,7 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
                                             total2={0}
                                             closeModals={closeModals}
                                             innerBtnCobrar={innerBtnCobrar}
+                                            efectivoTest={efectivoTest}
                                         />
                                     </CardFooter>
                                 </Card>

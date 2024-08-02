@@ -8,6 +8,7 @@ export const CloseBilling = async (
     idCart: number,
     id_order: number,
     formaPago: string,
+    total_efectivo: number,
     id_cheque: number,
     id_tarjeta: number,
     id_deposito: number
@@ -19,6 +20,7 @@ export const CloseBilling = async (
             id_mesa: id_mesa,
             id_order: id_order,
             formaPago: formaPago,
+            total_efectivo: total_efectivo || 0,
             id_cheque: id_cheque || null,
             id_tarjeta: id_tarjeta || null,
             id_deposito: id_deposito || null

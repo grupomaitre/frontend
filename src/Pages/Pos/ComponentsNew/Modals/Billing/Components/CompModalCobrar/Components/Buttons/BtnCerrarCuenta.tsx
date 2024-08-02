@@ -12,11 +12,13 @@ interface IProps {
     closeModals: () => void
     error: any
     innerBtnCobrar: any
+    efectivoTest: any
 }
-const BtnCerrarCuenta: FC<IProps> = ({ closeModals, error, innerBtnCobrar }) => {
+const BtnCerrarCuenta: FC<IProps> = ({ closeModals, error, innerBtnCobrar, efectivoTest }) => {
     const dispatch = useDispatch()
     const id_mesa = useSelector((state: any) => state.cartSlice.idMesa)
     const idCart = useSelector((state: any) => state.cartSlice.idCart)
+    const pax = useSelector((state: any) => state.cartSlice.pax)
     const cart = useSelector((state: any) => state.cartSlice.cart)
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
     const vendedor = useSelector((state: any) => state.cartSlice.vendedor)
@@ -25,9 +27,14 @@ const BtnCerrarCuenta: FC<IProps> = ({ closeModals, error, innerBtnCobrar }) => 
     const id_deposito = useSelector((state: any) => state.ordersSlice.id_deposito)
 
     const onCloseBill = async () => {
-        const formaPago = (localStorage.getItem('forma_pago') || '').toString()
+        let efectivo = null || ''
+        if (efectivoTest === 0) {
+            efectivo = null || ''
+        } else {
+            efectivo = 'Efectivo'
+        }
 
-        const res = await CloseBilling(id_mesa, idCart, id_order, formaPago, id_cheque, id_tarjeta, id_deposito)
+        const res = await CloseBilling(id_mesa, idCart, id_order, efectivo, efectivoTest, id_cheque, id_tarjeta, id_deposito)
 
         if (res.status) {
             dispatch(onErrorCart(true))
@@ -50,7 +57,7 @@ const BtnCerrarCuenta: FC<IProps> = ({ closeModals, error, innerBtnCobrar }) => 
                     nombreMesa: id_mesa,
                     orden: id_order,
                     vendedor: vendedor,
-                    pax: 0,
+                    pax: pax || 1,
                     cart: cart,
                     total: 0
                 }

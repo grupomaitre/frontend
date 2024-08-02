@@ -26,7 +26,7 @@ interface ComponenteProps {
     testVuelto: any
     setPropina: any
     propina: any
-
+    setEfectivoTest: any
 }
 const CompDetails: FC<ComponenteProps> = ({
     activeTabItem,
@@ -43,7 +43,8 @@ const CompDetails: FC<ComponenteProps> = ({
     setTestVuelto,
     testVuelto,
     setPropina,
-    propina
+    propina,
+    setEfectivoTest
 }) => {
     // const dispatch = useDispatch()
 
@@ -67,6 +68,7 @@ const CompDetails: FC<ComponenteProps> = ({
 
     useEffect(() => {
         setInputEfectivo(parseFloat(inputValues[0].toString()) || 0)
+        setEfectivoTest(parseFloat(inputValues[0].toString()) || 0)
 
     }, [inputValues[0]])
 
@@ -96,8 +98,8 @@ const CompDetails: FC<ComponenteProps> = ({
 
     return (
         <>
-            <Card className='border-primary rounded-end-0 border-end-0 '>
-                <CardHeader className='page-bg text-white fs-2 text-center  rounded-start-0'>
+            <Card className='rounded-start-0 '>
+                <CardHeader className='page-bg text-white fs-2 text-center  rounded-end-0'>
                     Total:  {totalCart && totalCart}
                 </CardHeader>
                 <CardBody className='bg-white' >

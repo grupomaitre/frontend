@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Card, CardBody, CardFooter, Col, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap'
+import { Card, CardBody, CardFooter, CardHeader, Col, Modal, ModalBody, Row } from 'reactstrap'
 import BtnPosModal from '../../../../Components/Common/Buttons/BtnPosModal'
 import axios from 'axios'
 import TableGeneric from '../../../../common/Generics/Table/TableGeneric'
@@ -81,10 +81,10 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 accessor: 'efectivo',
                 Cell: ({ row }: any) => {
                     return (
-                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original)}>
+                        <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original.efectivo)}>
                             {/* status color */}
                             <span
-                            >{row.original.forma_pago === 'Efectivo' ? 'SI' : null}</span>
+                            >{row.original.efectivo.monto}</span>
                         </div>
                     )
                 }
@@ -381,7 +381,7 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                     getData={getData}
                 />
             }
-            <Modal isOpen={show} backdrop={'static'} size='xl' >
+            <Modal isOpen={show} backdrop={'static'} size='xl' style={{ maxWidth: '90%' }}  >
                 <CardHeaderModal
                     onCloseClick={onCloseClick}
                     text={'Caja N° ' + idCajaLocal || ''}
@@ -389,36 +389,32 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                 />
                 <ModalBody style={{ background: 'rgb(251, 133, 0,20%)' }} className='text-white fs-11'>
 
-                    <div className='card mb-2'>
-
-                        <HeaderTools
-                            itemTools={itemTools}
-                        />
-
-                    </div>
-
-                    <Card className='mb-2'>
-                        <CardBody className='p-1 m-0 text-center bg-black text-white fw-bold fs-13'>
-                            <Label className='p-0 text-uppercase '>Ventas Generadas en la caja No. Caja:{idCajaLocal || null}</Label>
-                        </CardBody>
-                    </Card>
-
                     <Card>
-                        <CardBody>
+                        <CardHeader className='p-1 m-0 text-center bg-black text-white fw-bold fs-13'>
+                            Ventas Generadas en la caja No. Caja:{idCajaLocal || null}
+                        </CardHeader>
+                        <CardHeader className='p-0'>
+
+                            <HeaderTools
+                                itemTools={itemTools}
+                            />
+
+                        </CardHeader>
+                        <CardBody className='bg-white'>
                             <TableGeneric
+                                styleHeight='270px'
                                 showFilter={true}
-                                showFooter={false}
-                                columns={columns || []}
                                 data={data || []}
+                                overflowY='scroll'
+                                showFooter={false}
+                                tbodyClass='bg-table'
+                                columns={columns || []}
+                                tableClass='cursor-pointer w-100 '
                                 selectItemRow={setSelectItemRow}
                                 divClass='table-responsive text-black bg-table'
-                                tableClass='cursor-pointer w-100 '
-                                theadClass='position-sticky top-0 fw-bold page-bg text-white fs-15 '
-                                thClass='fs-11 fw-light border'
-                                tdClass={'border bg-white'}
-                                tbodyClass='bg-table'
-                                styleHeight='230px'
-                                overflowY='scroll'
+                                thClass='fs-12 text-start border text-capitalize'
+                                tdClass={'border text-center text-capitalize p-1'}
+                                theadClass='position-sticky top-0 fw-bold page-bg text-white'
                             />
                         </CardBody>
 
@@ -460,7 +456,7 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                     onAceptarClick={onCloseClick}
                     onCloseClick={onCloseClick}
                 />
-            </Modal>
+            </Modal >
             <ToastContainer />
         </>
     )

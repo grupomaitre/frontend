@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Button } from 'reactstrap'
 import { Book, BookOpen, CreditCard, DollarSign, Repeat } from 'react-feather'
 import InputKeyBoard from '../../../../../Cards/CardOrders/InputKeyBoard'
@@ -34,6 +34,15 @@ const NavTarjeta: FC<IPropNav> = ({
     const [showCheque, setShowCheque] = useState<boolean>(false)
     const [showTarjeta, setShowTarjeta] = useState<boolean>(false)
     const [showDeposito, setShowDeposito] = useState<boolean>(false)
+    const [disabledEfec, setDisabled] = useState(false)
+
+    useEffect(() => {
+        if (inputEfectivo === 0) {
+            setDisabled(true)
+        } else {
+            setDisabled(false)
+        }
+    }, [inputEfectivo])
 
     const TabNavItem: ObjectNavItem[] = [
         {
@@ -60,7 +69,7 @@ const NavTarjeta: FC<IPropNav> = ({
             readonly: true,
             icon: <DollarSign size={15} className='me-1' />,
             ref: inputRefs.current[0],
-            disabled: false
+            disabled: disabledEfec
         },
         {
             value: '3',
@@ -131,12 +140,14 @@ const NavTarjeta: FC<IPropNav> = ({
         },
 
     ]
+
     const toggle = (tab: string) => {
         if (tab === '1') {
             setInputValues([inputEfectivo, inputCheque, inputTarjeta, inputDeposito])
             setShowCheque(false)
             setShowTarjeta(false)
             setShowDeposito(false)
+            setDisabled(false)
             setFormaPago('Efectivo')
             inputRefs.current[0].current?.focus()
             inputRefs.current[0].current?.select()
@@ -147,7 +158,7 @@ const NavTarjeta: FC<IPropNav> = ({
             setShowCheque(true)
             setInputValues([0, totalCart || 0, inputTarjeta, inputDeposito])
             setFormaPago('Cheque')
-            localStorage.setItem('forma_pago', 'Cheque' || '')
+
 
 
         }
@@ -155,15 +166,12 @@ const NavTarjeta: FC<IPropNav> = ({
             setShowTarjeta(true)
             setInputValues([0, inputCheque, inputTarjeta, inputDeposito])
             setFormaPago('Tarjeta')
-            localStorage.setItem('forma_pago', 'Tarjeta' || '')
-
             return
         }
         if (tab === '4') {
             setShowDeposito(true)
             setInputValues([0, inputCheque, inputTarjeta, totalCart || 0])
             setFormaPago('Despósito')
-            localStorage.setItem('forma_pago', 'Despósito' || '')
             return
         }
 
