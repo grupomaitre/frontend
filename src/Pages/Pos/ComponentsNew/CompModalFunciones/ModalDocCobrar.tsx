@@ -84,7 +84,7 @@ const ModalDocCobrar: FC<DocCobrarProps> = ({ show, onCloseClick }) => {
                         <div className='d-flex justify-content-center' style={{ cursor: 'pointer' }} onClick={() => console.log(row.original.efectivo)}>
                             {/* status color */}
                             <span
-                            >{row.original.efectivo.monto}</span>
+                            >{row.original.efectivo?.monto || 0}</span>
                         </div>
                     )
                 }

@@ -1,9 +1,10 @@
 import { FC, useMemo } from 'react'
-import { Card, CardBody, Modal, ModalBody, ModalHeader } from 'reactstrap'
+import { Modal, ModalBody } from 'reactstrap'
 import TableGeneric from '../../../../common/Generics/Table/TableGeneric'
 import axios from 'axios'
 import { useQuery } from 'react-query'
 import Overlay from '../../../../common/Loading/Overlay'
+import CardHeaderModal from '../../../../common/CardHeaderModal'
 interface IProps {
     show: boolean
     onCloseClick: () => void
@@ -69,26 +70,29 @@ const ModalInfoFormas: FC<IProps> = ({
 
     return (
         <Modal isOpen={show} toggle={onCloseClick} size='lg' fade={false}>
-            <ModalHeader toggle={onCloseClick}></ModalHeader>
+            <CardHeaderModal
+                onCloseClick={onCloseClick}
+                text='Información'
+                classHeader='p-2'
+            />
             <ModalBody>
-                <Card>
-                    <CardBody>
-                        {isLoading ? <Overlay />
-                            : <TableGeneric
-                                showFilter={false}
-                                showFooter={false}
-                                columns={columns || []}
-                                data={formaData || []}
-                                divClass='table-responsive text-black bg-table'
-                                tableClass='cursor-pointer w-100'
-                                theadClass='position-sticky top-0 bg-table '
-                                thClass='fs-11 fw-light border'
-                                tbodyClass='bg-gray'
-                                styleHeight='300px'
-                                overflowY='scroll'
-                            />}
-                    </CardBody>
-                </Card>
+
+                {isLoading ? <Overlay />
+                    : <TableGeneric
+                        showFilter={false}
+                        showFooter={false}
+                        columns={columns || []}
+                        data={formaData || []}
+                        divClass='table-responsive text-black bg-table'
+                        tableClass='cursor-pointer w-100'
+                        theadClass='position-sticky top-0 bg-table'
+                        thClass='fs-12 fw-bold border'
+                        tdClass='border fs-11 p-1'
+                        tbodyClass='bg-gray'
+                        styleHeight='300px'
+                        overflowY='scroll'
+                    />}
+
             </ModalBody>
         </Modal>
     )
