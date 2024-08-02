@@ -6,10 +6,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { updateMesaStatus } from '../../../../../Helpers/ApiMesas'
 import { addCliente } from '../../Helpers/ApiFacturacion'
 import { saveOrder } from '../../../../../Helpers/ApiBilling'
-import { getOrdens } from '../../../../../Helpers/ApiOrders'
-import { addOrden, setIdOrder } from '../../../../../../../slices/Cart/cartSlice'
+import { setIdOrder } from '../../../../../../../slices/Cart/cartSlice'
 import { useQuery } from 'react-query'
-import { getDocs, handleAbrirCajon } from '../Api/ApiDocs'
+import { getDocs } from '../Api/ApiDocs'
 import './Components/btn.css'
 import { subFinal, totalCart, totalDescuento, totalIva, totalServicio, totalSubtotal } from '../../../../../Func/FuncCart'
 import ModalFacturacion from '../../../../../../../common/Generics/Facturacion/ModalFacturacion'
@@ -70,9 +69,9 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
                 localStorage.setItem('clienteCobro', JSON.stringify(cliente))
                 socketTest.emit('actualizarMesas');
                 dispatch(setIdOrder(saveOrderResult.id_order));
-        /*         const getOrdensResult = await getOrdens();
-                console.log(getOrdensResult)
-                dispatch(addOrden(getOrdensResult.data)); */
+                /*         const getOrdensResult = await getOrdens();
+                        console.log(getOrdensResult)
+                        dispatch(addOrden(getOrdensResult.data)); */
                 // await handleAbrirCajon()
                 setBtnDisabled(false)
                 setShowModalCobra(true);
