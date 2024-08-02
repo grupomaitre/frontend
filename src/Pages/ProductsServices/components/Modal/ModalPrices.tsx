@@ -20,7 +20,7 @@ const ModalPrices: FC<IProps> = ({ show, onCloseClick, item, validation, fetchDa
         <Modal isOpen={show} toggle={onCloseClick} backdrop={'static'} style={{ maxWidth: '95%' }}>
             <CardHeaderModal
                 onCloseClick={onCloseClick}
-                text={`Item ${item?.nombre}`}
+                text={`Item ${isEditProduct?.nombre}`}
                 classHeader='py-2 px-3'
             />
             <ModalBody className=''>

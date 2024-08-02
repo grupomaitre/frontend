@@ -110,7 +110,7 @@ const Prices: FC<Props> = ({ tabId, setDataSend, dataSend, validation, setShowMo
     }, [dataSend?.id_product])
     return (
         <>
-            {/*     {showModal && <ModalPrices
+         {/*    {showModal && <ModalPrices
                 item={dataSend || {}}
                 show={showModal}
                 onCloseClick={() => setShowModal(false)}

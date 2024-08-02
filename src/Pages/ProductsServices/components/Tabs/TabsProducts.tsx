@@ -17,6 +17,8 @@ interface Props {
     listCartegorias: any[]
     subRubrosOptions?: any
     setIsEdit: () => void
+    fetchDataProduct: any
+
 }
 const TabsProducts: FC<Props> = (props) => {
 
@@ -31,7 +33,8 @@ const TabsProducts: FC<Props> = (props) => {
         showModal,
         setShowModal,
         subRubrosOptions,
-        setIsEdit
+        setIsEdit,
+        fetchDataProduct
     } = props
 
     const [activeTab, setactiveTab] = useState("1")
@@ -118,6 +121,7 @@ const TabsProducts: FC<Props> = (props) => {
                         isEdit={isEdit}
                         listCartegorias={listCartegorias}
                         subRubrosOptions={subRubrosOptions}
+                        fetchDataProduct={fetchDataProduct}
                     />
 
                 </CardBody>

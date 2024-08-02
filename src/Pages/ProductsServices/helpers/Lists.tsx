@@ -18,6 +18,7 @@ interface ObjectTabPane {
     setProducts?: any
     listCartegorias?: any
     subRubrosOptions?: any
+    fetchDataProduct?: any
     //  componetent: any
 }
 
@@ -36,7 +37,7 @@ const Lists = (props: any) => {
         showModal,
         setShowModal,
         listCartegorias,
-        subRubrosOptions
+        subRubrosOptions,
     } = props
 
     const listTabPane: ObjectTabPane[] = [

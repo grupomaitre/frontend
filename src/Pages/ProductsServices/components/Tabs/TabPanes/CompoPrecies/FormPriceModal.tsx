@@ -14,6 +14,7 @@ import * as Yup from "yup"; interface IProps {
     handleClear: () => void
 }
 const FormPriceModal: FC<IProps> = ({ onCloseClick, item, isEditProduct, fetchDataProduct }) => {
+    console.log(isEditProduct.precio)
     const [iva, setIva] = useState<number>(1)
     const [iva2, setIva2] = useState<number>(1.15)
     const [iva3, setIva3] = useState<number>(1.15)
@@ -70,7 +71,7 @@ const FormPriceModal: FC<IProps> = ({ onCloseClick, item, isEditProduct, fetchDa
             editPreciosProduct(itmesFormPrices['id_product'], updatePrices).then((res: any) => {
                 if (res?.status === 'success') {
                     onCloseClick()
-                    //  fetchDataProduct()
+                    fetchDataProduct()
                     setItmesFormPrices({
                         id_product: 0,
                         pCosto: 0,

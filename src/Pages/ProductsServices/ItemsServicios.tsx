@@ -371,7 +371,7 @@ const ItemsServicios = () => {
                     <Row className="m-0">
                         <Col className="mx-2">
                             <Card body className=" my-2 py-1 page-bg text-white">
-                                Item: {products?.length === 0 ? null : isEditProduct?.nombre || null}
+                                Item: {productos?.length === 0 ? null : isEditProduct?.nombre || null}
                             </Card>
                         </Col>
 
@@ -392,6 +392,8 @@ const ItemsServicios = () => {
                                 listCartegorias={listCartegorias}
                                 subRubrosOptions={subRubrosOptions}
                                 setIsEdit={() => setIsEdit(false)}
+                                fetchDataProduct={() => refetchProductos()}
+
 
                             />
                         </Col>
