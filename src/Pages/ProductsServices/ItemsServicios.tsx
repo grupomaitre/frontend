@@ -26,7 +26,6 @@ const ItemsServicios = () => {
     const [listCartegorias, setListCategorias] = useState<any>([])
 
     const [showModal, setShowModal] = useState(false)
-    const [products, setProducts] = useState<any>([])
     const [productsItem, setProductsitem] = useState({})
     const [isEditProduct, setIsEditProduct] = useState<any>(null)
     const [isEdit, setIsEdit] = useState(false)
@@ -360,7 +359,6 @@ const ItemsServicios = () => {
                     show={showModal}
                     onCloseClick={() => setShowModal(false)}
                     validation={validation}
-                    setProducts={setProducts}
                     fetchDataProduct={() => refetchProductos()}
                     handleClear={() => console.log('')}
                 />}
@@ -379,7 +377,6 @@ const ItemsServicios = () => {
                     <Row className="m-0">
                         <Col lg='' className="mx-2" >
                             <TabsProducts
-                                setProducts={setProducts}
                                 isEditProduct={isEditProduct}
                                 setIsEditProduct={setIsEditProduct}
                                 validation={validation}

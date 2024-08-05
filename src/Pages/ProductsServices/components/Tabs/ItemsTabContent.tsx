@@ -7,7 +7,6 @@ import { InterfacesProduct } from './TabPanes/Interfaces/InterfacesProduct';
 
 interface Props {
     activeTab: string
-    setProducts?: any
     isEditProduct?: any
     validation: any
     isEdit: boolean
@@ -18,7 +17,7 @@ interface Props {
     fetchDataProduct: any
 }
 
-const ItemsTabContent: FC<Props> = ({ activeTab, isEditProduct, validation, setProducts, showModal, setShowModal, listCartegorias, subRubrosOptions, fetchDataProduct }) => {
+const ItemsTabContent: FC<Props> = ({ activeTab, isEditProduct, validation, showModal, setShowModal, listCartegorias, subRubrosOptions, fetchDataProduct }) => {
     //const [item, setItem] = useState<any>()
     const [isID, setIsID] = useState({
         id_sub_rubro: 0,
@@ -89,12 +88,11 @@ const ItemsTabContent: FC<Props> = ({ activeTab, isEditProduct, validation, setP
             setIsIDRubro,
             isID,
             setIsID,
-            setProducts,
             showModal,
             setShowModal,
             listCartegorias, subRubrosOptions, fetchDataProduct
         }),
-        [opSubCategorias, setNameProduct, nameProduct, dataSend, isEditProduct, validation, isIDRubro, setIsIDRubro, isID, setIsID, setProducts,
+        [opSubCategorias, setNameProduct, nameProduct, dataSend, isEditProduct, validation, isIDRubro, setIsIDRubro, isID, setIsID,
             showModal, setShowModal, listCartegorias, subRubrosOptions, fetchDataProduct
         ])
 

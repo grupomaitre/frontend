@@ -15,7 +15,6 @@ interface ObjectTabPane {
     setIsIDRubro?: any
     isID?: any
     setIsID?: any
-    setProducts?: any
     listCartegorias?: any
     subRubrosOptions?: any
     fetchDataProduct?: any

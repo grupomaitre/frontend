@@ -11,7 +11,6 @@ interface IProps {
     itmesFormPrices?: any
     setItmesFormPrices?: any
     validation?: any
-    setProducts?: any
     fetchDataProduct?: any
     handleClear: () => void
 }

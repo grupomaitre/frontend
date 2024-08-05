@@ -6,7 +6,6 @@ import HeaderTools from '../../../../common/Ui/HeaderTools'
 interface Props {
     isEditProduct: undefined
     setIsEditProduct: any
-    setProducts: any
     validation: any
     isEdit: boolean
     isDelete: boolean
@@ -23,7 +22,6 @@ interface Props {
 const TabsProducts: FC<Props> = (props) => {
 
     const {
-        setProducts,
         isEditProduct,
         setIsEditProduct,
         validation,
@@ -115,7 +113,6 @@ const TabsProducts: FC<Props> = (props) => {
                         showModal={showModal}
                         setShowModal={setShowModal}
                         activeTab={activeTab}
-                        setProducts={setProducts}
                         isEditProduct={isEditProduct}
                         validation={validation}
                         isEdit={isEdit}
