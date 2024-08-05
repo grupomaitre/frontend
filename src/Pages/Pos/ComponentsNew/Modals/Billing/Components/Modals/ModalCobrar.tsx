@@ -4,7 +4,6 @@ import { FC, useState, useRef, createRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setValueEfectivo } from '../../../../../../../slices/Orders/OrdersSlice'
 import CompContentDocs from '../CompModalCobrar/CompContentDocs'
-import BtnCobrar from '../CompModalCobrar/Components/BtnsCobrarCuenta'
 import { totalCart } from '../../../../../Func/FuncCart'
 import { getOrderByCart } from '../CompModalCobrar/Api/ApiOrder'
 import { useQuery } from 'react-query'
@@ -155,6 +154,10 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
                                     propina={propina}
                                     //efectivo
                                     setEfectivoTest={setEfectivoTest}
+                                    //btn cobrar
+                                    disabledCobrar={disabledCobrar}
+                                    efectivoTest={efectivoTest}
+                                    innerBtnCobrar={innerBtnCobrar}
                                 />
                             </div>
                             <div className='' style={{ width: '50%' }}>
@@ -182,19 +185,14 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
                                                     activeTab='1'
                                                     onKeyPress={onKeyPress}
                                                     handleDelete={() => handleDelete()}
+                                                    closeModals={closeModals}
                                                 />
                                             </Col>
                                         </Row>
 
                                     </CardBody>
                                     <CardFooter>
-                                        <BtnCobrar
-                                            error={disabledCobrar}
-                                            total2={0}
-                                            closeModals={closeModals}
-                                            innerBtnCobrar={innerBtnCobrar}
-                                            efectivoTest={efectivoTest}
-                                        />
+
                                     </CardFooter>
                                 </Card>
 

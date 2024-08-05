@@ -11,6 +11,7 @@ interface Props {
     activeTab: string;
     onKeyPress?: (value: string) => void;
     handleDelete?: () => void;
+    closeModals: any
 }
 
 const CompContentDocs: FC<Props> = ({ activeTab, onKeyPress, handleDelete }) => {
@@ -24,7 +25,7 @@ const CompContentDocs: FC<Props> = ({ activeTab, onKeyPress, handleDelete }) => 
                     handleDelete={handleDelete}
                 />
         },
-        { tabId: "2", componetent: null},
+        { tabId: "2", componetent: null },
         { tabId: "3", componetent: null },
 
         { tabId: "4", componetent: null },

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import DetalleCuentaTotals from './Components/DetalleCuentaTotals'
 import NavTarjeta from './Components/NavTarjeta'
 import { setValueEfectivo } from '../../../../../../../slices/Orders/OrdersSlice'
+import BtnCobrar from './Components/BtnsCobrarCuenta'
 
 interface ComponenteProps {
     closeModals: () => void
@@ -27,6 +28,10 @@ interface ComponenteProps {
     setPropina: any
     propina: any
     setEfectivoTest: any
+    //btn cobrar
+    disabledCobrar: any
+    innerBtnCobrar: any
+    efectivoTest: any
 }
 const CompDetails: FC<ComponenteProps> = ({
     activeTabItem,
@@ -44,7 +49,11 @@ const CompDetails: FC<ComponenteProps> = ({
     testVuelto,
     setPropina,
     propina,
-    setEfectivoTest
+    setEfectivoTest,
+    disabledCobrar,
+    closeModals,
+    innerBtnCobrar,
+    efectivoTest
 }) => {
     // const dispatch = useDispatch()
 
@@ -152,7 +161,14 @@ const CompDetails: FC<ComponenteProps> = ({
                             propina={propina}
                         />
                     </div>
-
+                    <div>
+                        <BtnCobrar
+                            error={disabledCobrar}
+                            closeModals={closeModals}
+                            innerBtnCobrar={innerBtnCobrar}
+                            efectivoTest={efectivoTest}
+                        />
+                    </div>
                 </CardBody>
 
             </Card>

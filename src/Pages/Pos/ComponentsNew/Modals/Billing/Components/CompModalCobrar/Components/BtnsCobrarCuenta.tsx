@@ -7,7 +7,6 @@ import BtnCredito from './BtnCredito'
 import BtnCerrarCuenta from './Buttons/BtnCerrarCuenta'
 interface Props {
     error: boolean
-    total2: number
     closeModals: () => void
     innerBtnCobrar: any
     efectivoTest: any
