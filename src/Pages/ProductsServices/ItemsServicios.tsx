@@ -192,15 +192,15 @@ const ItemsServicios = () => {
 
                 }
                 console.log(updateProduct)
+                console.log(isEditProduct?.id_product)
                 const resEdit: any = await editProduct(isEditProduct?.id_product, updateProduct)
                 if (resEdit.status) {
                     handleNewDataProducto(resEdit.data)
-                    setIsEdit(true)
-                    //setIsEditProduct(null)
+                    setIsEditProduct(null)
                     //socketTest.emit('actualizarProductos')
                     refetchProductos()
-                    //   validation.resetForm();
-                    // setIsEdit(false)
+                    validation.resetForm();
+                    setIsEdit(false)
                 }
 
 
@@ -246,7 +246,6 @@ const ItemsServicios = () => {
                 if (res.status) {
 
                     handleNewDataProducto(res.data)
-                    setIsEdit(true)
                     refetchProductos()
                     setProductsitem(res.data)
                     setShowModal(true)

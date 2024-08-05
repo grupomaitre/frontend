@@ -38,7 +38,6 @@ const TabsProducts: FC<Props> = (props) => {
     const [activeTab, setactiveTab] = useState("1")
     const handleRest = () => {
         validation.resetForm()
-        setIsEdit()
         setIsEditProduct(null)
     }
     const itemTools = [
