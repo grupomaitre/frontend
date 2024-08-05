@@ -1,9 +1,8 @@
 import { FC, useEffect, useState } from 'react'
-import { TabPane, Row, Col, Button } from 'reactstrap'
+import { TabPane, Row, Col, Button, Card, CardBody, CardFooter } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import FormDeposito from './Components/FormDeposito'
 import NumericKeyboard from '../../../../../common/NumericKeyboardProps'
-import BtnPosModal from '../../../../../../../Components/Common/Buttons/BtnPosModal'
 import TableGeneric from '../../../../../../../common/Generics/Table/TableGeneric'
 import { v4 as uuidv4 } from 'uuid';
 import ModalAlert from '../../../../../../../common/Generics/Modal/ModalAlert'
@@ -27,7 +26,6 @@ interface Props {
     saveDeposito: (data: any) => void
     editDeposito: (id: number, data: any) => void
     deleteDeposito: (id: number) => void
-    onCloseClick: () => void
     testVuelto: any
     isLoading: boolean
 
@@ -47,7 +45,6 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
     saveDeposito,
     editDeposito,
     deleteDeposito,
-    onCloseClick,
     isLoading
 }) => {
     //columns use meno 
@@ -172,96 +169,111 @@ const TabPaneDeposito: FC<Props> = ({ total, items,
                     backdrop={true}
                 />
             }
-            <div className=''>
-                <TabPane tabId="6" id="settings">
-                    <FormDeposito
-                        handleInputChange={handleInputChange}
-                        handleInputClick={handleInputClick}
-                        handleInputFocus={handleInputFocus}
-                        inputRefs={inputRefs}
-                        inputValues={inputValues}
+            <>
+                <Card>
+                    <CardBody>
+                        <FormDeposito
+                            handleInputChange={handleInputChange}
+                            handleInputClick={handleInputClick}
+                            handleInputFocus={handleInputFocus}
+                            inputRefs={inputRefs}
+                            inputValues={inputValues}
 
-                    />
+                        />
+                    </CardBody>
+                    <CardFooter className='p-0'>
 
+                        <Row className=''>
 
-                </TabPane>
-                <Row className=''>
+                            <Col lg='8' className=''>
+                                <div className='d-flex my-2 gap-5 justify-content-between'>
 
-                    <Col lg='8' className='border bg-white'>
-                        <div className='d-flex my-2 gap-5 justify-content-between'>
+                                    <Button
+                                        disabled={inputValues[0] === 0 || isLoading ? true : false}
 
-                            <Button
-                                disabled={inputValues[0] === 0 || isLoading ? true : false}
-
-                                block
-                                className=' ms-1 fs-12 '
-                                // innerRef={btnAgregarRef}
-                                color='primary'
-                                onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
-                                onKeyDown={
-                                    (e) => {
-                                        if (e.key === 'Enter') {
-                                            handlePushData
+                                        block
+                                        className=' ms-1 fs-12 '
+                                        // innerRef={btnAgregarRef}
+                                        color='primary'
+                                        onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
+                                        onKeyDown={
+                                            (e) => {
+                                                if (e.key === 'Enter') {
+                                                    handlePushData
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                            >{!!isEdit ? 'Actualizar' : 'Agregar'}   </Button>
+                                    >{!!isEdit ? 'Actualizar' : 'Agregar'}   </Button>
 
-                            <Button
-                                outline
-                                block
-                                className='fs-12 '
-                                color='danger'
-                                onClick={handleDeleteItem}
-                            >Eliminar</Button>
+                                    <Button
+                                        outline
+                                        block
+                                        className='fs-12 '
+                                        color='danger'
+                                        onClick={handleDeleteItem}
+                                    >Eliminar</Button>
 
-                        </div>
+                                </div>
 
-                        <TableGeneric
-                            showFilter={false}
-                            showFooter={false}
-                            columns={columns || []}
-                            data={items || []}
-                            selectItemRow={setSelectItem}
-                            divClass='table-responsive text-black bg-table'
-                            tableClass='cursor-pointer w-100'
-                            theadClass='position-sticky top-0 bg-table '
-                            thClass='fs-11 fw-bold border'
-                            tdClass={'border fs-12'}
-                            tbodyClass='bg-light'
-                            styleHeight='130px'
-                            overflowY='scroll'
-                        />
-                        <div className='mt-1'>
-                            <BtnPosModal
-                                onAceptarClick={onCloseClick}
-                                onCloseClick={onCloseClick}
+
+
+                            </Col>
+
+                        </Row>
+                    </CardFooter>
+                </Card>
+                <Card body>
+                    <Row>
+                        <Col lg='7'>
+                            <TableGeneric
+                                showFilter={false}
+                                showFooter={false}
+                                columns={columns || []}
+                                data={items || []}
+                                selectItemRow={setSelectItem}
+                                divClass='table-responsive text-black bg-table'
+                                tableClass='cursor-pointer w-100'
+                                theadClass='position-sticky top-0 bg-table '
+                                thClass='fs-11 fw-bold page-bg text-white border'
+                                tdClass={'border fs-10'}
+                                tbodyClass='bg-light'
+                                styleHeight='230px'
+                                overflowY='scroll'
                             />
-                        </div>
-                    </Col>
-                    <Col lg='4' className=' border bg-white d-flex align-items-start px-0' style={{ background: '' }}>
-                        <NumericKeyboard
-                            handleDelete={() => handleDelete()}
-                            onKeyPress={(e) => onKeyPress(e)}
-                            heightKey='45px'
-                            heightBtnDelete='50px'
-                            btnClass={'rounded border-sistema'}
-                            keyboards={[
-                                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '00'
-                            ]}
-                        />
-                        <Button
-                            color='light'
-                            className='fs-12 text-black border-sistema shadow-md d-flex align-items-center justify-content-center'
-                            style={{ width: '60px', height: '75%', marginTop: '3px', textAlign: 'center' }}
-                            onClick={handleKeydown}
-                        >
-                            <span className=''>Enter</span>
-                        </Button>
-                    </Col>
+                        </Col>
+                        <Col lg='3' className='rounded-1 d-flex align-items-start px-0' style={{ background: '' }}>
+                            <NumericKeyboard
+                                handleDelete={() => handleDelete()}
+                                onKeyPress={(e) => onKeyPress(e)}
+                                btnClass={"keyBoard rounded shadow-sm"}
+                                widthKey='55px'
+                                heightKey='55px'
+                                fontSizeKey='1.55rem'
+                                heightBtnDelete='55px'
+                                fondoKey='#e6ecec'
+                                colorKeys='#13284e'
+                                widthBorrar='55px'
+                                gridColumn='span 1'
+                                sizeBorrar={'0.8rem'}
+                                bgDelete={'#f30000'}
+                                colorDelete={'#fff'}
+                                keyboards={[
+                                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", '.'
+                                ]}
+                            />
+                            <Button
+                                color='light'
+                                className='fs-11 d-flex align-items-center justify-content-center border-sistema '
+                                style={{ width: '60px', height: '96%', marginTop: '3px', textAlign: 'center' }}
+                                onClick={handleKeydown}
+                            >
+                                <span className=''>ENTER</span>
+                            </Button>
+                        </Col>
+                    </Row>
+                </Card>
 
-                </Row>
-            </div>
+            </>
         </>
     )
 }

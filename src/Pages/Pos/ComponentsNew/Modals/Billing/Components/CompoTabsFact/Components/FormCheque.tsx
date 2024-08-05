@@ -27,7 +27,7 @@ const FormCheque: FC<Props> = ({
             type: 'number',
             ref: inputRefs.current[0],
             value: inputValues[0],
-            classStyle: 'border-0 rounded-0',
+            classStyle: 'border-0 rounded-0 fs-11',
             disabled: false
         },
         {
@@ -121,7 +121,7 @@ const FormCheque: FC<Props> = ({
             {
                 inputsForm.map((item: inputsForm, key: number) => (
                     <Fragment key={key}>
-                        <Col lg='2' className='my-2'>
+                        <Col lg='2' className='my-2 fs-12'>
                             <Label>{item.label}</Label>
                         </Col>
                         <Col lg='4 my-2'>
@@ -130,13 +130,11 @@ const FormCheque: FC<Props> = ({
                                 value={(item.value)}
                                 onChange={(event) => handleInputChange(event, key)}
                                 handleInputClick={() => handleInputClick(key)}
-                                //handleKeydown={handleKeydown}
-                                classInput='text-center  rounded fs-15 border-sistema shadow-sm'
-                                styleInput={{ height: '30px', borderRadius: '0' }}
+                                classInput='text-center  fs-15 border-sistema  fs-11'
+                                styleInput={{ height: '30px', borderRadius: '3px' }}
                                 type={item.type}
                                 handleInputFocus={() => handleInputFocus(key)}
-                                //  bsSize='sm'
-                                disabled={item.disabled}
+                                 disabled={item.disabled}
                                 dataSelect={item.dataSelect || []}
                             />
                         </Col>

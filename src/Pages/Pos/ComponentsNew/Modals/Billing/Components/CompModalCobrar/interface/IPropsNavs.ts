@@ -14,9 +14,6 @@ export interface IPropNav {
     handleInputClick: any
     handleInputFocus: any
     handleKeydown: any
-    setInputChequeTab: (value: number) => void
-    setInputTarjeta: (value: number) => void
-    setInputDeposito: (value: number) => void
     inputDeposito: number
     inputCheque: number
     inputTarjeta: number

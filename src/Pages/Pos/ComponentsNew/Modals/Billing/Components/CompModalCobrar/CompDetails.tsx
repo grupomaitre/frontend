@@ -1,9 +1,7 @@
-import React, { useState, useEffect, FC } from 'react'
+import { FC } from 'react'
 import { Input, Card, CardBody, CardHeader } from 'reactstrap'
-import { useSelector, useDispatch } from 'react-redux'
 import DetalleCuentaTotals from './Components/DetalleCuentaTotals'
 import NavTarjeta from './Components/NavTarjeta'
-import { setValueEfectivo } from '../../../../../../../slices/Orders/OrdersSlice'
 import BtnCobrar from './Components/BtnsCobrarCuenta'
 
 interface ComponenteProps {
@@ -32,6 +30,17 @@ interface ComponenteProps {
     disabledCobrar: any
     innerBtnCobrar: any
     efectivoTest: any
+    //inputs
+    inputEfectivo: any
+    inputTarjeta: any
+    inputCheque: any
+    inputDeposito: any
+    setInputEfectivo: any
+    inputRefCheque: any
+    inputRefTarjeta: any
+    inputRefDeposito: any
+    formaPago: any
+    setFormaPago: any
 }
 const CompDetails: FC<ComponenteProps> = ({
     activeTabItem,
@@ -49,61 +58,23 @@ const CompDetails: FC<ComponenteProps> = ({
     testVuelto,
     setPropina,
     propina,
-    setEfectivoTest,
     disabledCobrar,
     closeModals,
     innerBtnCobrar,
-    efectivoTest
+    efectivoTest,
+    //inputs
+    inputEfectivo,
+    inputTarjeta,
+    inputCheque,
+    inputDeposito,
+    setInputEfectivo,
+    inputRefCheque,
+    inputRefTarjeta,
+    inputRefDeposito,
+    formaPago,
+    setFormaPago,
 }) => {
-    // const dispatch = useDispatch()
 
-    const cart = useSelector((state: any) => state.cartSlice.cart)
-    const idCart = useSelector((state: any) => state.cartSlice.idCart)
-
-    const dispatch = useDispatch()
-
-    //inputs 
-    const [inputEfectivo, setInputEfectivo] = useState<number>(0)
-    const [inputCheque, setInputChequeTab] = useState<number>(0)
-    const [inputTarjeta, setInputTarjeta] = useState<number>(0)
-    const [inputDeposito, setInputDeposito] = useState<number>(0)
-    //inputs ref
-    const inputRefCheque = React.useRef<HTMLInputElement>(null)
-    const inputRefTarjeta = React.useRef<HTMLInputElement>(null)
-    const inputRefDeposito = React.useRef<HTMLInputElement>(null)
-    //label api forma pago set
-    const [formaPago, setFormaPago] = useState('')
-    //info cart
-
-    useEffect(() => {
-        setInputEfectivo(parseFloat(inputValues[0].toString()) || 0)
-        setEfectivoTest(parseFloat(inputValues[0].toString()) || 0)
-
-    }, [inputValues[0]])
-
-    useEffect(() => {
-        setInputChequeTab(parseFloat(inputValues[1].toString()) || 0)
-    }, [inputValues[1]])
-
-    useEffect(() => {
-        setInputTarjeta(parseFloat(inputValues[2].toString()) || 0)
-    }, [inputValues[2]])
-
-    useEffect(() => {
-        setInputDeposito(parseFloat(inputValues[3].toString()) || 0)
-    }, [inputValues[3]],)
-
-    useEffect(() => {
-        setactiveTab('1')
-        inputRefs.current[0].current?.focus()
-        localStorage.setItem('forma_pago', 'Efectivo' || '')
-        setFormaPago('Efectivo')
-        dispatch(setValueEfectivo(inputEfectivo))
-
-        setTimeout(() => {
-            inputRefs.current[0].current?.select()
-        }, 100)
-    }, [idCart, totalCart, cart])
 
     return (
         <>
@@ -132,9 +103,6 @@ const CompDetails: FC<ComponenteProps> = ({
                         setInputValues={setInputValues}
                         setactiveTab={setactiveTab}
                         setInputEfectivo={setInputEfectivo}
-                        setInputChequeTab={setInputChequeTab}
-                        setInputDeposito={setInputDeposito}
-                        setInputTarjeta={setInputTarjeta}
                         //label api forma pago
                         formaPago={formaPago}
                         setFormaPago={setFormaPago}

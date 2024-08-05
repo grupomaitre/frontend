@@ -1,12 +1,10 @@
 import { FC, useEffect, useRef, useState } from 'react'
-import { TabPane, Row, Col, Button, Card, CardBody } from 'reactstrap'
+import { TabPane, Row, Col, Button, Card, CardBody, CardFooter } from 'reactstrap'
 import { getBancos } from '../../Helpers/ApiFacturacion'
 import { useSelector } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from 'uuid'
 import FormCheque from './Components/FormCheque'
 import NumericKeyboard from '../../../../../common/NumericKeyboardProps'
-import BtnPosModal from '../../../../../../../Components/Common/Buttons/BtnPosModal'
 import TableGeneric from '../../../../../../../common/Generics/Table/TableGeneric'
 import ModalAlert from '../../../../../../../common/Generics/Modal/ModalAlert'
 
@@ -26,7 +24,6 @@ interface Props {
     activeInputIndex: any
     setActiveInputIndex: any
     //
-    onCloseClick?: any
     editCheque: (id: number, data: any) => void
     saveCheque?: any
     deleteCheque: (id: number) => void
@@ -45,7 +42,6 @@ const TabPaneCheque: FC<Props> = ({ items, total,
     activeInputIndex,
     setActiveInputIndex,
     //
-    onCloseClick,
     editCheque,
     saveCheque,
     deleteCheque,
@@ -227,65 +223,90 @@ const TabPaneCheque: FC<Props> = ({ items, total,
     }
     return (
         <>
-            <>
-                {
-                    showAlert &&
-                    <ModalAlert
-                        show={showAlert}
-                        onAceptar={() => handleCloseAlert()}
-                        onCancelar={() => setShowAlert(false)}
-                        onCloseClick={() => setShowAlert(false)}
-                        showAceptar={true}
-                        showCancelar={true}
-                        text='Total mayor al original'
-                        backdrop={true}
-                    />
-                }
-                <TabPane tabId="1" id="home">
-                    <FormCheque
-                        bank={bank}
-                        handleInputChange={handleInputChange}
-                        handleInputClick={handleInputClick}
-                        handleInputFocus={handleInputFocus}
-                        inputRefs={inputRefs}
-                        inputValues={inputValues}
-                    />
-
-
-                </TabPane>
-                <Card>
+            {
+                showAlert &&
+                <ModalAlert
+                    show={showAlert}
+                    onAceptar={() => handleCloseAlert()}
+                    onCancelar={() => setShowAlert(false)}
+                    onCloseClick={() => setShowAlert(false)}
+                    showAceptar={true}
+                    showCancelar={true}
+                    text='Total mayor al original'
+                    backdrop={true}
+                />
+            }
+            <TabPane tabId="1" id="home">
+                <Card className='mb-1'>
                     <CardBody>
+                        <FormCheque
+                            bank={bank}
+                            handleInputChange={handleInputChange}
+                            handleInputClick={handleInputClick}
+                            handleInputFocus={handleInputFocus}
+                            inputRefs={inputRefs}
+                            inputValues={inputValues}
+                        />
+
+
+                    </CardBody>
+                    <CardFooter className='p-0 px-1'>
                         <Row className=' '>
 
-                            <Col lg='8'>
-                                <div className='d-flex my-2'>
-                                    <Button className='w-75 me-1 fs-12 rounded'
-                                        innerRef={btnAgregarRef}
-                                        color='primary'
-                                        onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
-                                        disabled={inputValues[0] === 0 || isLoading ? true : false}
+                            <Col lg=''>
+                                <Button
+                                    block
+                                    className='w-75 me-1 fs-12 rounded'
+                                    innerRef={btnAgregarRef}
+                                    color='primary'
+                                    onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
+                                    disabled={inputValues[0] === 0 || isLoading ? true : false}
 
-                                        onKeyDown={
-                                            (e) => {
-                                                if (e.key === 'Enter') {
-                                                    handlePushData
-                                                }
+                                    onKeyDown={
+                                        (e) => {
+                                            if (e.key === 'Enter') {
+                                                handlePushData
                                             }
                                         }
-                                    >{!!isEdit ? 'Actualizar' : 'Agregar'}   </Button>
-                                    <Button className='w-75 fs-12'
-                                        color='danger'
-                                        outline
-                                        onClick={handleDeleteItem}
-                                    >Eliminar</Button>
-                                    <Button
-                                        outline
-                                        onClick={() => clearInputs()}
-                                    >
-                                        Limpiar
-                                    </Button>
+                                    }
+                                >{isEdit ? 'Actualizar' : 'Agregar'}   </Button>
 
-                                </div>
+
+
+
+
+                            </Col>
+                            <Col>
+                                <Button
+                                    block
+                                    className='fs-12'
+                                    color='danger'
+                                    outline
+                                    onClick={handleDeleteItem}
+                                >Eliminar</Button>
+                            </Col>
+
+                            <Col>
+                                <Button
+                                    block
+                                    className='fs-12'
+                                    outline
+                                    onClick={() => clearInputs()}
+                                >
+                                    Limpiar
+                                </Button>
+                            </Col>
+
+                        </Row>
+                    </CardFooter>
+                </Card>
+
+
+
+                <Card className='mb-0'>
+                    <CardBody>
+                        <Row>
+                            <Col  sm='7' xl='8'>
                                 <TableGeneric
                                     showFilter={false}
                                     showFooter={false}
@@ -295,52 +316,49 @@ const TabPaneCheque: FC<Props> = ({ items, total,
                                     divClass='table-responsive text-black bg-table'
                                     tableClass='cursor-pointer w-100'
                                     theadClass='position-sticky top-0 bg-table '
-                                    thClass='fs-11 fw-light border'
+                                    thClass='fs-12 fw-bold page-bg text-white border'
+                                    tdClass='border fs-11'
                                     tbodyClass='bg-light'
-                                    styleHeight='130px'
+                                    styleHeight='230px'
                                     overflowY='scroll'
                                 />
-
-                                <div className='mt-1'>
-                                    <BtnPosModal
-                                        onAceptarClick={onCloseClick}
-                                        onCloseClick={onCloseClick}
-                                    />
-                                </div>
                             </Col>
-                            <Col lg='4' className='rounded-1 d-flex align-items-start px-0' style={{ background: '' }}>
+                            <Col lg='' className='rounded-1 d-flex align-items-start px-0' style={{ background: '' }}>
                                 <NumericKeyboard
                                     handleDelete={() => handleDelete()}
                                     onKeyPress={(e) => onKeyPress(e)}
-                                    heightKey='45px'
-                                    heightBtnDelete='50px'
+                                    btnClass={"keyBoard rounded shadow-sm"}
+                                    widthKey='55px'
+                                    heightKey='55px'
+                                    fontSizeKey='1.55rem'
+                                    heightBtnDelete='55px'
+                                    fondoKey='#e6ecec'
+                                    colorKeys='#13284e'
+                                    widthBorrar='55px'
+                                    gridColumn='span 1'
+                                    sizeBorrar={'0.8rem'}
+                                    bgDelete={'#f30000'}
+                                    colorDelete={'#fff'}
                                     keyboards={[
-                                        '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '00'
+                                        "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", '.'
                                     ]}
                                 />
                                 <Button
                                     color='light'
-                                    className='fs-12 border shadow-md d-flex align-items-center justify-content-center'
-                                    style={{ width: '60px', height: '75%', marginTop: '3px', textAlign: 'center' }}
+                                    className='fs-11 d-flex align-items-center justify-content-center border-sistema '
+                                    style={{ width: '60px', height: '96%', marginTop: '3px', textAlign: 'center' }}
                                     onClick={handleKeydown}
                                 >
                                     <span className=''>ENTER</span>
                                 </Button>
                             </Col>
-
                         </Row>
                     </CardBody>
                 </Card>
-            </>
-            {/*      {
-                showKeyboard && <TestTelcado
-                    customLayout={customTeclas}
-                    inputName={inputName}
-                    onChangeAll={onChangeAll}
-                    onKeyPress={onKeyPress}
-                />
-            } */}
+            </TabPane>
         </>
+
+
 
     )
 }

@@ -38,7 +38,7 @@ const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarje
                 <Col lg='5'>
                     <Label className='text-black fs-15'>TOTAL PAGO</Label>
                 </Col>
-                <Col className='bg-black border-success border-bottom' lg='4'>
+                <Col className='bg-black border-success border-bottom' lg=''>
                     <Label className='text-center py-1' style={{ color: '#33ff00' }}>{(totalPagar + propina).toFixed(2) || '0.00'}</Label>
                 </Col>
 
@@ -47,7 +47,7 @@ const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarje
                 <Col lg='5'>
                     <Label className='text-black fs-12'>Propina</Label>
                 </Col>
-                <Col className='bg-black border-success border-bottom' lg='4'>
+                <Col className='bg-black border-success border-bottom' lg=''>
                     <Label className='text-center ' style={{ color: '#33ff00' }}>{propina || 0.00}</Label>
                 </Col>
             </Row>
@@ -55,7 +55,7 @@ const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarje
                 <Col className='bg-black' lg='5'>
                     <Label className='text-center text-white py-1 fs-4'>VUELTO</Label>
                 </Col>
-                <Col className='bg-black border-success border-bottom' lg='4'>
+                <Col className='bg-black border-success border-bottom' lg=''>
                     <Label className='text-center  py-1 fs-4' style={{ color: '#33ff00' }}>$ {(totalVuelto2).toFixed(2)}</Label>
                 </Col>
             </Row>
@@ -64,7 +64,7 @@ const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarje
                 <Col lg='5'>
                     <Label className='text-black fs-12'>Total de retencion</Label>
                 </Col>
-                <Col className='bg-black border-success border-bottom' lg='4'>
+                <Col className='bg-black border-success border-bottom' lg=''>
                     <Label className='text-center ' style={{ color: '#33ff00' }}>0.00</Label>
                 </Col>
             </Row>
@@ -72,7 +72,7 @@ const DetalleCuentaTotals: FC<Props> = ({ inputEfectivo, inputCheque, inputTarje
                 <Col lg='5'>
                     <Label className='text-black fs-12'>Nota de Credito</Label>
                 </Col>
-                <Col className='bg-black' lg='4'>
+                <Col className='bg-black' lg=''>
                     <Label className='text-center  ' style={{ color: '#33ff00' }}>0.00</Label>
                 </Col>
             </Row>

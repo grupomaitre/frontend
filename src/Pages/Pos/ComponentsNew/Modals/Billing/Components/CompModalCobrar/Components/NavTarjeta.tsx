@@ -1,8 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { Button } from 'reactstrap'
-import { Book, BookOpen, CreditCard, DollarSign, Repeat } from 'react-feather'
+import { BookOpen, CreditCard, DollarSign, Repeat } from 'react-feather'
 import InputKeyBoard from '../../../../../Cards/CardOrders/InputKeyBoard'
-import ModalsTabs from './ModalsTabs'
 import { IPropNav, ObjectNavItem } from '../interface/IPropsNavs'
 
 const NavTarjeta: FC<IPropNav> = ({
@@ -22,18 +21,11 @@ const NavTarjeta: FC<IPropNav> = ({
     handleInputChange,
     handleInputClick,
     handleInputFocus,
-    setInputChequeTab,
-    setInputTarjeta,
-    setInputDeposito,
     setFormaPago,
     handleKeydown,
-    testVuelto,
-    setPropina
 
 }) => {
     const [showCheque, setShowCheque] = useState<boolean>(false)
-    const [showTarjeta, setShowTarjeta] = useState<boolean>(false)
-    const [showDeposito, setShowDeposito] = useState<boolean>(false)
     const [disabledEfec, setDisabled] = useState(false)
 
     useEffect(() => {
@@ -77,7 +69,7 @@ const NavTarjeta: FC<IPropNav> = ({
             label: 'TARJETA',
             valueInput: inputTarjeta,
             readonly: true,
-            function: () => setShowTarjeta(true),
+            // function: () => setShowTarjeta(true),
             icon: <CreditCard size={15} className='me-1' />,
             ref: inputRefTarjeta,
             disabled: true
@@ -100,53 +92,54 @@ const NavTarjeta: FC<IPropNav> = ({
             label: 'Transferencia Deposito',
             valueInput: inputDeposito,
             readonly: true,
-            function: () => setShowDeposito(true),
+            //  function: () => setShowDeposito(true),
             icon: <Repeat size={15} className='me-1' />,
             ref: inputRefDeposito,
             disabled: true
         },
-        {
-            value: '5',
-            inputName: "X_Cobrar",
-            label: 'X COBRAR',
-            valueInput: inputDeposito,
-            readonly: true,
-            function: () => setShowDeposito(true),
-            icon: <Book size={15} className='me-1' />,
-            ref: inputRefDeposito,
-            disabled: true
-        },
-        {
-            value: '5',
-            inputName: "Retencion",
-            label: 'RETENCIÓN',
-            valueInput: inputDeposito,
-            readonly: true,
-            function: () => setShowDeposito(true),
-            icon: <Book size={15} className='me-1' />,
-            ref: inputRefDeposito,
-            disabled: true
-        },
-        {
-            value: '5',
-            inputName: "AUX",
-            label: 'AUX',
-            valueInput: inputDeposito,
-            readonly: true,
-            function: () => setShowDeposito(true),
-            icon: <Book size={15} className='me-1' />,
-            ref: inputRefDeposito,
-            disabled: true
-        },
+        /*     {
+                value: '5',
+                inputName: "X_Cobrar",
+                label: 'X COBRAR',
+                valueInput: inputDeposito,
+                readonly: true,
+              //  function: () => setShowDeposito(true),
+                icon: <Book size={15} className='me-1' />,
+                ref: inputRefDeposito,
+                disabled: true
+            },
+            {
+                value: '5',
+                inputName: "Retencion",
+                label: 'RETENCIÓN',
+                valueInput: inputDeposito,
+                readonly: true,
+                function: () => setShowDeposito(true),
+                icon: <Book size={15} className='me-1' />,
+                ref: inputRefDeposito,
+                disabled: true
+            },
+            {
+                value: '5',
+                inputName: "AUX",
+                label: 'AUX',
+                valueInput: inputDeposito,
+                readonly: true,
+                function: () => setShowDeposito(true),
+                icon: <Book size={15} className='me-1' />,
+                ref: inputRefDeposito,
+                disabled: true
+            }, */
 
     ]
 
     const toggle = (tab: string) => {
         if (tab === '1') {
             setInputValues([inputEfectivo, inputCheque, inputTarjeta, inputDeposito])
-            setShowCheque(false)
-            setShowTarjeta(false)
-            setShowDeposito(false)
+            // setShowCheque(false)
+            //  setShowTarjeta(false)
+            //setShowDeposito(false)
+            setactiveTab('1')
             setDisabled(false)
             setFormaPago('Efectivo')
             inputRefs.current[0].current?.focus()
@@ -158,20 +151,22 @@ const NavTarjeta: FC<IPropNav> = ({
             setShowCheque(true)
             setInputValues([0, totalCart || 0, inputTarjeta, inputDeposito])
             setFormaPago('Cheque')
-
+            setactiveTab('2')
 
 
         }
         if (tab === '3') {
-            setShowTarjeta(true)
+            //    setShowTarjeta(true)
             setInputValues([0, inputCheque, inputTarjeta, inputDeposito])
             setFormaPago('Tarjeta')
+            setactiveTab('3')
             return
         }
         if (tab === '4') {
-            setShowDeposito(true)
             setInputValues([0, inputCheque, inputTarjeta, totalCart || 0])
             setFormaPago('Despósito')
+            setactiveTab('4')
+
             return
         }
 
@@ -185,27 +180,6 @@ const NavTarjeta: FC<IPropNav> = ({
 
     return (
         <>
-            <ModalsTabs
-                setInputChequeTab={setInputChequeTab}
-                setInputTarjeta={setInputTarjeta}
-                setInputDeposito={setInputDeposito}
-                inputDeposito={inputDeposito}
-                inputCheque={inputCheque}
-                inputTarjeta={inputTarjeta}
-                setShowCheque={setShowCheque}
-                setShowDeposito={setShowDeposito}
-                setShowTarjeta={setShowTarjeta}
-                showCheque={showCheque}
-                showDeposito={showDeposito}
-                showTarjeta={showTarjeta}
-                total2={totalCart}
-                //setInputValues
-                setInputValues={setInputValues}
-                //testVuelto
-                testVuelto={testVuelto}
-                //propina
-                setPropina={setPropina}
-            />
 
             <div style={{ maxHeight: "195px", overflowY: 'scroll', scrollMargin: '20px', maxWidth: '100%' }} className="simplebar-track-warning m-0 p-0 ">
                 {TabNavItem.map((item, key: number) => (

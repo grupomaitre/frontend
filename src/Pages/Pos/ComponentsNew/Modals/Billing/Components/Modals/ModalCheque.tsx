@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, createRef, useState } from 'react'
-import { Modal, ModalBody, ModalHeader } from 'reactstrap'
 import TabPaneCheque from '../CompoTabsFact/TabPaneCheque'
 import { useDispatch, useSelector } from 'react-redux'
 import { createItemCheque, deleteItemCheque, getCheques, updateItemCheque } from '../CompoTabsFact/Api/ApiCheque'
@@ -9,14 +8,12 @@ interface IrefInput {
 }
 
 interface Props {
-    show: boolean
-    onCloseClick: () => void
     total: number
     setInputChequeTab: any
     testVuelto: any
 
 }
-const ModalCheque: FC<Props> = ({ show, onCloseClick, total, setInputChequeTab, testVuelto }) => {
+const ModalCheque: FC<Props> = ({ total, setInputChequeTab, testVuelto }) => {
     const dispatch = useDispatch()
     const [items, setItems] = React.useState<any>([])
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
@@ -107,37 +104,32 @@ const ModalCheque: FC<Props> = ({ show, onCloseClick, total, setInputChequeTab, 
 
 
     return (
-        <Modal isOpen={show} backdrop={'static'} size='lg' className='fs-11 mt-1' fade={false}>
-            <ModalHeader toggle={onCloseClick} className='p-0 px-2'>
-                <span className='fs-13'>{`Total: ${(total.toFixed(2))}`}</span>
-            </ModalHeader>
-            <ModalBody className='bg-gray'>
-                <TabPaneCheque
-                    items={items}
-                    total={total}
-                    setInputChequeTab={setInputChequeTab}
-                    //keyboard
-                    inputRefs={inputRefs}
-                    activeInputIndex={activeInputIndex}
-                    setActiveInputIndex={setActiveInputIndex}
-                    inputValues={inputValues}
-                    setInputValues={setInputValues}
-                    onKeyPress={onKeyPress}
-                    handleDelete={handleDelete}
-                    handleInputChange={handleInputChange}
-                    handleInputClick={handleInputClick}
-                    handleInputFocus={handleInputFocus}
-                    //
-                    onCloseClick={onCloseClick}
-                    editCheque={editCheque}
-                    saveCheque={saveCheque}
-                    deleteCheque={deleteCheque}
-                    //isLoading
-                    isLoading={isLoading}
-                />
-            </ModalBody>
 
-        </Modal>
+        <>
+            <TabPaneCheque
+                items={items}
+                total={total}
+                setInputChequeTab={setInputChequeTab}
+                //keyboard
+                inputRefs={inputRefs}
+                activeInputIndex={activeInputIndex}
+                setActiveInputIndex={setActiveInputIndex}
+                inputValues={inputValues}
+                setInputValues={setInputValues}
+                onKeyPress={onKeyPress}
+                handleDelete={handleDelete}
+                handleInputChange={handleInputChange}
+                handleInputClick={handleInputClick}
+                handleInputFocus={handleInputFocus}
+                //
+                editCheque={editCheque}
+                saveCheque={saveCheque}
+                deleteCheque={deleteCheque}
+                //isLoading
+                isLoading={isLoading}
+            />
+
+        </>
     )
 }
 

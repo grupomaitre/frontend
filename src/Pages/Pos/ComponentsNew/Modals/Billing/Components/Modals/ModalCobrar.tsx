@@ -27,6 +27,8 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
         idCart: state.cartSlice.idCart,
         /* mesa:state. */
     }))
+    const cart = useSelector((state: any) => state.cartSlice.cart)
+
     const [documento, setDocumento] = useState('')
     const [razon_social, setRazon_social] = useState('')
     const [n_factura, setN_factura] = useState('')
@@ -115,10 +117,54 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
     }, [totalRedondeado])
     const { isLoading, data: ordenes } = useQuery(['dataOrden', idCart], () => getOrderByCart(idCart));
     const mesacart = useSelector((state: any) => state.cartSlice.mesacart)
+
+
+    //inputs 
+    const [inputEfectivo, setInputEfectivo] = useState<number>(0)
+    const [inputTarjeta, setInputTarjeta] = useState<number>(0)
+    const [inputCheque, setInputChequeTab] = useState<number>(0)
+    const [inputDeposito, setInputDeposito] = useState<number>(0)
+    //inputs ref
+    const inputRefCheque = useRef<HTMLInputElement>(null)
+    const inputRefTarjeta = useRef<HTMLInputElement>(null)
+    const inputRefDeposito = useRef<HTMLInputElement>(null)
+    //label api forma pago set
+    const [formaPago, setFormaPago] = useState('')
+    //info cart
+
+    useEffect(() => {
+        setInputEfectivo(parseFloat(inputValues[0].toString()) || 0)
+        setEfectivoTest(parseFloat(inputValues[0].toString()) || 0)
+
+    }, [inputValues[0]])
+
+    useEffect(() => {
+        setInputChequeTab(parseFloat(inputValues[1].toString()) || 0)
+    }, [inputValues[1]])
+
+    useEffect(() => {
+        setInputTarjeta(parseFloat(inputValues[2].toString()) || 0)
+    }, [inputValues[2]])
+
+    useEffect(() => {
+        setInputDeposito(parseFloat(inputValues[3].toString()) || 0)
+    }, [inputValues[3]],)
+
+    useEffect(() => {
+        setactiveTab('1')
+        inputRefs.current[0].current?.focus()
+        localStorage.setItem('forma_pago', 'Efectivo' || '')
+        setFormaPago('Efectivo')
+        dispatch(setValueEfectivo(inputEfectivo))
+
+        setTimeout(() => {
+            inputRefs.current[0].current?.select()
+        }, 100)
+    }, [idCart, totalCart, cart])
     return (
         <>
             {!isLoading &&
-                <Modal isOpen={show} backdrop={'static'} fade={false} size='xl'>
+                <Modal isOpen={show} backdrop={'static'} fade={false} size='' style={{ maxWidth: '95%' }}>
                     <ModalHeader style={{ maxHeight: '50%', height: '35px' }} className='m-0 p-0 px-2'>
                         <span className='fs-12 p-1'>Caja Cobro</span>
                     </ModalHeader>
@@ -126,7 +172,7 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
 
 
                         <div className='d-flex'>
-                            <div style={{ width: '60%' }} >
+                            <div style={{ width: '35%' }} >
                                 <CompDetails
                                     closeModals={closeModals}
                                     activeTabItem={activeTabItem}
@@ -158,9 +204,20 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
                                     disabledCobrar={disabledCobrar}
                                     efectivoTest={efectivoTest}
                                     innerBtnCobrar={innerBtnCobrar}
+                                    //inputs
+                                    inputEfectivo={inputEfectivo}
+                                    inputTarjeta={inputTarjeta}
+                                    inputCheque={inputCheque}
+                                    inputDeposito={inputDeposito}
+                                    setInputEfectivo={setInputEfectivo}
+                                    inputRefCheque={inputRefCheque}
+                                    inputRefTarjeta={inputRefTarjeta}
+                                    inputRefDeposito={inputRefDeposito}
+                                    formaPago={formaPago}
+                                    setFormaPago={setFormaPago}
                                 />
                             </div>
-                            <div className='' style={{ width: '50%' }}>
+                            <div className='' style={{ width: '70%', height: '100%' }}>
                                 <Card className='mb-1  rounded-start-0' >
                                     <CardHeader className='text-center p-3 d-flex flex-row gap-2 justify-content-around page-bg text-white rounded-start-0'
                                         style={{ fontSize: '0.68rem' }}>
@@ -180,20 +237,25 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
                                     <CardBody>
 
                                         <Row className='d-flex  justify-content-center align-items-center'>
-                                            <Col lg='9'>
+                                            <Col lg=''>
                                                 <CompContentDocs
-                                                    activeTab='1'
+                                                    activeTab={activeTabItem}
                                                     onKeyPress={onKeyPress}
                                                     handleDelete={() => handleDelete()}
                                                     closeModals={closeModals}
+                                                    testVuelto={testVuelto}
+                                                    totalCart={totalRedondeado}
+                                                    setPropina={setPropina}
+                                                    //inputs
+                                                    setInputTarjeta={setInputTarjeta}
+                                                    setInputChequeTab={setInputChequeTab}
+                                                    setInputDeposito={setInputDeposito}
+
                                                 />
                                             </Col>
                                         </Row>
 
                                     </CardBody>
-                                    <CardFooter>
-
-                                    </CardFooter>
                                 </Card>
 
 

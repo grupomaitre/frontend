@@ -9,7 +9,6 @@ import discover from '../../../../../../../assets/images/tarjetas/discover.png'
 import { v4 as uuidv4 } from 'uuid';
 import NumericKeyboard from '../../../../../common/NumericKeyboardProps'
 import FormTarjeta from './Components/FormTarjeta'
-import BtnPosModal from '../../../../../../../Components/Common/Buttons/BtnPosModal'
 import TableGeneric from '../../../../../../../common/Generics/Table/TableGeneric'
 import ModalAlert from '../../../../../../../common/Generics/Modal/ModalAlert'
 interface Props {
@@ -29,7 +28,6 @@ interface Props {
     editTarjeta: any
     saveTarjeta: any
     deleteTarjeta: (item: number) => void
-    onCloseClick: any
     setInputValues: any,
     loading: boolean
 }
@@ -41,7 +39,6 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
     setActiveInputIndex,
     editTarjeta,
     saveTarjeta,
-    onCloseClick,
     loading
 }) => {
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
@@ -246,14 +243,6 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
                                         }
                                     </div>
                                 </Col>
-
-                                <Col className=''>
-
-                                    <Label className='bg-black p-2 rounded fs-5 '
-                                        style={{ color: 'red ' }}
-                                    >Total: ${parseFloat(totalPropina.toString()).toFixed(2) || 0}</Label>
-
-                                </Col>
                             </Row>
                         </CardHeader>
 
@@ -289,20 +278,10 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
                                 innerRef={btnAgregarRef}
                                 color='primary'
                                 type='submit'
-                                //    disabled={loading}
                                 disabled={inputValues[0] === 0 || loading ? true : false}
                                 onClick={addNext ? () => setShowAlert(true) : () => handlePushData()}
-                            //  disabled={btnDisabled}
 
-                            /*     */
-                            /*       onKeyDown={
-                                (e) => {
-                                    if (e.key === 'Enter') {
-                                        handlePushData
-                                    }
-                                }
-                            } */
-                            >{!!isEdit ? 'Actualizar' : 'Agregar'}   </Button>
+                            >{isEdit ? 'Actualizar' : 'Agregar'}   </Button>
                             <Button className=' fs-14'
                                 color='danger'
                                 outline
@@ -325,7 +304,7 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
                         <CardBody>
                             <Row className=''>
 
-                                <Col lg='8'>
+                                <Col lg='7'>
 
 
                                     <TableGeneric
@@ -345,7 +324,7 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
 
 
                                 </Col>
-                                <Col lg='2' className='rounded-1 d-flex align-items-start px-0' style={{ background: '' }}>
+                                <Col lg='3' className='rounded-1 d-flex align-items-start px-0' style={{ background: '' }}>
                                     <NumericKeyboard
                                         handleDelete={() => handleDelete()}
                                         onKeyPress={(e) => onKeyPress(e)}
@@ -378,10 +357,7 @@ const TabPaneTarjeta: FC<Props> = ({ total, deleteTarjeta, items, onKeyPress, ha
                             </Row>
                         </CardBody>
                         <CardFooter>
-                            <BtnPosModal
-                                onAceptarClick={onCloseClick}
-                                onCloseClick={onCloseClick}
-                            />
+
                         </CardFooter>
                     </Card>
 

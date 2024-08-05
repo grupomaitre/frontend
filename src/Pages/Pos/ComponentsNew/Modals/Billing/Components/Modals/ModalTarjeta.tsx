@@ -1,15 +1,12 @@
 import React, { FC, useEffect, useState, useRef, createRef } from 'react'
-import { Modal, ModalBody, ModalHeader } from 'reactstrap'
 import TabPaneTarjeta from '../CompoTabsFact/TabPaneTarjeta'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteItemTarjeta, getTarjetas, updateItemTarjeta } from '../CompoTabsFact/Api/ApiTarjetas'
 import { setIDTarjeta } from '../../../../../../../slices/Orders/OrdersSlice'
 interface Props {
-    show: boolean
-    onCloseClick: () => void
     total: number
-    setInputTarjeta?: any
+    setInputTarjeta: any
     inputValues?: any
     testVuelto: any
     setPropina: any
@@ -20,7 +17,7 @@ interface IrefInput {
 }
 
 
-const ModalTarjeta: FC<Props> = ({ show, onCloseClick, total, setInputTarjeta, testVuelto, setPropina }) => {
+const ModalTarjeta: FC<Props> = ({ total, setInputTarjeta, testVuelto, setPropina }) => {
     const dispatch = useDispatch()
     const [newData, setNewData] = React.useState<any>([])
     const [items, setItems] = React.useState<any>([])
@@ -122,41 +119,31 @@ const ModalTarjeta: FC<Props> = ({ show, onCloseClick, total, setInputTarjeta, t
     }, [items, total, testVuelto])
     return (
 
-        <Modal isOpen={show} backdrop={'static'} size='lg' fullscreen={false} className='mt-1 mb-0'>
-            <ModalHeader toggle={onCloseClick}  >
-                <span className='text-danger'>
-                    {`Tarjeta: ${(total).toFixed(2)}`}
-                </span>
-            </ModalHeader>
-            <ModalBody style={{ background: '#405c71' }} className='p-2 rounded'>
-                <TabPaneTarjeta
-                    total={total}
-                    setNewData={setNewData}
-                    newData={newData}
-                    items={items}
-                    //keyboard
-                    inputRefs={inputRefs}
-                    activeInputIndex={activeInputIndex}
-                    setActiveInputIndex={setActiveInputIndex}
-                    inputValues={inputValues}
-                    setInputValues={setInputValues}
-                    onKeyPress={onKeyPress}
-                    handleDelete={handleDelete}
-                    handleInputChange={handleInputChange}
-                    handleInputClick={handleInputClick}
-                    handleInputFocus={handleInputFocus}
-                    //btn modal
-                    editTarjeta={editTarjeta}
-                    saveTarjeta={saveTarjeta}
-                    deleteTarjeta={deleteTarjeta}
-                    onCloseClick={onCloseClick}
-                    //loading
-                    loading={loading}
-                />
 
-            </ModalBody>
+        <TabPaneTarjeta
+            total={total}
+            setNewData={setNewData}
+            newData={newData}
+            items={items}
+            //keyboard
+            inputRefs={inputRefs}
+            activeInputIndex={activeInputIndex}
+            setActiveInputIndex={setActiveInputIndex}
+            inputValues={inputValues}
+            setInputValues={setInputValues}
+            onKeyPress={onKeyPress}
+            handleDelete={handleDelete}
+            handleInputChange={handleInputChange}
+            handleInputClick={handleInputClick}
+            handleInputFocus={handleInputFocus}
+            //btn modal
+            editTarjeta={editTarjeta}
+            saveTarjeta={saveTarjeta}
+            deleteTarjeta={deleteTarjeta}
+            //loading
+            loading={loading}
+        />
 
-        </Modal>
     )
 }
 

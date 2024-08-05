@@ -1,5 +1,4 @@
 import { FC, useState, useEffect, useRef, createRef } from 'react'
-import { Modal, ModalBody, ModalHeader } from 'reactstrap'
 import TabPaneDeposito from '../CompoTabsFact/TabPaneDeposito'
 import axios from 'axios'
 import { toastError } from '../../../../../../../Components/Common/Swals/SwalsApi'
@@ -10,13 +9,12 @@ interface IrefInput {
     current: HTMLInputElement | null
 }
 interface Props {
-    show: boolean
-    onCloseClick: () => void
+
     total: number
     setInputDeposito: any
     testVuelto: any
 }
-const ModalDescuento: FC<Props> = ({ show, onCloseClick, total, setInputDeposito, testVuelto }) => {
+const ModalDeposito: FC<Props> = ({ total, setInputDeposito, testVuelto }) => {
     const dispatch = useDispatch()
     const [items, setItems] = useState<any>([])
     const id_order = useSelector((state: any) => state.cartSlice.idOrder)
@@ -113,39 +111,32 @@ const ModalDescuento: FC<Props> = ({ show, onCloseClick, total, setInputDeposito
 
 
     return (
-        <Modal isOpen={show} backdrop={'static'} size='lg' fade={false} className='mt-3'>
-            <ModalHeader toggle={onCloseClick} className='p-0 px-3 '>
-                <span className='fs-11'>{`Deposito / Transferencias: ${total}`}</span>
-            </ModalHeader>
-            <ModalBody className='bg-gray text-black'>
-                <TabPaneDeposito
-                    testVuelto={testVuelto}
-                    items={items}
-                    total={total}
-                    setInputDeposito={setInputDeposito}
-                    //keyboard
-                    inputRefs={inputRefs}
-                    activeInputIndex={activeInputIndex}
-                    setActiveInputIndex={setActiveInputIndex}
-                    inputValues={inputValues}
-                    setInputValues={setInputValues}
-                    onKeyPress={onKeyPress}
-                    handleDelete={handleDelete}
-                    handleInputChange={handleInputChange}
-                    handleInputClick={handleInputClick}
-                    handleInputFocus={handleInputFocus}
-                    //btn modal
-                    saveDeposito={saveDeposito}
-                    editDeposito={editDeposito}
-                    deleteDeposito={deleteDeposito}
-                    onCloseClick={onCloseClick}
-                    //isLoading
-                    isLoading={isLoading}
-                />
-            </ModalBody>
 
-        </Modal>
+        <TabPaneDeposito
+            testVuelto={testVuelto}
+            items={items}
+            total={total}
+            setInputDeposito={setInputDeposito}
+            //keyboard
+            inputRefs={inputRefs}
+            activeInputIndex={activeInputIndex}
+            setActiveInputIndex={setActiveInputIndex}
+            inputValues={inputValues}
+            setInputValues={setInputValues}
+            onKeyPress={onKeyPress}
+            handleDelete={handleDelete}
+            handleInputChange={handleInputChange}
+            handleInputClick={handleInputClick}
+            handleInputFocus={handleInputFocus}
+            //btn modal
+            saveDeposito={saveDeposito}
+            editDeposito={editDeposito}
+            deleteDeposito={deleteDeposito}
+            //isLoading
+            isLoading={isLoading}
+        />
+
     )
 }
 
-export default ModalDescuento
+export default ModalDeposito

@@ -24,11 +24,8 @@ interface Props {
 }
 const ModalsTabs: FC<Props> = ({
     showCheque,
-    setShowCheque,
     showTarjeta,
-    setShowTarjeta,
     showDeposito,
-    setShowDeposito,
     total2,
     setInputChequeTab,
     setInputTarjeta,
@@ -43,8 +40,6 @@ const ModalsTabs: FC<Props> = ({
                 showCheque &&
                 <ModalCheque
 
-                    show={showCheque}
-                    onCloseClick={() => setShowCheque(false)}
                     total={total2}
                     testVuelto={testVuelto}
                     setInputChequeTab={setInputChequeTab}
@@ -53,8 +48,8 @@ const ModalsTabs: FC<Props> = ({
             {
                 showTarjeta &&
                 <ModalTarjeta
-                    show={showTarjeta}
-                    onCloseClick={() => setShowTarjeta(!showTarjeta)}
+                    //   show={showTarjeta}
+                    //  onCloseClick={() => setShowTarjeta(!showTarjeta)}
                     total={total2}
                     testVuelto={testVuelto}
                     setInputTarjeta={setInputTarjeta}
@@ -65,8 +60,6 @@ const ModalsTabs: FC<Props> = ({
                 showDeposito &&
                 <ModalDeposito
                     setInputDeposito={setInputDeposito}
-                    show={showDeposito}
-                    onCloseClick={() => setShowDeposito(false)}
                     total={total2}
                     testVuelto={testVuelto}
                 />

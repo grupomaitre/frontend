@@ -85,10 +85,10 @@ const FormTarjeta: FC<Props> = (
             {
                 inputsForm.map((item, key) => (
                     <Fragment key={key}>
-                        <Col lg={item.col} className='my-2'>
+                        <Col lg={'3'} className='my-2'>
                             <Label className='fw-lighter fs-11'>{item.label}</Label>
                         </Col>
-                        <Col lg='4 my-2'>
+                        <Col lg='3 my-2'>
                             <InputKeyBoard
                                 inputRef={item.ref}
                                 value={(item.value)}
