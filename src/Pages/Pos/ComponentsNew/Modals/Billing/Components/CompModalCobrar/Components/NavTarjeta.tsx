@@ -96,41 +96,7 @@ const NavTarjeta: FC<IPropNav> = ({
             icon: <Repeat size={15} className='me-1' />,
             ref: inputRefDeposito,
             disabled: true
-        },
-        /*     {
-                value: '5',
-                inputName: "X_Cobrar",
-                label: 'X COBRAR',
-                valueInput: inputDeposito,
-                readonly: true,
-              //  function: () => setShowDeposito(true),
-                icon: <Book size={15} className='me-1' />,
-                ref: inputRefDeposito,
-                disabled: true
-            },
-            {
-                value: '5',
-                inputName: "Retencion",
-                label: 'RETENCIÓN',
-                valueInput: inputDeposito,
-                readonly: true,
-                function: () => setShowDeposito(true),
-                icon: <Book size={15} className='me-1' />,
-                ref: inputRefDeposito,
-                disabled: true
-            },
-            {
-                value: '5',
-                inputName: "AUX",
-                label: 'AUX',
-                valueInput: inputDeposito,
-                readonly: true,
-                function: () => setShowDeposito(true),
-                icon: <Book size={15} className='me-1' />,
-                ref: inputRefDeposito,
-                disabled: true
-            }, */
-
+        }
     ]
 
     const toggle = (tab: string) => {

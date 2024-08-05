@@ -1,4 +1,4 @@
-import { Modal, ModalHeader, ModalBody, Card, CardBody, CardFooter, CardHeader, Row, Col } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody, Card, CardBody, CardHeader, Row, Col } from 'reactstrap'
 import CompDetails from '../CompModalCobrar/CompDetails'
 import { FC, useState, useRef, createRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -164,7 +164,7 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
     return (
         <>
             {!isLoading &&
-                <Modal isOpen={show} backdrop={'static'} fade={false} size='' style={{ maxWidth: '95%' }}>
+                <Modal isOpen={show} backdrop={'static'} fade={false} size='' style={{ maxWidth: '90%' }}>
                     <ModalHeader style={{ maxHeight: '50%', height: '35px' }} className='m-0 p-0 px-2'>
                         <span className='fs-12 p-1'>Caja Cobro</span>
                     </ModalHeader>

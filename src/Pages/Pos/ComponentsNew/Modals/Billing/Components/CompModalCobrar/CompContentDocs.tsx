@@ -58,15 +58,15 @@ const CompContentDocs: FC<Props> = ({
         {
             tabId: "3", componetent:
                 <>
-                    <>
-                        <ModalTarjeta
-                            testVuelto={testVuelto}
-                            total={totalCart}
-                            setPropina={setPropina}
-                            setInputTarjeta={setInputTarjeta}
 
-                        />
-                    </>
+                    <ModalTarjeta
+                        testVuelto={testVuelto}
+                        total={totalCart}
+                        setPropina={setPropina}
+                        setInputTarjeta={setInputTarjeta}
+
+                    />
+
                 </>
         },
 

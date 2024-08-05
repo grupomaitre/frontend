@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { TabPane, Row, Col, Button, Card, CardBody, CardFooter } from 'reactstrap'
+import { Row, Col, Button, Card, CardBody, CardFooter } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import FormDeposito from './Components/FormDeposito'
 import NumericKeyboard from '../../../../../common/NumericKeyboardProps'
