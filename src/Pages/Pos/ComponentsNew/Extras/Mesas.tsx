@@ -66,7 +66,7 @@ const MesasTeclado: FC<IProps> = ({ mesas }) => {
         sessionStorage.setItem('id_mesa', item.id_mesa)
         //   console.log(item)
         if (item.status) {
-            if (item.status_mudar_item) {
+            if (item.status_mudar_item && item.status) {
                 dispatch(setIdMesa(item.id_mesa))
                 // dispatch(addMesa(item.nombre_mesa))
                 setShowModalMudarItem(true)

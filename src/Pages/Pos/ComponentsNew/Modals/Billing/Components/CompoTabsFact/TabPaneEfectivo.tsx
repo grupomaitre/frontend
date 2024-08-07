@@ -12,7 +12,7 @@ export const TabPaneEfectivo: FC<Props> = ({ onKeyPress, handleDelete }) => {
         <>
             <Row className='d-flex justify-content-start  border-sistema'>
 
-                <Col lg='9' className='rounded-1 d-flex align-items-start px-0 gap-1 px-5 py-3' style={{ background: '' }}>
+                <Col lg='7' className='rounded-1 d-flex align-items-start px-0 gap-1 px-5 py-3 border' style={{ background: '' }}>
                     <NumericKeyboard
                         handleDelete={() => handleDelete()}
                         onKeyPress={(e) => onKeyPress(e)}
@@ -34,11 +34,12 @@ export const TabPaneEfectivo: FC<Props> = ({ onKeyPress, handleDelete }) => {
                     />
                     <Button
                         color='light'
-                        className='fs-11  border-sistema '
-                        style={{ width: '90px', height: '98%', marginTop: '3px', textAlign: 'center' }}
+                        className='fs-11  border-sistema'
+                        style={{ height: '98%', marginTop: '3px', textAlign: 'center' }}
                     >                Enter
                     </Button>
                 </Col>
+                <Col></Col>
                 <Col className='border d-flex flex-column  justify-content-around'>
                     <div className='border mt-2 rounded shadow-sm text-center p-2'>
                         <Button block color='primary'>
@@ -57,7 +58,7 @@ export const TabPaneEfectivo: FC<Props> = ({ onKeyPress, handleDelete }) => {
 
                 </Col>
 
-            </Row>
+            </Row >
             <Row className='mt-4'>
                 <Col className=''>
                     <Button block className='py-3' outline>Efectivo</Button>

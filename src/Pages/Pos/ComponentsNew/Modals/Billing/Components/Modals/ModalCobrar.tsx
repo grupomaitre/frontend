@@ -42,7 +42,7 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
         const res: any = await getOrderByCart(idCart)
         if (res.status === "success") {
             setN_factura(res?.data.id_order || null);
-            setRazon_social(res?.data.cliente.razon_social || '');
+            setRazon_social(res?.data?.cliente?.razon_social || '');
             setDocumento(res?.data.documento || '');
             //           console.log(res)
 
@@ -225,14 +225,14 @@ const ModalCobrar: FC<Props> = ({ show, onCloseClick, closeModalBilling }) => {
                                             <span className='fw-bold'> {mesacart}</span>
 
                                         </div>
-                                        <div> N°:<br /> <span style={{ fontWeight: '700' }}> {!isLoading ? ordenes?.data?.id_order : "001"}</span>
+                                        <div> N°:<br /> <span style={{ fontWeight: '700' }}> {!isLoading ? ordenes?.data?.id_order || 0 : "001"}</span>
                                         </div>
                                         <div> Documento: <br />
                                             <span style={{ fontWeight: '700' }} className='text-capitalize'>
                                                 {' ' + !isLoading ? ordenes?.data?.documento : "documento"}
                                             </span>
                                         </div>
-                                        <div> Cliente:<br /> <span style={{ fontWeight: '500' }} >{!isLoading ? ordenes?.data?.cliente.razon_social : "empresa"}</span> </div>
+                                        <div> Cliente:<br /> <span style={{ fontWeight: '500' }} >{!isLoading ? ordenes?.data?.cliente?.razon_social || '' : "empresa"}</span> </div>
                                     </CardHeader>
                                     <CardBody>
 
