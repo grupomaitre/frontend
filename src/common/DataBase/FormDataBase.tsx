@@ -3,7 +3,6 @@ import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import { Button, Card, CardBody, CardFooter, CardHeader, Col, Input, Label, Row } from "reactstrap"
-import { saveConfigTerminal } from "../../Api/Config/Terminales/ApiTerminales"
 interface IProps {
     setConexion?: any
 }
@@ -32,6 +31,7 @@ const FormDataBase: FC<IProps> = () => {
                     api_url: api_url || null,
                     api_url_socket: api_url || null
                 }
+
                 const response: any = await axios.post(`http://${api_url}/api/v1/add/terminal`, data)
 
                 if (response.status === 'success') {
