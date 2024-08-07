@@ -3,6 +3,7 @@ import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import { Button, Card, CardBody, CardFooter, CardHeader, Col, Input, Label, Row } from "reactstrap"
+import { saveConfigTerminal } from "../../Api/Config/Terminales/ApiTerminales"
 interface IProps {
     setConexion?: any
 }
@@ -24,11 +25,26 @@ const FormDataBase: FC<IProps> = () => {
                 localStorage.setItem('api_fixed', JSON.stringify(true))
                 localStorage.setItem('api_url', api_url)
                 localStorage.setItem('terminal', maquina)
-                navigate('/login')
-                setTimeout(() => {
-                    location.reload();
+                const data = {
+                    maquina: maquina,
+                    id_empresa: 1,
+                    logo: null,
+                    api_url: api_url || null,
+                    api_url_socket: api_url || null
+                }
+                const response: any = await axios.post(`http://${api_url}/api/v1/add/terminal`, data)
 
-                }, 300);
+                if (response.status === 'success') {
+                    navigate('/login')
+                    setTimeout(() => {
+                        location.reload();
+
+                    }, 100);
+                } else {
+                    setText(response?.message)
+
+                }
+
             }
         } catch (e: any) {
             navigate('/configuracion')

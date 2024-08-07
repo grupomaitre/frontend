@@ -3,7 +3,9 @@ import axios from "axios"
 export const saveConfigTerminal = async (data: any): Promise<any> => {
     try {
         const response = await axios.post('/api/v1/add/terminal', data)
-        return response.data
+        if (response) {
+            return response
+        }
     } catch (error) {
         console.error(error)
     }
