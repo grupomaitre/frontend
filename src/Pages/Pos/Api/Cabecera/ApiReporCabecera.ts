@@ -1,5 +1,6 @@
 import axios from "axios"
 import { toastError } from "../../../../Components/Common/Swals/SwalsApi"
+import { useQuery } from "react-query"
 
 export const countCabecera = async (estado: string) => {
     try {
@@ -16,4 +17,12 @@ export const countCabecera = async (estado: string) => {
     } catch (error) {
         toastError({ title: error })
     }
+}
+
+export const useCountCabecera = (estado: string) => {
+    const query = useQuery(['countCabecera'], () => countCabecera(estado), {
+        refetchOnWindowFocus: false,
+
+    });
+    return query
 }

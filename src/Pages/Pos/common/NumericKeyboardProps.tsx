@@ -46,7 +46,7 @@ const NumericKeyboard: FC<NumericKeyboardProps> = ({
     const listNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
     return (
         <>
-            <div className="numeric-keyboard" style={{
+            <div className="numeric-keyboard border-sistema p-2" style={{
                 display: 'grid',
                 gridTemplateColumns: `repeat(${gridTemplateColumns || 3}, 1fr)`,
                 gridTemplateRows: 'repeat(1,2fr)',
