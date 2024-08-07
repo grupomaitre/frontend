@@ -51,7 +51,7 @@ const PosCompoTree: FC<Props> = ({
                     <Button
                         color="light"
                         style={{ width: '100%', height: '143px', marginBottom: '2px', background: '#fff' }}
-                        className="d-flex flex-column justify-content-center align-items-center"
+                        className="d-flex flex-column justify-content-center align-items-center border-sistema"
                         onClick={onEnter}
                     >
                         <span className=""> Enter</span>
