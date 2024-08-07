@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid';
 
 interface cartState {
+    idDocumentSlice: number
     cart: any[]
     quantity: number
     clientePos: {}
@@ -9,6 +10,7 @@ interface cartState {
 }
 
 const initialState: cartState = {
+    idDocumentSlice: 0,
     cart: [],
     quantity: 1,
     clientePos: {}
@@ -77,6 +79,9 @@ const pointSaleSlice = createSlice({
 
 
         },
+        setIdDocumentSlice(state, action: PayloadAction<number>) {
+            state.idDocumentSlice = action.payload
+        },
     }
 
 })
@@ -89,7 +94,8 @@ export const {
     removeCartPos,
     removeCartItemPos,
     setClientePos,
-    addNewDescPos
+    addNewDescPos,
+    setIdDocumentSlice
 
 } = pointSaleSlice.actions
 

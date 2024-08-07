@@ -15,7 +15,7 @@ import ModalSlice from "./Cart/ModalSlice";
 import cartStatusSlice from "./Cart/cartStatusSlice";
 import rubrosSlice from './rubros/reducer'
 import descuentoSlice from "./Cart/descuentoSlice";
-const rootReducer = combineReducers({
+const rootReducer: any = combineReducers({
     rubrosSlice: rubrosSlice,
     Prodcuts: Prodcuts,
     cartSlice: cartSlice,

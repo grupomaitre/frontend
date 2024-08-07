@@ -29,7 +29,7 @@ const FormDataBase: FC<IProps> = () => {
                     id_empresa: 1,
                     logo: null,
                     api_url: api_url || null,
-                    api_url_socket: api_url || null
+                    api_url_socket: hostname || null
                 }
 
                 const response: any = await axios.post(`http://${api_url}/api/v1/add/terminal`, data)

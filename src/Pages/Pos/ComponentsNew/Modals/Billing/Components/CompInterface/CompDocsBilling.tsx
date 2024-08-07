@@ -140,7 +140,7 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
                                 color=''
                                 disabled={btnDisabled}
                                 innerRef={key === newKey ? inputBtn : null}
-                                key={item?.id_documento}
+                                key={key}
                                 onClick={() => handleModal(item)}
                                 className="text-uppercase text-center my-2 py-4 bg-primary text-white  shadow"
                                 //onFocus={() => setInputName(key)}
@@ -148,7 +148,7 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
 
                             >
 
-                                <span className='fs-13' style={{ fontWeight: '600' }}> {item.nombre} - {item.id_documento || 0}</span>
+                                <span className='fs-13' style={{ fontWeight: '600' }}> {item.nombre} - {item.secuencial || 0}</span>
                             </Button>
                         ))
                     }
