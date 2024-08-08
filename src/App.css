@@ -53,7 +53,8 @@
 }
  */
 .custom-input {
-    height: 22px !important;
+    height: 28px !important;
+    border-radius: 3px !important;
 }
 
 .text-orange {

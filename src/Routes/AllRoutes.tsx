@@ -12,10 +12,15 @@ import ConfigTerminal from "../Pages/Config/ConfigTerminal"
 import ConfigConnect from "../Pages/Config/ConfigConnect"
 const Caja = lazy(() => import("../Pages/Caja/Caja"))
 const Items = lazy(() => import("../Pages/ProductsServices/ItemsServicios"))
+import ConfiguracionGlobal from '../Pages/Configuraciones/ConfigGlobal'
 const publicRoutes = [
     {
         path: '/',
         component: ConfigTerminal
+    },
+    {
+        path: 'configuracion/goblal',
+        component: ConfiguracionGlobal
     },
     {
         path: '/configuracion',

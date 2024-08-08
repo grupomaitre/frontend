@@ -32,6 +32,8 @@ const Dashboard = () => {
                 { text: 'Impresiones', onClick: () => navitage('/printers') },
                 { text: 'Plano de mesas', onClick: () => setShowModalMesas(true) },
                 { text: 'Pantalla Completa', onClick: () => enterFullScreen() },
+                { text: 'Configuración', onClick: () => navitage('/configuracion/goblal') },
+
 
             ]
         },
