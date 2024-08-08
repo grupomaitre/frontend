@@ -11,7 +11,8 @@ export const CloseBilling = async (
     total_efectivo: number,
     id_cheque: number,
     id_tarjeta: number,
-    id_deposito: number
+    id_deposito: number,
+    id_documento: number
 
 ): Promise<any> => {
     try {
@@ -23,7 +24,8 @@ export const CloseBilling = async (
             total_efectivo: total_efectivo || 0,
             id_cheque: id_cheque || null,
             id_tarjeta: id_tarjeta || null,
-            id_deposito: id_deposito || null
+            id_deposito: id_deposito || null,
+            id_documento: id_documento
 
         })
 

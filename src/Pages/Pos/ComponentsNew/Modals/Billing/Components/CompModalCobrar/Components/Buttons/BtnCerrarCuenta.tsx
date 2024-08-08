@@ -25,6 +25,7 @@ const BtnCerrarCuenta: FC<IProps> = ({ closeModals, error, innerBtnCobrar, efect
     const id_cheque = useSelector((state: any) => state.ordersSlice.id_cheque)
     const id_tarjeta = useSelector((state: any) => state.ordersSlice.id_tarjeta)
     const id_deposito = useSelector((state: any) => state.ordersSlice.id_deposito)
+    const idDocumentSlice = useSelector((state: any) => state.pointSaleSlice.idDocumentSlice)
 
     const onCloseBill = async () => {
         let efectivo = null || ''
@@ -34,7 +35,7 @@ const BtnCerrarCuenta: FC<IProps> = ({ closeModals, error, innerBtnCobrar, efect
             efectivo = 'Efectivo'
         }
 
-        const res = await CloseBilling(id_mesa, idCart, id_order, efectivo, efectivoTest, id_cheque, id_tarjeta, id_deposito)
+        const res = await CloseBilling(id_mesa, idCart, id_order, efectivo, efectivoTest, id_cheque, id_tarjeta, id_deposito, idDocumentSlice)
 
         if (res.status) {
             dispatch(onErrorCart(true))

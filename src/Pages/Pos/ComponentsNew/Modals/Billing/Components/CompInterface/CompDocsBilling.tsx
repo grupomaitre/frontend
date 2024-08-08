@@ -12,6 +12,7 @@ import { getDocs } from '../Api/ApiDocs'
 import './Components/btn.css'
 import { subFinal, totalCart, totalDescuento, totalIva, totalServicio, totalSubtotal } from '../../../../../Func/FuncCart'
 import ModalFacturacion from '../../../../../../../common/Generics/Facturacion/ModalFacturacion'
+import { setIdDocumentSlice } from '../../../../../../../slices/PointSale/pointSaleSlice'
 interface Props {
     closeModalBilling: any
     cliente: any
@@ -29,8 +30,7 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
     const orden = useSelector((state: any) => state.cartSlice.orden)
     const id_user = useSelector((state: any) => state.cartSlice.id_user)
     const { data } = useQuery('documentos', getDocs, {
-        /*        staleTime: Infinity,
-               cacheTime: Infinity */
+        refetchOnWindowFocus: false,
     });
     const totalPago = totalCart()
     const subFinal1 = subFinal()
@@ -39,10 +39,12 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
     const servicio = totalServicio()
     const iva = totalIva()
     const handleModal = async (item: any) => {
+        console.log(item?.id_documento)
         const idCajaLocal = JSON.parse(localStorage.getItem('idCaja') || '0')
         /*      console.log(item?.tipo_documento?.nombre)
-             setShowModalFactur(true)
-             return */
+        setShowModalFactur(true)
+        return */
+        dispatch(setIdDocumentSlice(item?.id_documento))
         setBtnDisabled(true)
         try {
 
@@ -154,7 +156,7 @@ const CompDocsBilling: FC<Props> = ({ closeModalBilling, cliente, /* methodPay, 
                     }
                 </div>
                 <Button className="d-flex justify-content-center text-center" block color='primary' outline>
-                    <Input className="form-check-input border-success" type="checkbox" id="formCheck8" defaultChecked />
+                    <Input className="form-check-input border-success" type="checkbox" id="formCheck8"/>
                     <Label className="form-check-label" for="formCheck8">
                         Sin Detalle
                     </Label>
