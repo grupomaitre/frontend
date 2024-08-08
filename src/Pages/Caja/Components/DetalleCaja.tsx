@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState, KeyboardEvent } from 'react'
-import { Button, Col, Container, Input, Label, Row } from 'reactstrap'
+import { Button, Card, Col, Container, Input, Label, Row } from 'reactstrap'
 import { getCuentasCount, getReportCajaAll } from '../Helpers/ApiCaja'
 import TableComprobantes from './Tables/TableComprobantes'
 import TableEgreso from './Tables/TableEgreso'
@@ -13,6 +13,7 @@ import {
 import { deleteCajas } from '../../../helpers/fakebackend_helper'
 import WidgetsHistorial from './Widgets/WidgetsHistorial'
 import axios from 'axios'
+import { ShieldOff } from 'react-feather'
 interface IProps {
     setOntabs: any
 }
@@ -90,8 +91,9 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
         }, 0);
         setTotalCaja(totalcaja)
     }, [])
+    const verCaja = true
     return (
-        <Container fluid>
+        <Container>
             <div className=' d-flex justify-content-center gap-4'>
                 <div className='border border-ligth  card w-50 p-2 px-3 border-blue shadow'>
 
@@ -99,21 +101,27 @@ const DetalleCaja: FC<IProps> = ({ setOntabs }) => {
                         <WidgetsHistorial cajaDiaria={idCajaLocal || 0} saldoInicial={dataCaja?.saldo_inicial || 0} />
                     </Row>
                     <Row>
-                        <Container>
-                            <TableComprobantes
-                                totalCaja={totalCaja}
-                                documentos={documentos}
-                            />
+                        {verCaja ?
+                            <Container>
+                                <TableComprobantes
+                                    totalCaja={totalCaja}
+                                    documentos={documentos}
+                                />
 
-                            <TableIngresos
-                                totalCaja={totalCaja}
-                                data={ingresos || []}
-                            />
-                            <TableEgreso
-                                totalCaja={totalCaja}
-                                caja={egresos || []}
-                            />
-                        </Container>
+                                <TableIngresos
+                                    totalCaja={totalCaja}
+                                    data={ingresos || []}
+                                />
+                                <TableEgreso
+                                    totalCaja={totalCaja}
+                                    caja={egresos || []}
+                                />
+                            </Container>
+                            :
+                            <Card body className='d-flex  justify-content-center align-items-center mt-5 p-5 h-100 mx-3 shadow-lg border-sistema' >
+                                <ShieldOff size={300} color='#ffd900' />
+                            </Card>
+                        }
                     </Row>
                 </div>
                 <div className='border border-ligth card w-50 p-2 shadow border-blue '>

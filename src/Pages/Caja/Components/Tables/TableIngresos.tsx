@@ -58,7 +58,7 @@ const TableIngresos: FC<Props> = ({ data }) => {
                 <ModalInfoFormas
                     show={showModal}
                     onCloseClick={() => setShowModal(false)}
-                    formaPago={selectItemRow?.ingreso}
+                    formaPago={selectItemRow}
 
                 />
             }
